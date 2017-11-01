@@ -18,11 +18,8 @@ CXXFLAGS += -I$(OBJ_DIR)
 Main.exe : $(OBJ_FILES) 
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-#If an impllementation file has changed rebuild the object file(s)
+#If an impllementation file has been changed rebuild the object file(s)
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
-$(OBJ_DIR)/%.o : $(HDR_DIR)/%.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean : 
