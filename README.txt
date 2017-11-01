@@ -1,3 +1,8 @@
-Here we go!
+If you put your header files in the include directory and your implementation files in the src directory they're automatically included in the build for this new Makefile. 
 
-There's a "Makefile" in src. To clean and build go to src and run the command "make clean", then the command "make". When you add a file be sure to include it in the makefile  -Casey
+To Clean, Build and Run:
+	1. run the command "make clean"
+	2. run the command "make"
+	3. run the command "./Main.exe"
+
+-Casey
