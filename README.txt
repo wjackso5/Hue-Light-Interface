@@ -5,4 +5,6 @@ To Clean, Build and Run:
 	2. run the command "make"
 	3. run the command "./Main.exe"
 
+Be sure to clean the project (i.e. just run "make clean") before you push to keep the repo tidy.
+
 -Casey
