@@ -23,5 +23,5 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean : 
-	rm Main.exe && rm $(OBJ_DIR)/*.o
+	rm $(OBJ_DIR)/*.o && rm Main.exe
 
