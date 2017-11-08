@@ -1,14 +1,34 @@
-#include <iostream>
-#include <string>
-#include "User.h"
+#include <Wt/WApplication>
+#include <Wt/WServer>
 
-int main() {
-	printf("Hello World\n");
+#include "LightController.h"
+#include "Session.h"
 
-	std::string firstName = "Joe";
-	std::string lastName = "Smith";
+Wt::WApplication *createApplication(const Wt::WEnvironment& env)
+{
+  Wt::WApplication *app = new Wt::WApplication(env);
 
-	User u1(firstName, lastName);
+  app->setTitle("Light Controller");
 
-	return 0;
+  new LightController(app->root());
+
+  return app;
+}
+
+
+int main(int argc, char **argv)
+{
+  try {
+    Wt::WServer server(argc, argv, WTHTTP_CONFIGURATION);
+
+    server.addEntryPoint(Wt::Application, createApplication);
+
+    Session::configureAuth();
+
+    server.run();
+  } catch (Wt::WServer::Exception& e) {
+    std::cerr << e.what() << std::endl;
+  } catch (std::exception &e) {
+    std::cerr << "exception: " << e.what() << std::endl;
+  }
 }

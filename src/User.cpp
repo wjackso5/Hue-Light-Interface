@@ -1,25 +1,12 @@
 #include "User.h"
 
-//Constructor
-User::User(std::string fName, std::string lName) : firstName(fName), lastName(lName) {
+#include <Wt/Auth/Dbo/AuthInfo>
+#include <Wt/Dbo/Impl>
 
-}
+DBO_INSTANTIATE_TEMPLATES(User);
 
-//Getters
-std::string User::getFirstName() {
-	return firstName;
-}
+using namespace Wt;
+using namespace Wt::Dbo;
 
-std::string User::getLastName() {
-	return lastName;
-}
-
-
-//Setters
-void User::setFirstName(std::string fName) {
-	firstName = fName;
-}
-
-void User::setLastName(std::string lName) {
-	lastName = lName;
-}
+User::User()
+{ }

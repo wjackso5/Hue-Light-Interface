@@ -1,33 +1,34 @@
-/* The User Class
- *
- * Model (MVC) Class
- *
- * Mostly just me getting a feel for how this is going to go down, nothing important here. 
- *
- * -Casey 11/1/17
- */
 
-#ifndef USER_H
-#define USER_H
+#ifndef USER_H_
+#define USER_H_
 
-#include <iostream>
+#include <Wt/WDateTime>
+#include <Wt/Dbo/Types>
+#include <Wt/Dbo/WtSqlTraits>
+#include <Wt/Auth/Dbo/AuthInfo>
+
 #include <string>
 
-class User {
-	private :
-		std::string firstName;
-		std::string lastName;
-	
-	public:
-		/*Constructor(s)*/
-		User(std::string fName, std::string lName);
+class User;
+typedef Wt::Auth::Dbo::AuthInfo<User> AuthInfo;
+typedef Wt::Dbo::collection< Wt::Dbo::ptr<User> > Users;
 
-		/*Getters and Setters */
-		void setFirstName(std::string fName);
-		void setLastName(std::string lName);
-		std::string getFirstName();
-		std::string getLastName();
+class User
+{
+public:
+  User();
 
+  std::string name; /* a copy of auth info's user name */
+  Wt::Dbo::collection< Wt::Dbo::ptr<AuthInfo> > authInfos;
+
+  template<class Action>
+  void persist(Action& a)
+  {
+
+    Wt::Dbo::hasMany(a, authInfos, Wt::Dbo::ManyToOne, "user");
+  }
 };
 
-#endif
+DBO_EXTERN_TEMPLATES(User);
+
+#endif // USER_H_
