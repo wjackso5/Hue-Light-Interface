@@ -36,4 +36,4 @@ $(OBJ_DIR)/%.o : $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 clean :
-	rm $(OBJ_DIR)/*.o && rm Main.exe
+	rm $(OBJ_DIR)/*.o & rm Main.exe & rm light.db & rm -r html & rm -r latex

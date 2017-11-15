@@ -8,5 +8,13 @@ To Clean, Build and Run:
 
 Be sure to clean the project (i.e. just run "make clean") before you push to keep the repo tidy.
 
+Requirements:
+- gcc with c++11 suppoort. 
+- Wt version 3.8 or greater.
+- Internet connection (Pulls jquery binary from the web), see Main.cpp
+- sqlite3
+- Resources directory from Wt 3.8 in /usr/local/share/Wt
+
+
 -Casey
 --Austin
