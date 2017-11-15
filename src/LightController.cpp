@@ -1,19 +1,22 @@
 
 #include <Wt/WAnchor>
 #include <Wt/WText>
+#include <Wt/WLineEdit>
+#include <Wt/WContainerWidget>
 #include <Wt/WStackedWidget>
 #include <Wt/WVBoxLayout>
 #include <Wt/WHBoxLayout>
+#include <Wt/WPushButton>
 #include <Wt/WApplication>
 #include <Wt/Auth/AuthWidget>
-
 #include "LightController.h"
 
 using namespace Wt;
 
-LightController::LightController(WContainerWidget *parent):
-  WContainerWidget(parent)
+LightController::LightController(WContainerWidget *parent): WContainerWidget(parent)
 {
+  
+
   session_.login().changed().connect(this, &LightController::onAuthEvent);
 
   Auth::AuthModel *authModel = new Auth::AuthModel(Session::auth(),
@@ -25,6 +28,7 @@ LightController::LightController(WContainerWidget *parent):
   authWidget->setModel(authModel);
   authWidget->setRegistrationEnabled(true);
 
+  bm=new Bridge_Manager(&session_);
   WText *title = new WText("<h1>Light Controller</h1>");
   addWidget(title);
 
@@ -33,33 +37,101 @@ LightController::LightController(WContainerWidget *parent):
   mainStack_ = new WStackedWidget();
   addWidget(mainStack_);
 
+  bridge_container_ = new WContainerWidget();
+
+  bridge_name_ = new WLineEdit();                 // allow text input
+  bridge_name_->setFocus();                                 // give focus
+
+  bridge_location_ = new WLineEdit();                 // allow text input
+  bridge_location_->setFocus();                                // give focus
+
+  bridge_ip_ = new WLineEdit();                 // allow text input
+  bridge_ip_->setFocus();
+ 
+  bridge_port_ = new WLineEdit();                 // allow text input
+  bridge_port_->setFocus();                                 // give focus
+   
+  bridge_username_ = new WLineEdit();                 // allow text input
+  bridge_username_->setFocus();
+  create_bridge_button_ = new WPushButton("Create Bridge");
+  delete_bridge_button_ = new WPushButton("Delete Bridge");
+  edit_bridge_button_ = new WPushButton("Edit Bridge");
+  bridge_container_->addWidget(new WText("Bridge Name: "));
+  bridge_container_->addWidget(bridge_name_);
+  bridge_container_->addWidget(new WBreak());
+  bridge_container_->addWidget(new WText("Bridge Location: "));
+  bridge_container_->addWidget(bridge_location_);
+  bridge_container_->addWidget(new WBreak());
+  bridge_container_->addWidget(new WText("Bridge IP Address or Hostname: "));
+  bridge_container_->addWidget(bridge_ip_);
+  bridge_container_->addWidget(new WBreak()); 
+  bridge_container_->addWidget(new WText("Bridge Port Number: "));
+  bridge_container_->addWidget(bridge_port_);
+  bridge_container_->addWidget(new WBreak());
+  bridge_container_->addWidget(new WText("Optional Username: "));
+  bridge_container_->addWidget(bridge_username_);
+  bridge_container_->addWidget(new WBreak());
+  bridge_container_->addWidget(create_bridge_button_);
+  bridge_container_->addWidget(new WBreak());    
+  bridge_container_->addWidget(delete_bridge_button_);
+  bridge_container_->addWidget(new WBreak());
+  bridge_container_->addWidget(edit_bridge_button_);   
+  bridge_container_->addWidget(new WBreak());   
+  bridge_container_->hide();
+
+  create_bridge_button_->clicked().connect(this, &LightController::addBridge);
+  edit_bridge_button_->clicked().connect(this, &LightController::editBridge);
+  delete_bridge_button_->clicked().connect(this, &LightController::deleteBridge);
+
+
   links_ = new WContainerWidget();
   links_->hide();
+  addWidget(bridge_container_); 
   addWidget(links_);
 
-  testAnchor_ = new WAnchor("/test", "Testing", links_);
-  testAnchor_->setLink(WLink(WLink::InternalPath, "/test"));
+  // testAnchor_ = new WAnchor("/test", "Testing", links_);
+  // testAnchor_->setLink(WLink(WLink::InternalPath, "/test"));
 
-  testTwoAnchor_ = new WAnchor("/test2", "Test 2", links_);
-  testTwoAnchor_->setLink(WLink(WLink::InternalPath, "/test2"));
+  // testTwoAnchor_ = new WAnchor("/test2", "Test 2", links_);
+  // testTwoAnchor_->setLink(WLink(WLink::InternalPath, "/test2"));
 
   WApplication::instance()->internalPathChanged()
     .connect(this, &LightController::handleInternalPath);
 
   authWidget->processEnvironment();
-}
+};
 
 void LightController::onAuthEvent()
 {
   if (session_.login().loggedIn()) {
     links_->show();
+    bridge_container_->show();
     handleInternalPath(WApplication::instance()->internalPath());
   } else {
+    bridge_container_->hide();
     mainStack_->clear();
     links_->hide();
   }
 }
+void LightController::addBridge()
+{
+  //calls BM to add the bridge to the db
+  Wt::log("info") << bridge_name_->text().toUTF8();
 
+  bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_port_->text().toUTF8(), atoi((bridge_port_->text().toUTF8().c_str())), bridge_username_->text().toUTF8());
+}
+void LightController::editBridge()
+{
+  //calls BM to add the bridge to the db
+
+  bm->editBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_port_->text().toUTF8(), atoi((bridge_port_->text().toUTF8().c_str())), bridge_username_->text().toUTF8());
+}
+void LightController::deleteBridge()
+{
+  //calls BM to add the bridge to the db
+  
+  bm->deleteBridge(bridge_name_->text().toUTF8());
+}
 void LightController::handleInternalPath(const std::string &internalPath)
 {
   if (session_.login().loggedIn()) {
@@ -72,12 +144,9 @@ void LightController::handleInternalPath(const std::string &internalPath)
   }
 }
 
-void LightController::showGame()
-{
-  if (!game_) {
-    //game_ = new HangmanWidget(session_.userName(), mainStack_);
-    //game_->scoreUpdated().connect(&session_, &Session::addToScore);
-  }
+// Session getSession(){
+//   return session_;
+// }
 
   //mainStack_->setCurrentWidget(game_);
-}
+

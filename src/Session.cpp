@@ -1,6 +1,5 @@
-
-
 #include "Session.h"
+#include "Bridge.h"
 
 #include "Wt/Auth/AuthService"
 #include "Wt/Auth/HashFunction"
@@ -26,10 +25,10 @@ namespace {
   class MyOAuth : public std::vector<const Auth::OAuthService *>
   {
   public:
-    ~MyOAuth()
+    ~MyOAuth()  
     {
       for (unsigned i = 0; i < size(); ++i)
-	delete (*this)[i];
+  delete (*this)[i];
     }
   };
 
@@ -59,11 +58,14 @@ Session::Session()
 {
   session_.setConnection(sqlite3_);
   sqlite3_.setProperty("show-queries", "true");
+	session_.mapClass<Bridge>("_bridge");
+	session_.mapClass<User>("_user");
+	 session_.mapClass<AuthInfo>("_auth_info");
+	session_.mapClass<AuthInfo::AuthIdentityType>("_auth_identity");
+	session_.mapClass<AuthInfo::AuthTokenType>("_auth_token");
 
-  session_.mapClass<User>("user");
-  session_.mapClass<AuthInfo>("auth_info");
-  session_.mapClass<AuthInfo::AuthIdentityType>("auth_identity");
-  session_.mapClass<AuthInfo::AuthTokenType>("auth_token");
+ 	 //session_.mapClass<Bridge>("bridge");
+
 
   users_ = new UserDatabase(session_);
 
@@ -78,17 +80,36 @@ Session::Session()
     guestUser.addIdentity(Auth::Identity::LoginName, "guest");
     myPasswordService.updatePassword(guestUser, "guest");
 
-    Wt::log("info") << "Database created";
-  } catch (...) {
-    Wt::log("info") << "Using existing database";
-  }
+    /*
+     * Add a bridge
+     */
+  
 
   transaction.commit();
+}catch (...) {
+    Wt::log("info") << "User:::::::::Using existing database";
+  }
 }
+
+
+
 
 Session::~Session()
 {
   delete users_;
+}
+
+void Session::addBridge(Bridge *b){
+
+  dbo::Transaction transaction(session_);
+  Wt::log("info")<<b;
+  try{
+  dbo::ptr<Bridge> br=session_.add(std::move(b));
+  transaction.commit();
+}catch(...)
+{
+  Wt::log("info")<<"can't add";
+}
 }
 
 dbo::ptr<User> Session::user() const
@@ -115,6 +136,10 @@ std::string Session::userName() const
     return std::string();
 }
 
+// *Session Session::getSession(){
+//   return &this;
+// }
+
 Auth::AbstractUserDatabase& Session::users()
 {
   return *users_;
@@ -134,3 +159,5 @@ const std::vector<const Auth::OAuthService *>& Session::oAuth()
 {
   return myOAuthServices;
 }
+
+

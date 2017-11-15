@@ -13,6 +13,7 @@ OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 CXXFLAGS = -I$(HDR_DIR) #Compiler flags
 CXXFLAGS += -I$(SRC_DIR)
 CXXFLAGS += -I$(OBJ_DIR)
+CXXFLAGS += -std=c++11
 WTFLAGS = -lwtdbo
 WTFLAGS += -lwtdbosqlite3
 WTFLAGS += -lwthttp

@@ -1,6 +1,6 @@
 #include <Wt/WApplication>
 #include <Wt/WServer>
-
+#include "Bridge.h"
 #include "LightController.h"
 #include "Session.h"
 
@@ -24,6 +24,7 @@ int main(int argc, char **argv)
     server.addEntryPoint(Wt::Application, createApplication);
 
     Session::configureAuth();
+
 
     server.run();
   } catch (Wt::WServer::Exception& e) {

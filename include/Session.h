@@ -11,6 +11,8 @@
 #include <Wt/Dbo/backend/Sqlite3>
 
 #include "User.h"
+#include "Bridge.h"
+
 
 typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 
@@ -21,7 +23,7 @@ public:
 
   Session();
   ~Session();
-
+  void addBridge(Bridge *b);
   Wt::Auth::AbstractUserDatabase& users();
   Wt::Auth::Login& login() { return login_; }
 
@@ -29,6 +31,8 @@ public:
    * These methods deal with the currently logged in user
    */
   std::string userName() const;
+
+
 
   static const Wt::Auth::AuthService& auth();
   static const Wt::Auth::AbstractPasswordService& passwordAuth();
