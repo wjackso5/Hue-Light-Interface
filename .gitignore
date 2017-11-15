@@ -3,3 +3,5 @@ html
 latex
 Main.exe
 resources
+light.db
+obj/*.o
