@@ -40,7 +40,6 @@ class Bridge_Manager {
 		Bridge_Manager(Session *session_);
 		~Bridge_Manager();
 		Bridge* newBridge;
-
 		//PUBLIC METHODS
 		bool addBridge(std::string name, std::string location, std::string ipAddressOrHostname, int portNumber, std::string userName);
 
@@ -59,6 +58,7 @@ class Bridge_Manager {
 		bool deleteBridge(std::string name);
 		bool validityCheck(std::string ipOrHost, std::string port, std::string user);
 		bool validityCheck(std::string ipOrHost, std::string port);
+		std::vector<Bridge> getBridgeList();
 };
 
 #endif

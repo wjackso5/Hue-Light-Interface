@@ -112,6 +112,29 @@ void Session::addBridge(Bridge *b){
 }
 }
 
+void Session::initBM(std::vector<Bridge> *bridgeList){
+  typedef dbo::collection< dbo::ptr<Bridge> > Bridges;
+   dbo::Transaction transaction(session_);
+
+  Bridges bridges=session_.find<Bridge>();
+  Wt::log("info")<<"# of bridges"+bridges.size();
+  try{
+  for (const dbo::ptr<Bridge> &bridge: bridges)
+  { 
+    Bridge *next=new Bridge();
+    next->name=bridge->name;
+    next->location=bridge->location;
+    next->ip=bridge->ip;
+    next->bridgeNum=bridge->bridgeNum;
+    next->userName=bridge->userName;
+    bridgeList->push_back(*next);
+
+  }}catch(...)
+  {
+    Wt::log("info")<<"Populating failed";
+  }
+}
+
 dbo::ptr<User> Session::user() const
 {
   if (login_.loggedIn()) {

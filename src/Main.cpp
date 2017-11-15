@@ -1,27 +1,18 @@
 #include <Wt/WApplication>
 #include <Wt/WServer>
 #include "Bridge.h"
-#include "LightController.h"
+#include "LoginView.h"
 #include "Session.h"
 
 Wt::WApplication *createApplication(const Wt::WEnvironment& env)
 {
   Wt::WApplication *app = new Wt::WApplication(env);
-
-  /* 
-   * Wt comes in with a built in jquery binary that doesn't support
-   * for example tr in my distribution. This work arround compiles fine
-   * on the server (If you can press register on the home page then it 
-   * should be working fine)
-   *
-   * Casey
-   */
   bool somebool;
   somebool = app->requireJQuery("https://code.jquery.com/jquery-1.12.3.min.js");
 
-  app->setTitle("Light Controller");
+  app->setTitle("Log-in");
 
-  new LightController(app->root());
+  new LoginView(app->root());
 
   return app;
 }

@@ -24,6 +24,7 @@ public:
   Session();
   ~Session();
   void addBridge(Bridge *b);
+  void initBM(std::vector<Bridge> *bridgeList);
   Wt::Auth::AbstractUserDatabase& users();
   Wt::Auth::Login& login() { return login_; }
 

@@ -11,6 +11,7 @@
 //CONSTRUCTOR
 Bridge_Manager::Bridge_Manager(Session *s) { 
 	session_=s;
+	session_->initBM(&bridgeList);
 }
 Bridge_Manager::~Bridge_Manager(){}
 
@@ -58,7 +59,7 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 	Wt::log("info") <<"name of addBridge:"+name_;
 	//Try creating the Bridge and adding it to the bridgeList. 
 	if (findBridge(name_)<0) {
-		Wt::log("info") << "Can't find a bridge";
+		Wt::log("info") << "This bridge doesnt exist yet, so we will create it";
 		//newBridge =createBridge(name, location, ipAddressOrHostname, portNumber, userName);
 		newBridge=new Bridge();
 		newBridge->name=name_;
@@ -66,7 +67,7 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 		newBridge->ip=ipAddressOrHostname_;
 		newBridge->bridgeNum=portNumber_;
 		newBridge->userName=userName_;	
-		Wt::log("info") <<"God SAVE US";
+		//Wt::log("info") <<"God SAVE US";
 		bridgeList.push_back(*newBridge);
 		Wt::log("info") <<newBridge->name;
 		session_->addBridge(newBridge);
@@ -133,13 +134,17 @@ bool Bridge_Manager::deleteBridge(std::string name){
 }
 
 bool Bridge_Manager::editBridge(std::string name, std::string location, std::string ipAddressOrHostname, int portNumber, std::string userName) {
+	if (findBridge(name)>=0){
 	Bridge tBC=bridgeList.at(findBridge(name));
 	tBC.setName(name);
 	tBC.setLocation(location);
 	tBC.setIp(ipAddressOrHostname);
 	tBC.setNum(portNumber);
 	tBC.setUsername(userName);
-	
+	return true;
+	}else{
+	return false;
+	}
 	
 }
 
@@ -161,7 +166,9 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
 
         return httpC->get(url);
 }
-
+std::vector<Bridge> Bridge_Manager::getBridgeList(){
+	return bridgeList;
+}
 
 
 
