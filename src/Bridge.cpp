@@ -25,7 +25,7 @@ std::string Bridge::getLocation(){
 std::string Bridge::getIp(){
 	return ip;
 }
-int Bridge::getNum(){
+std::string Bridge::getPort(){
 	return bridgeNum;
 }
 void Bridge::setName(std::string name){
@@ -37,7 +37,7 @@ void Bridge::setLocation(std::string location){
 void Bridge::setIp(std::string ip){
 	ip=ip;
 }
-void Bridge::setNum(int bridgeNum){
+void Bridge::setPort(std::string bridgeNum){
 	bridgeNum=bridgeNum;
 }
 void Bridge::setUsername(std::string userName){
@@ -45,7 +45,7 @@ void Bridge::setUsername(std::string userName){
 
 }
 
-	
+
 // void Bridge::addBridge(std::string name,std::string location,std::string ip,int bridgeNum){
 
 // }
