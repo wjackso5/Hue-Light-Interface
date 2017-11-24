@@ -1,0 +1,41 @@
+/**  
+* <h1>Light Model Class Header File</h1>
+* used for creating and maintaining Light objects and their states
+* @author  William Jackson
+*/
+#ifndef LIGHT_H_
+#define LIGHT_H_
+#include <string>
+
+class Light{
+	private:
+	//vars
+	std::string name;
+	std::string bridgeName;
+	bool switch_;
+	int brightness;
+	int color;
+	int transitionTime;
+	public:
+
+	Light();
+	~Light();
+	//getters
+	std::string getName();
+	std::string getBridgeName();
+	bool getSwitch();
+	int getBrightness();
+	int getColor();
+	int getTransitionTime();
+	std::string getState();
+	//setters
+	void setName(std::string n);
+	void setBridgeName(std::string bn);
+	void setSwitch(bool s);
+	void setBrightness(int b);
+	void setColor(int c);
+	void setTransitionTime(int t);
+	void setState(bool s, int b, int c);
+	};
+
+#endif//LIGHT_H_
