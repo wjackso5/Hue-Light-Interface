@@ -18,7 +18,7 @@ using namespace Wt;
 
 LoginView::LoginView(WContainerWidget *parent): WContainerWidget(parent)
 {
-  
+
 
   session_.login().changed().connect(this, &LoginView::onAuthEvent);
 
@@ -52,12 +52,12 @@ LoginView::LoginView(WContainerWidget *parent): WContainerWidget(parent)
 
   bridge_ip_ = new WLineEdit();                 // allow text input
   bridge_ip_->setFocus();
- 
+
   bridge_port_ = new WLineEdit();                 // allow text input
   bridge_port_->setFocus();                                 // give focus
 
   bridge_list_= new WText("<h1>Bridge List:</h1>");
-   
+
   bridge_username_ = new WLineEdit();                 // allow text input
   bridge_username_->setFocus();
   create_bridge_button_ = new WPushButton("Create Bridge");
@@ -72,7 +72,7 @@ LoginView::LoginView(WContainerWidget *parent): WContainerWidget(parent)
   bridge_container_->addWidget(new WBreak());
   bridge_container_->addWidget(new WText("Bridge IP Address or Hostname: "));
   bridge_container_->addWidget(bridge_ip_);
-  bridge_container_->addWidget(new WBreak()); 
+  bridge_container_->addWidget(new WBreak());
   bridge_container_->addWidget(new WText("Bridge Port Number: "));
   bridge_container_->addWidget(bridge_port_);
   bridge_container_->addWidget(new WBreak());
@@ -80,14 +80,14 @@ LoginView::LoginView(WContainerWidget *parent): WContainerWidget(parent)
   bridge_container_->addWidget(bridge_username_);
   bridge_container_->addWidget(new WBreak());
   bridge_container_->addWidget(create_bridge_button_);
-  bridge_container_->addWidget(new WBreak());    
+  bridge_container_->addWidget(new WBreak());
   bridge_container_->addWidget(delete_bridge_button_);
   bridge_container_->addWidget(new WBreak());
-  bridge_container_->addWidget(edit_bridge_button_);   
+  bridge_container_->addWidget(edit_bridge_button_);
   bridge_container_->addWidget(new WBreak());
   bridge_container_->addWidget(show_bridge_list_);
   bridge_container_->addWidget(bridge_msg_);
-  bridge_container_->addWidget(bridge_list_);  
+  bridge_container_->addWidget(bridge_list_);
   bridge_container_->hide();
 
   create_bridge_button_->clicked().connect(this, &LoginView::addBridge);
@@ -95,11 +95,11 @@ LoginView::LoginView(WContainerWidget *parent): WContainerWidget(parent)
   delete_bridge_button_->clicked().connect(this, &LoginView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&LoginView::showBridgeList);
   //  //update the view list
-    
+
 
   links_ = new WContainerWidget();
   links_->hide();
-  addWidget(bridge_container_); 
+  addWidget(bridge_container_);
   addWidget(links_);
 
   // testAnchor_ = new WAnchor("/test", "Testing", links_);
@@ -139,7 +139,7 @@ void LoginView::addBridge()
   //calls BM to add the bridge to the db
   Wt::log("info") << bridge_name_->text().toUTF8();
   bool response;
-  response = bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_ip_->text().toUTF8(), atoi((bridge_port_->text().toUTF8().c_str())), bridge_username_->text().toUTF8());
+  response = bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_ip_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_username_->text().toUTF8());
   if (response==true){
     Wt::log("info") << bridge_name_->text().toUTF8();
     bridge_msg_->setText(bridge_name_->text()+" was sucessfully added.");
@@ -153,13 +153,13 @@ void LoginView::editBridge()
 {
   //calls BM to add the bridge to the db
   bool response;
-  response = bm->editBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_port_->text().toUTF8(), atoi((bridge_port_->text().toUTF8().c_str())), bridge_username_->text().toUTF8());
+  response = bm->editBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_port_->text().toUTF8().c_str(), bridge_username_->text().toUTF8());
   if (response==true){
     bridge_msg_->setText(bridge_name_->text()+" was sucessfully edited.");
   }else{
     bridge_msg_->setText(bridge_name_->text()+" could not be edited.");
   }
-  LoginView::clearBridgeFields(); 
+  LoginView::clearBridgeFields();
 
 }
 void LoginView::deleteBridge()
@@ -182,7 +182,7 @@ void LoginView::showBridgeList(){
   text+=
     "<tr>"
     "<th> |Bridge Name| </th>"
-    "<th> |Bridge Location| </th>" 
+    "<th> |Bridge Location| </th>"
     "<th> |Bridge IP| </th>"
     "<th> |Bridge Port Number| </th>"
     "</tr>";
@@ -192,7 +192,7 @@ void LoginView::showBridgeList(){
   text += "<th>"+bl.at(i).getName()+"</th>";
   text += "<th>"+bl.at(i).getLocation()+"</th>";
   text += "<th>"+bl.at(i).getIp()+"</th>";
-  text += "<th>"+std::to_string(bl.at(i).getNum())+"</th>";
+  text += "<th>"+bl.at(i).getPort()+"</th>";
   text += "</tr>";
   }
   text += "</table>";
@@ -215,4 +215,3 @@ void LoginView::handleInternalPath(const std::string &internalPath)
 // }
 
   //mainStack_->setCurrentWidget(game_);
-

@@ -18,30 +18,30 @@
 #include "Bridge.h"
 
 class Bridge_Manager {
-	private : 
+	private :
 		//CLASS VARIABLES
-		
-		/* 
+
+		/*
 		 * I chose to use a linked list instead of an array
 		 * Since it's size needs to be dynamic and it's easy
 		 * to work with. Might be a better data structure to
-		 * implement here though. 
+		 * implement here though.
 		 */
 
 		std::vector<Bridge> bridgeList;
 		Session *session_;
-		
+
 		//PRIVATE METHODS
 		int findBridge(std::string bridgeName);
-	
-		
+
+
 	public :
 		//CONSTRUCTOR
 		Bridge_Manager(Session *session_);
 		~Bridge_Manager();
 		Bridge* newBridge;
 		//PUBLIC METHODS
-		bool addBridge(std::string name, std::string location, std::string ipAddressOrHostname, int portNumber, std::string userName);
+		bool addBridge(std::string name, std::string location, std::string ipAddressOrHostname, std::string portNumber, std::string userName);
 
 
 		/* The "editBridge" method that follows was proposed in the UML
@@ -51,10 +51,10 @@ class Bridge_Manager {
 		 * create methods to change each of the fields individually.
 		 *
 		 * Also, it seems reasonable that one may wish to change the
-		 * name of their bridge, such as if they move the physical 
-		 * brdige from one room to another. 
+		 * name of their bridge, such as if they move the physical
+		 * brdige from one room to another.
 		 */
-		bool editBridge(std::string name, std::string location, std::string ipAddressOrHostname, int portNumber, std::string userName);
+		bool editBridge(std::string name, std::string location, std::string ipAddressOrHostname, std::string portNumber, std::string userName);
 		bool deleteBridge(std::string name);
 		bool validityCheck(std::string ipOrHost, std::string port, std::string user);
 		bool validityCheck(std::string ipOrHost, std::string port);

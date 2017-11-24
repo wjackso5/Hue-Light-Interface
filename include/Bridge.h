@@ -10,7 +10,7 @@ class Bridge{
 	std::string name;
 	std::string location;
 	std::string ip;
-	int bridgeNum;
+	std::string bridgeNum;
 	std::string userName;
   	template<class Action>
 	void persist(Action& a)
@@ -25,21 +25,21 @@ class Bridge{
 //	Bridge* createBridge(std::string name,std::string location,std::string ip,int bridgeNum,std::string userName);
 
 	~Bridge();
-	
+
 	std::string getName();
 	std::string getLocation();
 	std::string getIp();
-	int getNum();
+	std::string getPort();
 	void setName(std::string name);
 void setLocation(std::string location);
 void setIp(std::string ip);
-void setNum(int bridgeNum);
+void setPort(std::string bridgeNum);
 void setUsername(std::string userName);
 
 
-		
 
-	
+
+
 	};
 
 
