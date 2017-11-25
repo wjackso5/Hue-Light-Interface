@@ -159,7 +159,7 @@ void Schedule::setState(bool s, int b, int c){
 *@param transitionTime
 *@return none
 */
-void Schedule::SetLight(Light l){
+void Schedule::setLight(Light l){
 	light = l;
 }
 
