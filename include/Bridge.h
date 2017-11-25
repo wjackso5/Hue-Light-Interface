@@ -13,14 +13,15 @@ namespace dbo=Wt::Dbo;
 class Bridge{
 	
 	private:
+	
+	
+	public:
 	//vars
 	std::string name;
 	std::string location;
 	std::string ip;
 	std::string bridgeNum;
 	std::string userName;
-	
-	public:
   	template<class Action>
 	void persist(Action& a)
 	{
