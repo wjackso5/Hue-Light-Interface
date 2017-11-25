@@ -20,16 +20,16 @@ class Bridge{
 	std::string name;
 	std::string location;
 	std::string ip;
-	std::string bridgeNum;
-	std::string userName;
+	std::string port;
+	std::string username;
   	template<class Action>
 	void persist(Action& a)
 	{
 		dbo::field(a,name,"name");
 		dbo::field(a,location,"location");
 		dbo::field(a,ip,"ip");
-		dbo::field(a,bridgeNum,"bridgeNum");
-		dbo::field(a,userName,"userName");
+		dbo::field(a,port,"port");
+		dbo::field(a,username,"username");
 	}
 
 	//constructor and deconstructor

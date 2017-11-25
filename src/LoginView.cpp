@@ -22,10 +22,10 @@ LoginView::LoginView(WContainerWidget *parent): WContainerWidget(parent)
 
   session_.login().changed().connect(this, &LoginView::onAuthEvent);
 
-  Auth::AuthModel *authModel = new Auth::AuthModel(Session::auth(),
+  Auth::AuthModel *authModel = new Auth::AuthModel(DBSession::auth(),
 						   session_.users(), this);
-  authModel->addPasswordAuth(&Session::passwordAuth());
-  authModel->addOAuth(Session::oAuth());
+  authModel->addPasswordAuth(&DBSession::passwordAuth());
+  authModel->addOAuth(DBSession::oAuth());
 
   Auth::AuthWidget *authWidget = new Auth::AuthWidget(session_.login());
   authWidget->setModel(authModel);
@@ -210,8 +210,5 @@ void LoginView::handleInternalPath(const std::string &internalPath)
   }
 }
 
-// Session getSession(){
-//   return session_;
-// }
 
   //mainStack_->setCurrentWidget(game_);

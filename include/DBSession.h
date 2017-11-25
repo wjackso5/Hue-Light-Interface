@@ -1,6 +1,6 @@
 
-#ifndef SESSION_H_
-#define SESSION_H_
+#ifndef DBSESSION_H_
+#define DBSESSION_H_
 
 #include <vector>
 
@@ -13,19 +13,20 @@
 #include "User.h"
 #include "Bridge.h"
 
-
+//using the Wt::Auth::Dbo::UserDatabase implementation using AuthInfo, 
+//for which we declared a type alias earlier on in User.h
 typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 
-class Session
+class DBSession
 {
 public:
+  DBSession();
+  ~DBSession();
+
   static void configureAuth();
 
-  Session();
-  ~Session();
-  void addBridge(Bridge *b);
-  void initBM(std::vector<Bridge> *bridgeList);
   Wt::Auth::AbstractUserDatabase& users();
+  //return the current login information,manipulated by login/logout widgets
   Wt::Auth::Login& login() { return login_; }
 
   /*
@@ -33,11 +34,14 @@ public:
    */
   std::string userName() const;
 
-
-
   static const Wt::Auth::AuthService& auth();
   static const Wt::Auth::AbstractPasswordService& passwordAuth();
   static const std::vector<const Wt::Auth::OAuthService *>& oAuth();
+
+  void initBM(std::vector<Bridge> *bridgeList);
+  void addBridge(Bridge *b);
+  void editBridge(Bridge *b);
+  void deleteBridge(Bridge *b);
 
 private:
   Wt::Dbo::backend::Sqlite3 sqlite3_;
@@ -48,4 +52,4 @@ private:
   Wt::Dbo::ptr<User> user() const;
 };
 
-#endif //SESSION_H_
+#endif //DBSESSION_H_

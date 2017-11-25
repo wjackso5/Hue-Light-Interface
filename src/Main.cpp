@@ -2,7 +2,7 @@
 #include <Wt/WServer>
 #include "Bridge.h"
 #include "LoginView.h"
-#include "Session.h"
+#include "DBSession.h"
 
 Wt::WApplication *createApplication(const Wt::WEnvironment& env)
 {
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 
     server.addEntryPoint(Wt::Application, createApplication);
 
-    Session::configureAuth();
+    DBSession::configureAuth();
 
 
     server.run();

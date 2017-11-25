@@ -9,7 +9,7 @@
 
 
 //CONSTRUCTOR
-Bridge_Manager::Bridge_Manager(Session *s) {
+Bridge_Manager::Bridge_Manager(DBSession *s) {
 	session_=s;
 	session_->initBM(&bridgeList);
 }
@@ -66,8 +66,8 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
   		newBridge->name=name_;
   		newBridge->location=location_;
   		newBridge->ip=ipAddressOrHostname_;
-  		newBridge->bridgeNum=portNumber_;
-  		newBridge->userName=userName_;
+  		newBridge->port=portNumber_;
+  		newBridge->username=userName_;
   		//Wt::log("info") <<"God SAVE US";
   		bridgeList.push_back(*newBridge);
   		Wt::log("info") <<newBridge->name;
@@ -111,7 +111,9 @@ bool Bridge_Manager::deleteBridge(std::string name){
 
 	//Try creating the Bridge and adding it to the bridgeList.
 	if (findBridge(name)>=0) {
+		Bridge tBD=bridgeList.at(findBridge(name));
 		bridgeList.erase(bridgeList.begin()+index);
+		session_->deleteBridge(&tBD);
 		return true;}
 
 
@@ -138,6 +140,7 @@ bool Bridge_Manager::editBridge(std::string name, std::string location, std::str
 	tBC.setIp(ipAddressOrHostname);
 	tBC.setPort(portNumber);
 	tBC.setUsername(userName);
+	session_->editBridge(&tBC);
 	return true;
 	}else{
 	return false;

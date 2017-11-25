@@ -1,4 +1,3 @@
-
 #ifndef USER_H_
 #define USER_H_
 
@@ -10,6 +9,7 @@
 #include <string>
 
 class User;
+//Linking the authentication information persistence class to the custom User information persistence class
 typedef Wt::Auth::Dbo::AuthInfo<User> AuthInfo;
 typedef Wt::Dbo::collection< Wt::Dbo::ptr<User> > Users;
 
@@ -20,7 +20,7 @@ public:
 
   std::string name; /* a copy of auth info's user name */
   Wt::Dbo::collection< Wt::Dbo::ptr<AuthInfo> > authInfos;
-
+  //Using the default persistence class from Wt::Auth::Dbo::AuthInfo
   template<class Action>
   void persist(Action& a)
   {

@@ -34,7 +34,7 @@ std::string Bridge::getName(){
 *@return std::string location
 */
 std::string Bridge::getLocation(){
-	return Bridge::location;
+	return location;
 }
 /**
 *Ip getter method for Bridge
@@ -51,7 +51,15 @@ std::string Bridge::getIp(){
 *@return std::string port
 */
 std::string Bridge::getPort(){
-	return bridgeNum;
+	return port;
+}
+/**
+*port getter method for Bridge
+*@param none
+*@return std::string port
+*/
+std::string Bridge::getUsername(){
+	return username;
 }
 //setters
 /**
@@ -59,39 +67,39 @@ std::string Bridge::getPort(){
 *@param name
 *@return none
 */
-void Bridge::setName(std::string name){
-	name=name;
+void Bridge::setName(std::string _name){
+	name=_name;
 }
 /**
 *location setter method for Bridge
 *@param location
 *@return none
 */
-void Bridge::setLocation(std::string location){
-	location=location;
+void Bridge::setLocation(std::string _location){
+	location=_location;
 }
 /**
 *ip setter method for Bridge
 *@param name
 *@return none
 */
-void Bridge::setIp(std::string ip){
-	ip=ip;
+void Bridge::setIp(std::string _ip){
+	ip=_ip;
 }
 /**
 *port setter method for Bridge
 *@param port
 *@return none
 */
-void Bridge::setPort(std::string bridgeNum){
-	bridgeNum=bridgeNum;
+void Bridge::setPort(std::string port){
+	port=port;
 }
 /**
 *name setter method for Bridge
 *@param username
 *@return none
 */
-void Bridge::setUsername(std::string userName){
-	userName=userName;
+void Bridge::setUsername(std::string _username){
+	username=_username;
 }
 

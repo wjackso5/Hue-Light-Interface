@@ -14,7 +14,7 @@
 #include <Wt/Http/Client>
 
 /* LOCAL FILES */
-#include "Session.h"
+#include "DBSession.h"
 #include "Bridge.h"
 
 class Bridge_Manager {
@@ -29,7 +29,7 @@ class Bridge_Manager {
 		 */
 
 		std::vector<Bridge> bridgeList;
-		Session *session_;
+		DBSession *session_;
 
 		//PRIVATE METHODS
 		int findBridge(std::string bridgeName);
@@ -37,7 +37,7 @@ class Bridge_Manager {
 
 	public :
 		//CONSTRUCTOR
-		Bridge_Manager(Session *session_);
+		Bridge_Manager(DBSession *session_);
 		~Bridge_Manager();
 		Bridge* newBridge;
 		//PUBLIC METHODS

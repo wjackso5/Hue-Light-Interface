@@ -1,7 +1,7 @@
 #ifndef LoginView_H_
 #define LoginView_H_
 #include <Wt/WContainerWidget>
-#include "Session.h"
+#include "DBSession.h"
 #include "Bridge_Manager.h"
 
 namespace Wt {
@@ -11,7 +11,7 @@ namespace Wt {
 }
 
 
-class Session;
+
 
 class LoginView : public Wt::WContainerWidget
 {
@@ -28,7 +28,7 @@ private:
   Wt::WContainerWidget *links_;
   Wt::WAnchor *testAnchor_;
   Wt::WAnchor *testTwoAnchor_;
-  Session session_;
+  DBSession session_;
   Bridge_Manager *bm;
   std::vector<Bridge> *bl;
   Wt::WText *bridge_list_;
