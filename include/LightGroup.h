@@ -38,8 +38,8 @@ class LightGroup{
 	void setColor(int c);
 	void setTransitionTime(int t);
 	void setState(bool s, int b, int c);
-	void addLight();
-	void removeLight();
+	void addLight(Light l);
+	void removeLight(Light l);
 	void Update();
 	};
 
