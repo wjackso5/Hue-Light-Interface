@@ -21,6 +21,7 @@ class Schedule{
 	Schedule();
 	~Schedule();
 	//getters
+	Light getLight();
 	std::string getName();
 	bool getSwitch();
 	int getBrightness();
@@ -29,11 +30,10 @@ class Schedule{
 	std::string getState();
 	//setters
 	void setName(std::string n);
-	void setBridgeName(std::string bn);
 	void setSwitch(bool s);
 	void setBrightness(int b);
 	void setColor(int c);
-	void setTransitionTime(int t);
+	void setDelayTime(int t);
 	void setState(bool s, int b, int c);
 	void setLight(Light l);
 	void Execute();

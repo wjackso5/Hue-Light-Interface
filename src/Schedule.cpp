@@ -169,12 +169,10 @@ void Schedule::SetLight(Light l){
 *@return none
 */
 void Schedule::Execute(){
-	for (int i=0; i<list.size()-1; i++){
-		list.at(i).setName(getName());
-		list.at(i).setBridgeName(getBridgeName());
-		list.at(i).setSwitch(getSwitch());
-		list.at(i).setBrightness(getBrightness());
-		list.at(i).setColor(getColor());
-		list.at(i).setTransitionTime(getTransitionTime());
-	}
+		//update the light
+		light.setName(getName());
+		light.setSwitch(getSwitch());
+		light.setBrightness(getBrightness());
+		light.setColor(getColor());
+	
 }
