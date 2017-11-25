@@ -88,7 +88,9 @@ std::string Schedule::getState(){
 Light Schedule::getLight(){
 	return light;
 }
+
 //setters
+
 /**
 *name setter method for Schedule
 *@param std:string name
@@ -126,7 +128,7 @@ void Schedule::setColor(int c){
 }
 
 /**
-*color setter method for Schedule
+*delayTime setter method for Schedule
 *@param int t
 *@return none
 */
@@ -136,12 +138,9 @@ void Schedule::setDelayTime(int t){
 
 /**
 *special setter that updates all info about this Schedule objects 'state', will stream-line interactions hueAPI
-*@param name
-*@param bridgename
 *@param switch_
 *@param brightness
 *@param color
-*@param transitionTime
 *@return none
 */
 void Schedule::setState(bool s, int b, int c){
@@ -151,12 +150,7 @@ void Schedule::setState(bool s, int b, int c){
 }
 /**
 *add a light to the Schedule.
-*@param name
-*@param bridgename
-*@param switch_
-*@param brightness
-*@param color
-*@param transitionTime
+*@param light
 *@return none
 */
 void Schedule::setLight(Light l){
