@@ -30,6 +30,7 @@ class LightGroup{
 	int getColor();
 	int getTransitionTime();
 	std::string getState();
+	std::vector<Light> getList();
 	//setters
 	void setName(std::string n);
 	void setBridgeName(std::string bn);
