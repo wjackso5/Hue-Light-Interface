@@ -95,7 +95,7 @@ std::string LightGroup::getState(){
 *@return state string (JSON with all the info about this LightGroup to be passed along the bridge)
 *@param none
 */
-std::vector LightGroup::getList(){
+std::vector<Light> LightGroup::getList(){
 	return list;
 }
 //setters
