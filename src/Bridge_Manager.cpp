@@ -6,7 +6,9 @@
 #include <Wt/WApplication>
 #include <vector>
 #include "Bridge_Manager.h"
-
+//DEBUGGING
+#include <Wt/WLogger>
+//DEBUGGING
 
 //CONSTRUCTOR
 Bridge_Manager::Bridge_Manager(DBSession *s) {
@@ -140,6 +142,9 @@ bool Bridge_Manager::editBridge(std::string name, std::string location, std::str
 	tBC.setIp(ipAddressOrHostname);
 	tBC.setPort(portNumber);
 	tBC.setUsername(userName);
+	//DEBUG
+	Wt::log("info") << tBC.getLocation();
+	//DEBUG
 	session_->editBridge(&tBC);
 	return true;
 	}else{
@@ -168,5 +173,8 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
         return httpC->get(url);
 }
 std::vector<Bridge> Bridge_Manager::getBridgeList(){
+	//DEBUGGING
+	Wt::log("info") << ":::::::::::::::::BM CALLED";
+	//DEBUGGING
 	return bridgeList;
 }

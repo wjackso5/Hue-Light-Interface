@@ -8,7 +8,7 @@ class BridgeView : public Wt::WContainerWidget
 public:
   BridgeView();
 private:
-  Session session_;
+  DBSession session_;
   Bridge_Manager *bm;
   std::vector<Bridge> *bl;
   Wt::WText *bridge_list_;

@@ -14,6 +14,10 @@
 #include <string>
 #include <vector>
 
+//DEBUGGING
+#include <Wt/WLogger>
+//DEBUGGING
+
 using namespace Wt;
 
 BridgeView::BridgeView()
@@ -21,36 +25,58 @@ BridgeView::BridgeView()
 { 
   addWidget(new WText("hello there"));
   bm = new Bridge_Manager(&session_);
-
+  //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH29";
+  //DEBUGGING
   WText *title = new WText("<h1>Manage your Bridges:</h1>");
   addWidget(title);
-
+  //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH34";
+  //DEBUGGING
   bridge_msg_ = new WText("");
   addWidget(bridge_msg_);
-
+  //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH39";
+  //DEBUGGING
   bridge_name_ = new WLineEdit();                 // allow text input
   bridge_name_->setFocus();  
-  addWidget(bridge_name_);                               // give focus
+  addWidget(bridge_name_);   
+    //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH45";
+  //DEBUGGING                            // give focus
 
   bridge_location_ = new WLineEdit();                 // allow text input
   bridge_location_->setFocus();                                // give focus
   addWidget(bridge_location_); 
+    //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH52";
+  //DEBUGGING
 
   bridge_ip_ = new WLineEdit();                 // allow text input
   bridge_ip_->setFocus();
   addWidget(bridge_ip_); 
+    //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH59";
+  //DEBUGGING
  
   bridge_port_ = new WLineEdit();                 // allow text input
   bridge_port_->setFocus();                                 // give focus
   addWidget(bridge_port_); 
+    //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH66";
+  //DEBUGGING
 
   bridge_username_ = new WLineEdit();                 // allow text input
   bridge_username_->setFocus();
-  addWidget(bridge_list_);
-
-  bridge_list_= new WText("<h1>Bridge List:</h1>");
-  addWidget(bridge_list_);
-  bridge_list_->hide();
+  addWidget(bridge_username_);
+  //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH73";
+  //DEBUGGING
+  
+  // bridge_list_->hide();
+    //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH79";
+  //DEBUGGING
 
   create_bridge_button_ = new WPushButton("Create Bridge");
   addWidget(create_bridge_button_);
@@ -60,12 +86,16 @@ BridgeView::BridgeView()
   addWidget(edit_bridge_button_);
   show_bridge_list_=new WPushButton("Show Bridge Lists");
   addWidget(show_bridge_list_);
-
+  //DEBUGGING
+  Wt::log("info") << ":::::::::::::::::REACH91";
+  //DEBUGGING
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
 	
+  bridge_list_= new WText("<h1>Bridge List:</h1>");
+  addWidget(bridge_list_);
 }
 
 void BridgeView::clearBridgeFields(){
@@ -81,7 +111,7 @@ void BridgeView::addBridge()
   //calls BM to add the bridge to the db
   Wt::log("info") << bridge_name_->text().toUTF8();
   bool response;
-  response = bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_ip_->text().toUTF8(), atoi((bridge_port_->text().toUTF8().c_str())), bridge_username_->text().toUTF8());
+  response = bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_ip_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_username_->text().toUTF8());
   if (response==true){
     Wt::log("info") << bridge_name_->text().toUTF8();
     bridge_msg_->setText(bridge_name_->text()+" was sucessfully added.");
@@ -89,19 +119,21 @@ void BridgeView::addBridge()
     bridge_msg_->setText(bridge_name_->text()+" could not be added.");
   }
   BridgeView::clearBridgeFields();
+  BridgeView::showBridgeList();
 
 }
 void BridgeView::editBridge()
 {
   //calls BM to add the bridge to the db
   bool response;
-  response = bm->editBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_port_->text().toUTF8(), atoi((bridge_port_->text().toUTF8().c_str())), bridge_username_->text().toUTF8());
+  response = bm->editBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_username_->text().toUTF8());
   if (response==true){
     bridge_msg_->setText(bridge_name_->text()+" was sucessfully edited.");
   }else{
     bridge_msg_->setText(bridge_name_->text()+" could not be edited.");
   }
   BridgeView::clearBridgeFields(); 
+  BridgeView::showBridgeList();
 
 }
 void BridgeView::deleteBridge()
@@ -134,7 +166,7 @@ void BridgeView::showBridgeList(){
   text += "<th>"+bl.at(i).getName()+"</th>";
   text += "<th>"+bl.at(i).getLocation()+"</th>";
   text += "<th>"+bl.at(i).getIp()+"</th>";
-  text += "<th>"+std::to_string(bl.at(i).getNum())+"</th>";
+  text += "<th>"+bl.at(i).getPort()+"</th>";
   text += "</tr>";
   }
   text += "</table>";
