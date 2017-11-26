@@ -6,6 +6,8 @@
 #include <Wt/WApplication>
 #include <vector>
 #include "Bridge_Manager.h"
+#include <Wt/Json/Parser>
+#include <Wt/Json/Value>
 //DEBUGGING
 #include <Wt/WLogger>
 //DEBUGGING
@@ -64,6 +66,7 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 		Wt::log("info") << "This bridge doesnt exist yet, so we will create it";
 		//newBridge =createBridge(name, location, ipAddressOrHostname, portNumber, userName);
     if (validityCheck(ipAddressOrHostname_, portNumber_) > 0) {
+	    Wt::log("info") << "The validity check was succesfull";
       newBridge=new Bridge();
   		newBridge->name=name_;
   		newBridge->location=location_;
@@ -73,7 +76,9 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
   		//Wt::log("info") <<"God SAVE US";
   		bridgeList.push_back(newBridge);
   		Wt::log("info") <<newBridge->name;
+		/*
   		session_->addBridge(newBridge);
+		*/
       return true;
     }
 
@@ -164,8 +169,9 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port, std::
 //Without username
 bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
         Wt::Http::Client *httpC = new Wt::Http::Client();
-        httpC->setTimeout(15);
-   		httpC->setMaximumResponseSize(10 * 1024);
+		/*
+   		httpC->setMaximumResponseSize(0);
+		*/
    		Wt::log("HANDLE")<<"BEFORE SET DONE";
         httpC->done().connect(boost::bind(&Bridge_Manager::handleHttpResponse,this,_1,_2));
         Wt::log("HANDLE")<<"AFTER SET DONE";
@@ -173,9 +179,12 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
 		std::string url;
         url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper";
         // Wt::log("austintest") << httpC->get(url);
-		if(httpC->get("http://httpbin.org/ip")){
+		if(httpC->get("http://0.0.0.0:8000/api/newdeveloper")){
 				Wt::log("HANDLE")<<"WHAT";
+				/*
 			 Wt::WApplication::instance()->deferRendering();}
+			 */
+		}
 		else{
 			return false;
 		}
@@ -186,7 +195,11 @@ void Bridge_Manager::handleHttpResponse(boost::system::error_code err,const Wt::
 {
 	Wt::log("HANDLE")<<"CALLED HANDLE";
 	if (!err && response.status() == 200) {
-      Wt::log("info")<<response.body();
+	const std::string &input = response.body();
+	Wt::log("HANDLE") << response.body();
+	Wt::Json::Value jval = Wt::Json::Value();
+	Wt::Json::Value &jvalref = jval; 
+	Wt::Json::parse(input, jvalref, false);
    }
 }
 std::vector<Bridge*> Bridge_Manager::getBridgeList(){
