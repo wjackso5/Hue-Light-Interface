@@ -160,13 +160,13 @@ void BridgeView::showBridgeList(){
     "<th> |Bridge IP| </th>"
     "<th> |Bridge Port Number| </th>"
     "</tr>";
-  std::vector<Bridge> bl = bm->getBridgeList();
+  std::vector<Bridge*> bl = bm->getBridgeList();
   for(int i=0;i<bl.size();i++){
   text += "<tr>";
-  text += "<th>"+bl.at(i).getName()+"</th>";
-  text += "<th>"+bl.at(i).getLocation()+"</th>";
-  text += "<th>"+bl.at(i).getIp()+"</th>";
-  text += "<th>"+bl.at(i).getPort()+"</th>";
+  text += "<th>"+bl.at(i)->getName()+"</th>";
+  text += "<th>"+bl.at(i)->getLocation()+"</th>";
+  text += "<th>"+bl.at(i)->getIp()+"</th>";
+  text += "<th>"+bl.at(i)->getPort()+"</th>";
   text += "</tr>";
   }
   text += "</table>";

@@ -40,7 +40,7 @@ int Bridge_Manager::findBridge(std::string bridgeName) {
 	for(int i=0;i<bridgeList.size();i++)
 	        //The bridgeList
 	{
-		if(bridgeList.at(i).getName().compare(bridgeName)==0)
+		if(bridgeList.at(i)->getName().compare(bridgeName)==0)
 			{return i;}
 	}
 
@@ -71,7 +71,7 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
   		newBridge->port=portNumber_;
   		newBridge->username=userName_;
   		//Wt::log("info") <<"God SAVE US";
-  		bridgeList.push_back(*newBridge);
+  		bridgeList.push_back(newBridge);
   		Wt::log("info") <<newBridge->name;
   		session_->addBridge(newBridge);
       return true;
@@ -113,9 +113,9 @@ bool Bridge_Manager::deleteBridge(std::string name){
 
 	//Try creating the Bridge and adding it to the bridgeList.
 	if (findBridge(name)>=0) {
-		Bridge tBD=bridgeList.at(findBridge(name));
+		Bridge* tBD=bridgeList.at(findBridge(name));
 		bridgeList.erase(bridgeList.begin()+index);
-		session_->deleteBridge(&tBD);
+		session_->deleteBridge(tBD);
 		return true;}
 
 
@@ -136,16 +136,15 @@ bool Bridge_Manager::deleteBridge(std::string name){
 
 bool Bridge_Manager::editBridge(std::string name, std::string location, std::string ipAddressOrHostname, std::string portNumber, std::string userName) {
 	if (findBridge(name)>=0){
-	Bridge tBC=bridgeList.at(findBridge(name));
-	tBC.setName(name);
-	tBC.setLocation(location);
-	tBC.setIp(ipAddressOrHostname);
-	tBC.setPort(portNumber);
-	tBC.setUsername(userName);
+	Bridge* tBC=bridgeList.at(findBridge(name));
+	tBC->setLocation(location);
+	tBC->setIp(ipAddressOrHostname);
+	tBC->setPort(portNumber);
+	tBC->setUsername(userName);
 	//DEBUG
-	Wt::log("info") << tBC.getLocation();
+	Wt::log("info") << tBC->getLocation();
 	//DEBUG
-	session_->editBridge(&tBC);
+	session_->editBridge(tBC);
 	return true;
 	}else{
 	return false;
@@ -172,7 +171,7 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
 
         return httpC->get(url);
 }
-std::vector<Bridge> Bridge_Manager::getBridgeList(){
+std::vector<Bridge*> Bridge_Manager::getBridgeList(){
 	//DEBUGGING
 	Wt::log("info") << ":::::::::::::::::BM CALLED";
 	//DEBUGGING

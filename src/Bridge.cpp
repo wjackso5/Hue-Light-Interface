@@ -91,8 +91,8 @@ void Bridge::setIp(std::string _ip){
 *@param port
 *@return none
 */
-void Bridge::setPort(std::string port){
-	port=port;
+void Bridge::setPort(std::string _port){
+	port=_port;
 }
 /**
 *name setter method for Bridge

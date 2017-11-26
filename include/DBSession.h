@@ -38,7 +38,7 @@ public:
   static const Wt::Auth::AbstractPasswordService& passwordAuth();
   static const std::vector<const Wt::Auth::OAuthService *>& oAuth();
 
-  void initBM(std::vector<Bridge> *bridgeList);
+  void initBM(std::vector<Bridge*> *bridgeList);
   void addBridge(Bridge *b);
   void editBridge(Bridge *b);
   void deleteBridge(Bridge *b);

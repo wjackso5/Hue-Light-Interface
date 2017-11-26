@@ -28,7 +28,7 @@ class Bridge_Manager {
 		 * implement here though.
 		 */
 
-		std::vector<Bridge> bridgeList;
+		std::vector<Bridge *> bridgeList;
 		DBSession *session_;
 
 		//PRIVATE METHODS
@@ -58,7 +58,7 @@ class Bridge_Manager {
 		bool deleteBridge(std::string name);
 		bool validityCheck(std::string ipOrHost, std::string port, std::string user);
 		bool validityCheck(std::string ipOrHost, std::string port);
-		std::vector<Bridge> getBridgeList();
+		std::vector<Bridge*> getBridgeList();
 };
 
 #endif

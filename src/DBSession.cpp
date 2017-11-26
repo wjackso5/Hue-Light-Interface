@@ -172,7 +172,7 @@ const std::vector<const Auth::OAuthService *>& DBSession::oAuth()
 *vector of Bridgesin the bridge manager class
 **/
 
-void DBSession::initBM(std::vector<Bridge> *bridgeList){
+void DBSession::initBM(std::vector<Bridge*> *bridgeList){
   typedef dbo::collection< dbo::ptr<Bridge> > Bridges;
   dbo::Transaction transaction(session_);
   try{
@@ -186,7 +186,7 @@ void DBSession::initBM(std::vector<Bridge> *bridgeList){
         next->ip=bridge->ip;
         next->port=bridge->port;
         next->username=bridge->username;
-        bridgeList->push_back(*next);
+        bridgeList->push_back(next);
       }
   }catch(...)
   {
