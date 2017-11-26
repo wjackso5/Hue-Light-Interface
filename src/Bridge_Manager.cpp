@@ -76,9 +76,8 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
   		//Wt::log("info") <<"God SAVE US";
   		bridgeList.push_back(newBridge);
   		Wt::log("info") <<newBridge->name;
-		/*
-  		session_->addBridge(newBridge);
-		*/
+		session_->addBridge(newBridge);
+		
       return true;
     }
 
@@ -179,17 +178,15 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
 		std::string url;
         url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper";
         // Wt::log("austintest") << httpC->get(url);
-		if(httpC->get("http://0.0.0.0:8000/api/newdeveloper")){
+		if(httpC->get("url")){
 				Wt::log("HANDLE")<<"WHAT";
-				/*
-			 Wt::WApplication::instance()->deferRendering();}
-			 */
-		}
+				Wt::WApplication::instance()->deferRendering();}
 		else{
 			return false;
 		}
 		return true;
-}
+	}
+
 
 void Bridge_Manager::handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response)
 {
