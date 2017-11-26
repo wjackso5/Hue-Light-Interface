@@ -163,13 +163,31 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port, std::
 
 //Without username
 bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
-        Wt::Http::Client *httpC = new Wt::Http::Client;
+        Wt::Http::Client *httpC = new Wt::Http::Client();
+        httpC->setTimeout(15);
+   		httpC->setMaximumResponseSize(10 * 1024);
+   		Wt::log("HANDLE")<<"BEFORE SET DONE";
+        httpC->done().connect(boost::bind(&Bridge_Manager::handleHttpResponse,this,_1,_2));
+        Wt::log("HANDLE")<<"AFTER SET DONE";
 
-        std::string url;
+		std::string url;
         url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper";
-        //Wt::log("austintest") << httpC->get(url);
+        // Wt::log("austintest") << httpC->get(url);
+		if(httpC->get("http://httpbin.org/ip")){
+				Wt::log("HANDLE")<<"WHAT";
+			 Wt::WApplication::instance()->deferRendering();}
+		else{
+			return false;
+		}
+		return true;
+}
 
-        return httpC->get(url);
+void Bridge_Manager::handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response)
+{
+	Wt::log("HANDLE")<<"CALLED HANDLE";
+	if (!err && response.status() == 200) {
+      Wt::log("info")<<response.body();
+   }
 }
 std::vector<Bridge*> Bridge_Manager::getBridgeList(){
 	//DEBUGGING
