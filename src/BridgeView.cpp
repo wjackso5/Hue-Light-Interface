@@ -159,6 +159,5 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 }
   void BridgeView::createLightView(){
-    std::vector<Bridge*> bl = bm->getBridgeList();
-    Wt::log("info") << bl.at(i)->getName();
+    Wt::log("info") << bl.at(index)->getName();
   }
