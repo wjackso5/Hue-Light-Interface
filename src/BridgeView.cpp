@@ -85,11 +85,15 @@ BridgeView::BridgeView()
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
   
+  bridge_list_ = new WTable();
+
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
   /*
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
-  show_bridge_list_clicked().connect(this,&BridgeView::showBridgeList);
+  */
+  show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
+  /*
   goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
   */
 
@@ -146,7 +150,7 @@ void BridgeView::deleteBridge()
   BridgeView::showBridgeList();
 }
 void BridgeView::showBridgeList(){
-  bridge_list_ = new WTable();
+  bridge_list_->clear();
   bridge_list_->setHeaderCount(1);
   bridge_list_->setWidth(WLength("100%"));
   //declare the tabl-> headers.
