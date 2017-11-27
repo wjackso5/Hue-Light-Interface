@@ -13,7 +13,7 @@ public:
 private:
   Light_Manager *lm;
   //Light_Manager *lm;
-  std::vector<LightSchedule*> gl;
+  std::vector<Schedule*> sl;
   Wt::WTable *schedule_list_;
   Wt::WText *schedule_msg_;
   Wt::WLineEdit *schedule_id_;

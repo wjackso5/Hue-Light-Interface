@@ -52,11 +52,11 @@ ScheduleView::ScheduleView(Light_Manager *lm)
   addWidget(schedule_list_t);
   
   schedule_list_ = new WTable();
-  showscheduleList();
+  showScheduleList();
 
 
-  light_button_->clicked().connect(this, &scheduleView::UpdateLight);
-  goto_bridgeview_button->clicked().connect(this, &scheduleView::clearView);
+  light_button_->clicked().connect(this, &ScheduleView::Updateschedule);
+  goto_bridgeview_button->clicked().connect(this, &ScheduleView::clearView);
   
 }
 
@@ -64,7 +64,7 @@ void ScheduleView::clearFields(){
   schedule_id_->setText("");
   schedule_state_->setText("");
 }
-void ScheduleView::Updateschedule(){
+void ScheduleView::UpdateSchedule(){
   //viv does work in here :D
   clearFields();
 }
@@ -90,6 +90,3 @@ void ScheduleView::showscheduleList(){
   }*/
   addWidget(schedule_list_);
 }
-  void ScheduleView::clearView(){
-    this->hide();
-  }
