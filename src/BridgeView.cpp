@@ -96,7 +96,7 @@ BridgeView::BridgeView()
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
 	
-  bridge_list_= new WText("<h1>Bridge List:</h1>");
+  WText *bridge_list_t= new WText("<h1>Bridge List:</h1>");
   addWidget(bridge_list_);
 }
 
