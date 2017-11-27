@@ -66,7 +66,7 @@ void ScheduleView::UpdateSchedule(){
   //viv does work in here :D
   clearFields();
 }
-void ScheduleView::showscheduleList(){
+void ScheduleView::showScheduleList(){
   
   schedule_list_->setHeaderCount(1);
   schedule_list_->setWidth(WLength("100%"));
