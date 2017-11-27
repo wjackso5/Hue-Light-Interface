@@ -2,6 +2,7 @@
 #ifndef BridgeView_H_
 #define BridgeView_H_
 #include <Wt/WContainerWidget>
+#include <Wt/WTable>
 #include "Bridge_Manager.h"
 class BridgeView : public Wt::WContainerWidget
 {
@@ -11,7 +12,7 @@ private:
   DBSession session_;
   Bridge_Manager *bm;
   std::vector<Bridge *> *bl;
-  Wt::WText *bridge_list_;
+  Wt::WTable *bridge_list_;
   Wt::WText *bridge_msg_;
   Wt::WLineEdit *bridge_name_;
   Wt::WLineEdit *bridge_location_;

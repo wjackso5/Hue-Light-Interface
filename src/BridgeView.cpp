@@ -7,6 +7,8 @@
 #include <Wt/WVBoxLayout>
 #include <Wt/WHBoxLayout>
 #include <Wt/WPushButton>
+#include <Wt/WTable>
+#include <Wt/WTableCell>
 #include <Wt/WApplication>
 #include <Wt/Auth/AuthWidget>
 #include "BridgeView.h"
