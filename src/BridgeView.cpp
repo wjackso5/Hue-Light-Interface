@@ -160,5 +160,5 @@ void BridgeView::showBridgeList(){
 }
   void BridgeView::createLightView(){
 
-    Wt::log("info") << std::to_string(i);
+    Wt::log("info") << std::to_string(index);
   }
