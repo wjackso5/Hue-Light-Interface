@@ -84,7 +84,7 @@ BridgeView::BridgeView()
 
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
-  
+
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
@@ -170,4 +170,7 @@ void BridgeView::showBridgeList(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     btv = bl.at(index);
     Wt::log("info") << btv->getName();
+    LightView lv = new LightView(btv);
+    mainStack_->addWidget(lv)
+    mainStack_->setCurrentWidget(lv);
   }
