@@ -12,7 +12,7 @@ public:
 private:
   DBSession session_;
   Bridge_Manager *bm;
-  Bridge btv;
+  Bridge *btv;
   std::string btv_name;
   std::vector<Bridge *> bl;
   Wt::WTable *bridge_list_;
