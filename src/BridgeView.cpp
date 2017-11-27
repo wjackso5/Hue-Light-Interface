@@ -13,6 +13,7 @@
 #include <Wt/Auth/AuthWidget>
 #include "BridgeView.h"
 #include "Bridge.h"
+#include "LightView.h"
 #include <string>
 #include <vector>
 
