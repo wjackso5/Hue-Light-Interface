@@ -4,7 +4,7 @@
 #include <Wt/WContainerWidget>
 #include <Wt/WTable>
 #include "Light.h"
-#include "Light_Manager.h"
+//#include "Light_Manager.h"
 #include "Bridge.h"
 class lightView : public Wt::WContainerWidget
 {
