@@ -11,6 +11,7 @@ public:
   BridgeView();
 private:
   DBSession session_;
+  int index;
   Bridge_Manager *bm;
   std::vector<Bridge *> bl;
   Wt::WTable *bridge_list_;
@@ -29,6 +30,6 @@ private:
   void editBridge();
   void deleteBridge();
   void showBridgeList();
-  void createLightView(int index);
+  void createLightView();
 };
 #endif
