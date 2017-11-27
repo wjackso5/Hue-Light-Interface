@@ -86,11 +86,12 @@ BridgeView::BridgeView()
   addWidget(goto_lightview_button);
   
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
+  /*
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
-  show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
+  show_bridge_list_clicked().connect(this,&BridgeView::showBridgeList);
   goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
-
+  */
 
 }
 
@@ -156,8 +157,19 @@ void BridgeView::showBridgeList(){
   bridge_list_->elementAt(0, 4)->addWidget(new WText("Username"));
   //get the bridgelist
   bl = bm->getBridgeList();
+  Wt::log("The fucking size is:") << bl.size(); 
+  Wt::log("The next line should be a seg fault");
+  Wt::log("Info") << (bl.at(bl.size()-1))->getName();
+
+  for (std::vector<Bridge*>::iterator it = bl.begin(); it != bl.end(); ++it) {
+	Wt::log("Bridge Name") << (*it)->getName(); 
+  }
+  
+
+
   //populate the table with the info from the bridgelist.
-  for(int i=0; i<bl.size(); i++){
+  for(int i=0; i<bl.size()-1; i++){
+      Wt::log("YABADABADOO");
       bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl.at(i)->getName()));
       bridge_list_->elementAt(i+1, 1)->addWidget(new WText(bl.at(i)->getLocation()));
       bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl.at(i)->getIp()));

@@ -177,7 +177,7 @@ void DBSession::initBM(std::vector<Bridge*> *bridgeList){
   dbo::Transaction transaction(session_);
   try{
     Bridges bridges=session_.find<Bridge>();
-  // Wt::log("info")<<"# of bridges"+bridges.size();
+    Wt::log("HHHHHHHHHHHHHHHHHH")<< bridges.size();
       for (const dbo::ptr<Bridge> &bridge: bridges)
       { 
         Bridge *next=new Bridge();

@@ -8,7 +8,7 @@
 #include "Bridge_Manager.h"
 #include <Wt/Json/Parser>
 #include <Wt/Json/Value>
-//DEBUGGING
+#include <Wt/Json/Object>//DEBUGGING
 #include <Wt/WLogger>
 //DEBUGGING
 
@@ -17,9 +17,7 @@ Bridge_Manager::Bridge_Manager(DBSession *s) {
 	session_=s;
 	session_->initBM(&bridgeList);
 }
-Bridge_Manager::~Bridge_Manager(){
-	
-}
+Bridge_Manager::~Bridge_Manager(){}
 
 //PRIVATE METHODS
 /* findBridge method
@@ -69,15 +67,14 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 		//newBridge =createBridge(name, location, ipAddressOrHostname, portNumber, userName);
     if (validityCheck(ipAddressOrHostname_, portNumber_) > 0) {
 	    Wt::log("info") << "The validity check was succesfull";
-      newBridge=new Bridge();
+      		Bridge *newBridge = new Bridge();
   		newBridge->name=name_;
+		Wt::log("THE NEW BRIDGES NAME IS") << newBridge->getName();
   		newBridge->location=location_;
   		newBridge->ip=ipAddressOrHostname_;
   		newBridge->port=portNumber_;
   		newBridge->username=userName_;
-  		//Wt::log("info") <<"God SAVE US";
   		bridgeList.push_back(newBridge);
-  		Wt::log("info") <<newBridge->name;
 		session_->addBridge(newBridge);
 		
       return true;
@@ -178,11 +175,14 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
         Wt::log("HANDLE")<<"AFTER SET DONE";
 
 		std::string url;
-        url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper";
+        url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper/lights/1";
         // Wt::log("austintest") << httpC->get(url);
-		if(httpC->get("url")){
+		if(httpC->get("http://0.0.0.0:8000/api/newdeveloper/lights/1")){
 				Wt::log("HANDLE")<<"WHAT";
-				Wt::WApplication::instance()->deferRendering();}
+				/*
+				Wt::WApplication::instance()->deferRendering();
+				*/
+		}
 		else{
 			return false;
 		}
@@ -192,14 +192,21 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
 
 void Bridge_Manager::handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response)
 {
+	/*
+	Wt::WApplication::instance()->resumeRendering();
+	*/
 	Wt::log("HANDLE")<<"CALLED HANDLE";
 	if (!err && response.status() == 200) {
 	const std::string &input = response.body();
-	Wt::log("HANDLE") << response.body();
-	Wt::Json::Value jval = Wt::Json::Value();
-	Wt::Json::Value &jvalref = jval; 
-	Wt::Json::parse(input, jvalref, false);
-   }
+	Wt::log("HANDLE") << input;
+	//Wt::Json::Value *jval = new Wt::Json::Value();
+	//Wt::Json::Value &jvalref = jval; 
+	Wt::Json::Object ob;
+	Wt::Json::parse(input,ob,false);
+	Wt::Json::Value val=ob.get("name");
+	std::string s=val.toString().orIfNull("asdf34wafsda");
+	std::cerr<<"TESTESTESTESTESTESTEST"<<s<<std::endl;
+	}
 }
 std::vector<Bridge*> Bridge_Manager::getBridgeList(){
 	//DEBUGGING
