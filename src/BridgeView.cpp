@@ -179,7 +179,7 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 
 }
-/*
+
   void BridgeView::createLightView(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     btv = *bl->at(index);
@@ -187,4 +187,4 @@ void BridgeView::showBridgeList(){
     addWidget(new LightView(btv));
     this->hide();
     this->clear();
-  }*/
+  }
