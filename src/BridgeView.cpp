@@ -143,7 +143,7 @@ void BridgeView::showBridgeList(){
   bridge_list_->elementAt(0, 3)->addWidget(new WText("Port Number"));
   bridge_list_->elementAt(0, 4)->addWidget(new WText("Username"));
   //get the bridgelist
-  std::vector<Bridge*> bl = bm->getBridgeList();
+  bl = bm->getBridgeList();
   //populate the table with the info from the bridgelist.
   for(int i=0; i<bl.size(); i++){
       bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl.at(i)->getName()));
@@ -159,5 +159,6 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 }
   void BridgeView::createLightView(){
+
     Wt::log("info") << bl->at(index)->getName();
   }
