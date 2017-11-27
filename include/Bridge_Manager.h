@@ -32,7 +32,7 @@ class Bridge_Manager {
 		DBSession *session_;
 
 		//PRIVATE METHODS
-		int findBridge(std::string bridgeName);
+		
 
 
 	public :
@@ -43,7 +43,7 @@ class Bridge_Manager {
 		//PUBLIC METHODS
 		bool addBridge(std::string name, std::string location, std::string ipAddressOrHostname, std::string portNumber, std::string userName);
 
-
+		int findBridge(std::string bridgeName);
 		/* The "editBridge" method that follows was proposed in the UML
 		 * Since we have to pass the bridgeManager some way to identify
 		 * the Bridge we wish to edit (which it seems must be the name

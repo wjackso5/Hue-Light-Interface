@@ -15,7 +15,9 @@ Bridge_Manager::Bridge_Manager(DBSession *s) {
 	session_=s;
 	session_->initBM(&bridgeList);
 }
-Bridge_Manager::~Bridge_Manager(){}
+Bridge_Manager::~Bridge_Manager(){
+	
+}
 
 //PRIVATE METHODS
 /* findBridge method

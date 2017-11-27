@@ -162,6 +162,7 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 }
   void BridgeView::createLightView(){
-    Bridge btv = bm->findBridge(btv_name);
+    int index = bm->findBridge(btv_name);
+    btv = bl.at(index);
     Wt::log("info") << btv.getName();
   }
