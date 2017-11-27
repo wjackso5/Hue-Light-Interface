@@ -160,4 +160,5 @@ void BridgeView::showBridgeList(){
 }
   void BridgeView::createLightView(){
     Wt::log("info") <<btv->getName();
+    Wt::log("info") <<"create";
   }
