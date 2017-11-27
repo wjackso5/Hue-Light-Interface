@@ -56,7 +56,8 @@ LightView::LightView(Bridge bridge)
 
   goto_bridgeview_button = new WPushButton("View Bridges");
   addWidget(goto_bridgeview_button);
-
+  light_list_ = new WTable();
+  
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::createBridgeView);
 
@@ -67,9 +68,11 @@ void LightView::clearFields(){
   light_id_->setText("");
   light_state_->setText("");
 }
-
+void LightView::UpdateLight(){
+  //viv does work in here :D
+}
 void LightView::showLightList(){
-  light_list_ = new WTable();
+  
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.

@@ -22,6 +22,7 @@ private:
   Wt::WPushButton *goto_bridgeview_button;
   void clearFields();
   void showLightList();
+  void UpdateLight();
   void createBridgeView();
 };
 #endif
