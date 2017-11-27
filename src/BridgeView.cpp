@@ -153,7 +153,7 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
       WPushButton *goto_bridge_button = new WPushButton("View");
       bridge_list_->elementAt(i+1, 4)->addWidget(goto_bridge_button);
-      goto_bridge_button->clicked().connect(this, &BridgeView::createLightView, i;);
+      goto_bridge_button->clicked().connect(this, &BridgeView::createLightView, i);
   }
   addWidget(bridge_list_);
 }
