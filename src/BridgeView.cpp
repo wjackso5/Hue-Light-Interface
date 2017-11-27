@@ -159,5 +159,5 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 }
   void BridgeView::createLightView(){
-    Wt::log("info") << bl.at(index)->getName();
+    Wt::log("info") << bl->at(index)->getName();
   }
