@@ -80,6 +80,13 @@ BridgeView::BridgeView()
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
   addWidget(bridge_list_t);
+
+  addWidget(new WText("Bridge to view: (by name)"));
+  btv_name = new WLineEdit();  
+  WPushButton *goto_bridge_button = new WPushButton("View Bridge");
+  goto_bridge_button->clicked().connect(this, &BridgeView::createLightView);
+
+
 }
 
 void BridgeView::clearBridgeFields(){
@@ -151,14 +158,10 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl.at(i)->getIp()));
       bridge_list_->elementAt(i+1, 3)->addWidget(new WText(bl.at(i)->getPort()));
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
-      index = i;
-      WPushButton *goto_bridge_button = new WPushButton("View");
-      bridge_list_->elementAt(i+1, 5)->addWidget(goto_bridge_button);
-      goto_bridge_button->clicked().connect(this, &BridgeView::createLightView, i);
   }
   addWidget(bridge_list_);
 }
-  void BridgeView::createLightView(int index){
-
-    Wt::log("info") << std::to_string(index);
+  void BridgeView::createLightView(){
+    Bridge btv = bm->findBridge(btv_name);
+    Wt::log("info") << btv.getName();
   }

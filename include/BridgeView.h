@@ -11,8 +11,9 @@ public:
   BridgeView();
 private:
   DBSession session_;
-  int index;
   Bridge_Manager *bm;
+  Bridge btv;
+  std::string btv_name;
   std::vector<Bridge *> bl;
   Wt::WTable *bridge_list_;
   Wt::WText *bridge_msg_;
