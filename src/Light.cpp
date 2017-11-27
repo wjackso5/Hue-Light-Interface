@@ -12,7 +12,15 @@
 *@param none
 *@return none
 */
-Light::Light(){}
+Light::Light(int _id,std::string _name,bool state,int _brightness,int hue,std::string bridgename){
+	id=_id;
+	name=_name;
+	switch_=state;
+	brightness=_brightness;
+	color=hue;
+	transitionTime=0;
+	bridgeName=bridgename;
+}
 
 /**
 *deconstructor for light
@@ -74,6 +82,14 @@ int Light::getTransitionTime(){
 */
 int Light::getColor(){
 	return color;
+}
+/**
+*id getter method for light
+*@param none
+*@return int id
+*/
+int Light::getId(){
+	return id;
 }
 
 /**
@@ -144,6 +160,14 @@ void Light::setTransitionTime(int t){
 	transitionTime=t;
 }
 
+/**
+*color setter method for light
+*@param int t
+*@return none
+*/
+void Light::setId(int t){
+	id=t;
+}
 /**
 *special setter that updates all info about this light objects 'state', will stream-line interactions hueAPI
 *@param name

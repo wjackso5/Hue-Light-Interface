@@ -85,9 +85,9 @@ std::string Schedule::getState(){
 *@return state string (JSON with all the info about this Schedule to be passed along the bridge)
 *@param none
 */
-Light Schedule::getLight(){
-	return light;
-}
+// Light Schedule::getLight(){
+// 	return light;
+// }
 
 //setters
 
@@ -153,20 +153,20 @@ void Schedule::setState(bool s, int b, int c){
 *@param light
 *@return none
 */
-void Schedule::setLight(Light l){
-	light = l;
-}
+// void Schedule::setLight(Light l){
+// 	light = l;
+// }
 
 /**
 *Called after delay time has occured.
 *@param none
 *@return none
 */
-void Schedule::Execute(){
-		//update the light
-		light.setName(getName());
-		light.setSwitch(getSwitch());
-		light.setBrightness(getBrightness());
-		light.setColor(getColor());
+// void Schedule::Execute(){
+// 		//update the light
+// 		light.setName(getName());
+// 		light.setSwitch(getSwitch());
+// 		light.setBrightness(getBrightness());
+// 		light.setColor(getColor());
 	
-}
+// }
