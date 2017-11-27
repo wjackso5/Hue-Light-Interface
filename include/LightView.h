@@ -23,6 +23,6 @@ private:
   void clearFields();
   void showLightList();
   void UpdateLight();
-  void createBridgeView();
+  void clearView();
 };
 #endif

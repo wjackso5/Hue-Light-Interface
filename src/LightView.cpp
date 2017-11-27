@@ -28,7 +28,7 @@ LightView::LightView(Bridge *bridge)
 { 
   //adds BridgeUI widgets
   //lm = new Light_Manager(&bridge);
-  std::string bridgename = bridge.getName();
+  std::string bridgename = bridge->getName();
   WText *title = new WText("<h1>Manage your Lights for:"+bridgename+"</h1>");
   addWidget(title);
   addWidget(new WBreak());
