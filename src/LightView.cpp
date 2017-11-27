@@ -17,6 +17,8 @@
 #include <string>
 #include <vector>
 #include "LightView.h"
+#include "GroupView.h"
+#include "ScheduleView.h"
 
 //DEBUGGING
 #include <Wt/WLogger>
@@ -58,7 +60,7 @@ LightView::LightView(Bridge *bridge)
 
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
-  
+
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
   showLightList();
