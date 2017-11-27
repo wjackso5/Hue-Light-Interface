@@ -164,7 +164,7 @@ void BridgeView::showBridgeList(){
   //get the bridgelist
   std::vector<Bridge*> bl = bm->getBridgeList();
   //populate the table with the info from the bridgelist.
-  for(int i=0; i<bl.size(); i++){
+  for(int i=1; i<bl.size(); i++){
       bridge_list_->elementAt(i, 0)->addWidget(new WText(bl.at(i)->getName()));
       bridge_list_->elementAt(i, 1)->addWidget(new WText(bl.at(i)->getLocation()));
       bridge_list_->elementAt(i, 2)->addWidget(new WText(bl.at(i)->getIp()));
