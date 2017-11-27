@@ -6,10 +6,10 @@
 #include "Light.h"
 //#include "Light_Manager.h"
 #include "Bridge.h"
-class lightView : public Wt::WContainerWidget
+class LightView : public Wt::WContainerWidget
 {
 public:
-  lightView();
+  LightView();
 private:
   Bridge bridge;
   //Light_Manager *lm;
