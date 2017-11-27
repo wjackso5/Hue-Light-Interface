@@ -25,60 +25,44 @@ using namespace Wt;
 BridgeView::BridgeView()
   : WContainerWidget()
 { 
+  //adds BridgeUI widgets
   addWidget(new WText("hello there"));
   bm = new Bridge_Manager(&session_);
-  //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH29";
-  //DEBUGGING
+
   WText *title = new WText("<h1>Manage your Bridges:</h1>");
   addWidget(title);
-  //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH34";
-  //DEBUGGING
+  addWidget(new WBreak());
+
   bridge_msg_ = new WText("");
   addWidget(bridge_msg_);
-  //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH39";
-  //DEBUGGING
+  addWidget(new WBreak());
+
+  addWidget(new WText("Name:"));
   bridge_name_ = new WLineEdit();                 // allow text input
   bridge_name_->setFocus();  
   addWidget(bridge_name_);   
-    //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH45";
-  //DEBUGGING                            // give focus
-
+  addWidget(new WBreak());
+                         
+  addWidget(new WText("Location:"));
   bridge_location_ = new WLineEdit();                 // allow text input
-  bridge_location_->setFocus();                                // give focus
   addWidget(bridge_location_); 
-    //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH52";
-  //DEBUGGING
+  addWidget(new WBreak());
 
+  addWidget(new WText("IP:"));
   bridge_ip_ = new WLineEdit();                 // allow text input
-  bridge_ip_->setFocus();
   addWidget(bridge_ip_); 
-    //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH59";
-  //DEBUGGING
- 
-  bridge_port_ = new WLineEdit();                 // allow text input
-  bridge_port_->setFocus();                                 // give focus
-  addWidget(bridge_port_); 
-    //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH66";
-  //DEBUGGING
+  addWidget(new WBreak());
 
+  addWidget(new WText("Port:"));
+  bridge_port_ = new WLineEdit();                 // allow text input
+  addWidget(bridge_port_); 
+  addWidget(new WBreak());
+
+  addWidget(new WText("Username (optional):"));
   bridge_username_ = new WLineEdit();                 // allow text input
-  bridge_username_->setFocus();
   addWidget(bridge_username_);
-  //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH73";
-  //DEBUGGING
+  addWidget(new WBreak());
   
-  // bridge_list_->hide();
-    //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH79";
-  //DEBUGGING
 
   create_bridge_button_ = new WPushButton("Create Bridge");
   addWidget(create_bridge_button_);
@@ -96,7 +80,7 @@ BridgeView::BridgeView()
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
 	
-  WText *bridge_list_t= new WText("<h1>Bridge List:</h1>");
+  WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
   addWidget(bridge_list_t);
 }
 
@@ -171,8 +155,6 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 3)->addWidget(new WText(bl.at(i)->getPort()));
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
   }
-  bridge_list_->addStyleClass("table-hover");
-  bridge_list_->addStyleClass("table-bordered");
   addWidget(bridge_list_);
 }
 
