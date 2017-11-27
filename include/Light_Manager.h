@@ -42,11 +42,11 @@ class Light_Manager {
 		~Light_Manager();
 		
 		//PUBLIC METHODS
-		// bool getLights();
-		// bool getGroups();
-		// bool setLightName(std::string id,std::string name);
-		// bool setLightState(std::string id,std::string statename,std::string state);
-		// void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
+		bool getLights();
+		bool getGroups();
+		bool setLightName(std::string id,std::string name);
+		bool setLightState(std::string id,std::string statename,std::string state);
+		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		bool setGroup();
 		Bridge* getBridge();
 };
