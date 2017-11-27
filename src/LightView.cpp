@@ -16,6 +16,7 @@
 #include "Light.h"
 #include <string>
 #include <vector>
+#include "LightView.h"
 
 //DEBUGGING
 #include <Wt/WLogger>
@@ -89,6 +90,6 @@ void LightView::showLightList(){
   }
   addWidget(light_list_);
 }
-  void BridgeView::createBridgeView(){
+  void LightView::createBridgeView(){
     
   }
