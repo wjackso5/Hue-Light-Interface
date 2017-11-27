@@ -91,7 +91,7 @@ BridgeView::BridgeView()
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
-  //goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
+  goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
 
 
 }
@@ -159,9 +159,6 @@ void BridgeView::showBridgeList(){
   //get the bridgelist
   bm = new Bridge_Manager(&session_);
   bl = bm->getBridgeList();
-  Wt::log("The fucking size is:") << bl->size(); 
-  Wt::log("The next line should be a seg fault");
-  Wt::log("The last bridge name is") << bl->at(bl->size()-1);
 
   /*
   for (std::vector<Bridge*>::iterator it = bl->begin(); it != bl->end(); ++it) {
@@ -173,7 +170,6 @@ void BridgeView::showBridgeList(){
 
   //populate the tabl-> with the info from the bridgelist.
   for(int i=0; i<bl->size(); i++){
-      Wt::log("YABADABADOO");
       bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl->at(i)->getName()));
       bridge_list_->elementAt(i+1, 1)->addWidget(new WText(bl->at(i)->getLocation()));
       bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl->at(i)->getIp()));
