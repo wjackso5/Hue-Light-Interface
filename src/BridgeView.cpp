@@ -151,15 +151,14 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl.at(i)->getIp()));
       bridge_list_->elementAt(i+1, 3)->addWidget(new WText(bl.at(i)->getPort()));
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
-      Bridge *btv = bl.at(i);
+      index = i;
       WPushButton *goto_bridge_button = new WPushButton("View");
-      Wt::log("info") << btv->getName();
       bridge_list_->elementAt(i+1, 4)->addWidget(goto_bridge_button);
       goto_bridge_button->clicked().connect(this, &BridgeView::createLightView);
   }
   addWidget(bridge_list_);
 }
   void BridgeView::createLightView(){
-    Wt::log("info") <<"create";
-    Wt::log("info") << btv->getName();
+    std::vector<Bridge*> bl = bm->getBridgeList();
+    Wt::log("info") << bl.at(i)->getName();
   }
