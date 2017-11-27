@@ -15,7 +15,8 @@
 //CONSTRUCTOR
 Bridge_Manager::Bridge_Manager(DBSession *s) {
 	session_=s;
-	session_->initBM(&bridgeList);
+	bridgeList = new std::vector<Bridge *>();
+	session_->initBM(bridgeList);
 }
 Bridge_Manager::~Bridge_Manager(){}
 
@@ -34,15 +35,15 @@ int Bridge_Manager::findBridge(std::string bridgeName) {
 	 * prevent us from trying to access an element of
 	 * an empty list.
 
-	if (bridgeList.empty() == true) return NULL;
+	if (bridgeList->empty() == true) return NULL;
 
 	*/
 
 	 //Create an iterator over
-	for(int i=0;i<bridgeList.size();i++)
+	for(int i=0;i<bridgeList->size();i++)
 	        //The bridgeList
 	{
-		if(bridgeList.at(i)->getName().compare(bridgeName)==0)
+		if(bridgeList->at(i)->getName().compare(bridgeName)==0)
 			{return i;}
 	}
 
@@ -61,21 +62,26 @@ int Bridge_Manager::findBridge(std::string bridgeName) {
 bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::string ipAddressOrHostname_, std::string portNumber_, std::string userName_){
 	 //Initialize the
 	Wt::log("info") <<"name of addBridge:"+name_;
-	//Try creating the Bridge and adding it to the bridgeList.
+	//Try creating the Bridge and adding it to the bridgeList->
 	if (findBridge(name_)<0) {
 		Wt::log("info") << "This bridge doesnt exist yet, so we will create it";
 		//newBridge =createBridge(name, location, ipAddressOrHostname, portNumber, userName);
     if (validityCheck(ipAddressOrHostname_, portNumber_) > 0) {
 	    Wt::log("info") << "The validity check was succesfull";
-      		Bridge *newBridge = new Bridge();
-  		newBridge->name=name_;
-		Wt::log("THE NEW BRIDGES NAME IS") << newBridge->getName();
+	    	bridgeList->push_back(new Bridge());
+  		bridgeList->back()->name=name_;
+		bridgeList->back()->location=location_;
+		bridgeList->back()->ip=ipAddressOrHostname_;
+		bridgeList->back()->port=portNumber_;
+		bridgeList->back()->username=userName_;
+		/*
   		newBridge->location=location_;
   		newBridge->ip=ipAddressOrHostname_;
   		newBridge->port=portNumber_;
   		newBridge->username=userName_;
-  		bridgeList.push_back(newBridge);
-		session_->addBridge(newBridge);
+  		bridgeList->push_back(&newBridge);
+		*/
+		session_->addBridge(bridgeList->back());
 		
       return true;
     }
@@ -88,7 +94,7 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 
 	/* If we reach the else statement, there was a problem adding the Bridge
 	 * (Either it could not be created or it could not be added to the
-	 * bridgeList).
+	 * bridgeList->.
 	 */
 	else return false;
 
@@ -109,15 +115,15 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 
 	/* If we reach the else statement, there was a problem adding the Bridge
 	 * (Either it could not be created or it could not be added to the
-	 * bridgeList).
+	 * bridgeList->.
 	 */
 bool Bridge_Manager::deleteBridge(std::string name){
 	int index=findBridge(name);//Initialize the Bridge
 
-	//Try creating the Bridge and adding it to the bridgeList.
+	//Try creating the Bridge and adding it to the bridgeList->
 	if (findBridge(name)>=0) {
-		Bridge* tBD=bridgeList.at(findBridge(name));
-		bridgeList.erase(bridgeList.begin()+index);
+		Bridge* tBD=bridgeList->at(findBridge(name));
+		bridgeList->erase(bridgeList->begin()+index);
 		session_->deleteBridge(tBD);
 		return true;}
 
@@ -131,7 +137,7 @@ bool Bridge_Manager::deleteBridge(std::string name){
 
 	/* If we reach the else statement, there was a problem adding the Bridge
 	 * (Either it could not be created or it could not be added to the
-	 * bridgeList).
+	 * bridgeList->.
 	 */
 	else return false;
 
@@ -139,7 +145,7 @@ bool Bridge_Manager::deleteBridge(std::string name){
 
 bool Bridge_Manager::editBridge(std::string name, std::string location, std::string ipAddressOrHostname, std::string portNumber, std::string userName) {
 	if (findBridge(name)>=0){
-	Bridge* tBC=bridgeList.at(findBridge(name));
+	Bridge* tBC=bridgeList->at(findBridge(name));
 	tBC->setLocation(location);
 	tBC->setIp(ipAddressOrHostname);
 	tBC->setPort(portNumber);
@@ -208,7 +214,7 @@ void Bridge_Manager::handleHttpResponse(boost::system::error_code err,const Wt::
 	std::cerr<<"TESTESTESTESTESTESTEST"<<s<<std::endl;
 	}
 }
-std::vector<Bridge*> Bridge_Manager::getBridgeList(){
+std::vector<Bridge*>* Bridge_Manager::getBridgeList(){
 	//DEBUGGING
 	Wt::log("info") << ":::::::::::::::::BM CALLED";
 	//DEBUGGING

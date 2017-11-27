@@ -32,7 +32,7 @@ class Bridge_Manager {
 		 * implement here though.
 		 */
 
-		std::vector<Bridge *> bridgeList;
+		std::vector<Bridge *> *bridgeList;
 		DBSession *session_;
 
 		//PRIVATE METHODS
@@ -63,7 +63,7 @@ class Bridge_Manager {
 		bool validityCheck(std::string ipOrHost, std::string port, std::string user);
 		bool validityCheck(std::string ipOrHost, std::string port);
 		void handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response);
-		std::vector<Bridge*> getBridgeList();
+		std::vector<Bridge*> *getBridgeList();
 };
 
 #endif
