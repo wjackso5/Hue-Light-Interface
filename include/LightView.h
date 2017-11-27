@@ -9,7 +9,7 @@
 class LightView : public Wt::WContainerWidget
 {
 public:
-  LightView(bridge);
+  LightView(Bridge bridge);
 private:
   Bridge bridge;
   //Light_Manager *lm;
