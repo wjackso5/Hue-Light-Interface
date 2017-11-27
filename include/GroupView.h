@@ -13,7 +13,6 @@ public:
   GroupView(Light_Manager *lm);
 private:
   Light_Manager *lm;
-  //Light_Manager *lm;
   std::vector<LightGroup*> gl;
   Wt::WTable *group_list_;
   Wt::WText *group_msg_;

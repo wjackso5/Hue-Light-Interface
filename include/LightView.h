@@ -4,7 +4,7 @@
 #include <Wt/WContainerWidget>
 #include <Wt/WTable>
 #include "Light.h"
-//#include "Light_Manager.h"
+#include "Light_Manager.h"
 #include "Bridge.h"
 class LightView : public Wt::WContainerWidget
 {
@@ -12,7 +12,7 @@ public:
   LightView(Bridge *bridge);
 private:
   Bridge *bridge;
-  //Light_Manager *lm;
+  Light_Manager *lm;
   std::vector<Light*> ll;
   Wt::WTable *light_list_;
   Wt::WText *light_msg_;
