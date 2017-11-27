@@ -27,7 +27,6 @@ BridgeView::BridgeView()
   : WContainerWidget()
 { 
   //adds BridgeUI widgets
-  addWidget(new WText("hello there"));
   bm = new Bridge_Manager(&session_);
 
   WText *title = new WText("<h1>Manage your Bridges:</h1>");
@@ -184,7 +183,7 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 
 }
-
+/*
   void BridgeView::createLightView(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     btv = *bl->at(index);
@@ -192,4 +191,4 @@ void BridgeView::showBridgeList(){
     addWidget(new LightView(btv));
     this->hide();
     this->clear();
-  }
+  }*/

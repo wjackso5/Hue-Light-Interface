@@ -13,7 +13,7 @@ private:
   DBSession session_;
   Bridge_Manager *bm;
   //Bridge btv;
-  Wt::WLineEdit *btv_name;
+  //Wt::WLineEdit *btv_name;
   std::vector<Bridge *> *bl;
   Wt::WTable *bridge_list_;
   Wt::WText *bridge_msg_;
@@ -26,12 +26,12 @@ private:
   Wt::WPushButton *delete_bridge_button_;
   Wt::WPushButton *edit_bridge_button_;
   Wt::WPushButton *show_bridge_list_;
-  Wt::WPushButton *goto_lightview_button;
+  //Wt::WPushButton *goto_lightview_button;
   void clearBridgeFields();
   void addBridge();
   void editBridge();
   void deleteBridge();
   void showBridgeList();
-  void createLightView();
+  //void createLightView();
 };
 #endif
