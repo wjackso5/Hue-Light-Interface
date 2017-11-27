@@ -97,7 +97,7 @@ BridgeView::BridgeView()
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
 	
   WText *bridge_list_t= new WText("<h1>Bridge List:</h1>");
-  addWidget(bridge_list_);
+  addWidget(bridge_list_t);
 }
 
 void BridgeView::clearBridgeFields(){
