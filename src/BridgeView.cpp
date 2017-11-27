@@ -165,12 +165,13 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
   }
   addWidget(bridge_list_);
+
 }
   void BridgeView::createLightView(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     btv = bl.at(index);
     Wt::log("info") << btv->getName();
     LightView lv = new LightView(btv);
-    mainStack_->addWidget(lv)
-    mainStack_->setCurrentWidget(lv);
+    this.hide();
+    addWidget(lv);
   }
