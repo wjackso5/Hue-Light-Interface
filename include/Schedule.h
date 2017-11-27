@@ -11,7 +11,7 @@
 class Schedule{
 	private:
 	//vars
-    Light light;
+    // Light light;
 	std::string name;
 	bool switch_;
 	int brightness;
@@ -21,7 +21,7 @@ class Schedule{
 	Schedule();
 	~Schedule();
 	//getters
-	Light getLight();
+	// Light getLight();
 	std::string getName();
 	bool getSwitch();
 	int getBrightness();
@@ -35,8 +35,8 @@ class Schedule{
 	void setColor(int c);
 	void setDelayTime(int t);
 	void setState(bool s, int b, int c);
-	void setLight(Light l);
-	void Execute();
+	// void setLight(Light l);
+	// void Execute();
 	};
 
 #endif//Schedule_H_

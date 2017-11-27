@@ -14,7 +14,7 @@
 #include <Wt/Http/Client>
 
 /* LOCAL FILES */
-#include "Session.h"
+
 #include "Light.h"
 #include "LightGroup.h"
 #include "Bridge.h"
@@ -42,12 +42,12 @@ class Light_Manager {
 		~Light_Manager();
 		
 		//PUBLIC METHODS
-		bool getLights();
-		bool getGroups();
-		bool setLightName(string id,std::string name);
-		bool setLightState(std::string id,std::string statename,std::string state);
-		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response)
-		bool setGroup()
+		// bool getLights();
+		// bool getGroups();
+		// bool setLightName(std::string id,std::string name);
+		// bool setLightState(std::string id,std::string statename,std::string state);
+		// void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
+		bool setGroup();
 		Bridge* getBridge();
 };
 
