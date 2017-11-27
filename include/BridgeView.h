@@ -13,7 +13,7 @@ private:
   DBSession session_;
   Bridge_Manager *bm;
   Bridge *btv;
-  std::string btv_name;
+  Wt::WLineEdit *btv_name;
   std::vector<Bridge *> bl;
   Wt::WTable *bridge_list_;
   Wt::WText *bridge_msg_;
