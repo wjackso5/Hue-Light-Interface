@@ -150,26 +150,27 @@ void BridgeView::deleteBridge()
   BridgeView::showBridgeList();
 }
 void BridgeView::showBridgeList(){
-  //call bm bridgelist and display.
-  std::string text = "<h1>Bridge List:</h1>"
-  "<table>";
-  text+=
-    "<tr>"
-    "<th> |Bridge Name| </th>"
-    "<th> |Bridge Location| </th>" 
-    "<th> |Bridge IP| </th>"
-    "<th> |Bridge Port Number| </th>"
-    "</tr>";
+  bridge_list_ = new WTable();
+  bridge_list_->setHeaderCount(1);
+  bridge_list_->setWidth(WLength("100%"));
+  //declare the table headers.
+  bridge_list_->elementAt(0, 0)->addWidget(new WText("Bridge"));
+  bridge_list_->elementAt(0, 1)->addWidget(new WText("Location"));
+  bridge_list_->elementAt(0, 2)->addWidget(new WText("IP address"));
+  bridge_list_->elementAt(0, 3)->addWidget(new WText("Port Number"));
+  bridge_list_->elementAt(0, 4)->addWidget(new WText("Username"));
+  //get the bridgelist
   std::vector<Bridge*> bl = bm->getBridgeList();
-  for(int i=0;i<bl.size();i++){
-  text += "<tr>";
-  text += "<th>"+bl.at(i)->getName()+"</th>";
-  text += "<th>"+bl.at(i)->getLocation()+"</th>";
-  text += "<th>"+bl.at(i)->getIp()+"</th>";
-  text += "<th>"+bl.at(i)->getPort()+"</th>";
-  text += "</tr>";
+  //populate the table with the info from the bridgelist.
+  for(int i=0; i<bl.size(); i++){
+      bridge_list_->elementAt(i, 0)->addWidget(new WText(bl.at(i)->getName()));
+      bridge_list_->elementAt(i, 1)->addWidget(new WText(bl.at(i)->getLocation()));
+      bridge_list_->elementAt(i, 2)->addWidget(new WText(bl.at(i)->getIp()));
+      bridge_list_->elementAt(i, 3)->addWidget(new WText(bl.at(i)->getPort()));
+      bridge_list_->elementAt(i, 4)->addWidget(new WText(bl.at(i)->getUsername()));
   }
-  text += "</table>";
-  bridge_list_->setText(text);
+  bridge_list_->addStyleClass("table-hover");
+  bridge_list_->addStyleClass("table-bordered");
+  addWidget(bridge_list_);
 }
 

@@ -10,7 +10,7 @@ public:
 private:
   DBSession session_;
   Bridge_Manager *bm;
-  std::vector<Bridge> *bl;
+  std::vector<Bridge *> *bl;
   Wt::WText *bridge_list_;
   Wt::WText *bridge_msg_;
   Wt::WLineEdit *bridge_name_;
