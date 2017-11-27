@@ -12,7 +12,7 @@ public:
   lightView();
 private:
   Bridge bridge;
-  Light_Manager *lm;
+  //Light_Manager *lm;
   std::vector<light*> ll;
   Wt::WTable *light_list_;
   Wt::WText *light_msg_;

@@ -26,7 +26,7 @@ LightView::LightView(Bridge bridge)
   : WContainerWidget()
 { 
   //adds BridgeUI widgets
-  lm = new Light_Manager(&bridge);
+  //lm = new Light_Manager(&bridge);
 
   WText *title = new WText("<h1>Manage your Lights:</h1>");
   addWidget(title);
