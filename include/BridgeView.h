@@ -32,6 +32,6 @@ private:
   void editBridge();
   void deleteBridge();
   void showBridgeList();
-  //void createLightView();
+  void createLightView();
 };
 #endif
