@@ -28,9 +28,8 @@ LightView::LightView(Bridge *bridge)
 { 
   //lm = new Light_Manager(&bridge);
   std::string bridgename = bridge->getName();
-  WText *title = new WText("<h1>View "+bridgename+" Bridge</h1>");
+  WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
-  addWidget(new WBreak());
 
   light_msg_ = new WText("");
   addWidget(light_msg_);
@@ -49,14 +48,17 @@ LightView::LightView(Bridge *bridge)
   
 
   light_button_ = new WPushButton("Confirm");
-	
-  WText *light_list_t= new WText("<h2><u>Light List:</u></h2>");
+	goto_bridgeview_button = new WPushButton("Hide");
+  WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
 
-  goto_bridgeview_button = new WPushButton("Hide");
+  
   addWidget(goto_bridgeview_button);
   light_list_ = new WTable();
 
+  addWidget(new GroupView(lm));
+  addWidget(new ScheduleView(lm));
+  
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
   showLightList();
@@ -80,7 +82,7 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
- /* ll = lm->getlightList();
+  /* ll = lm->getlightList();
   //populate the table with the info from the lightlist.
   for(int i=0; i<ll.size(); i++){
       light_list_->elementAt(i+1, 0)->addWidget(new WText(ll->at(i)->getName()));
