@@ -47,7 +47,7 @@ ScheduleView::ScheduleView(Light_Manager *lm)
   
 
   schedule_button_ = new WPushButton("Confirm");
-  addWidget(schedule_button_)
+  addWidget(schedule_button_);
   WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
   addWidget(schedule_list_t);
   
