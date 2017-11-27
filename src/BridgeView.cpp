@@ -80,14 +80,14 @@ BridgeView::BridgeView()
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
   addWidget(bridge_list_t);
-
+  addWidget(new WText("Bridge to view: (by name)"));
   btv_name = new WLineEdit();
   addWidget(btv_name);
-  addWidget(new WText("Bridge to view: (by name)"));
   addWidget(new WBreak());
 
-  WPushButton *goto_bridge_button = new WPushButton("View Bridge");
-  addWidget(goto_bridge_button);
+  WPushButton *goto_lightview_button = new WPushButton("View Bridge");
+  addWidget(goto_lightview_button);
+
   goto_bridge_button->clicked().connect(this, &BridgeView::createLightView);
 
 
