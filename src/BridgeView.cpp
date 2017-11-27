@@ -168,7 +168,7 @@ void BridgeView::showBridgeList(){
   
 
 
-  //populate the tabl-> with the info from the bridgelist.
+  //populate the table with the info from the bridgelist.
   for(int i=0; i<bl->size(); i++){
       bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl->at(i)->getName()));
       bridge_list_->elementAt(i+1, 1)->addWidget(new WText(bl->at(i)->getLocation()));

@@ -50,17 +50,16 @@ LightView::LightView(Bridge *bridge)
 
   light_button_ = new WPushButton("Confirm");
 	
-  WText *light_list_t= new WText("<h2><u>Bridge List:</u></h2>");
+  WText *light_list_t= new WText("<h2><u>Light List:</u></h2>");
   addWidget(light_list_t);
 
-  goto_bridgeview_button = new WPushButton("View Bridges");
+  goto_bridgeview_button = new WPushButton("Remove");
   addWidget(goto_bridgeview_button);
   light_list_ = new WTable();
 
   light_button_->clicked().connect(this, &LightView::UpdateLight);
-  goto_bridgeview_button->clicked().connect(this, &LightView::createBridgeView);
-
-
+  goto_bridgeview_button->clicked().connect(this, this->clear());
+  showLightList();
 }
 
 void LightView::clearFields(){
@@ -89,8 +88,8 @@ void LightView::showLightList(){
       light_list_->elementAt(i+1, 2)->addWidget(new WText(ll->at(i)->getIp()));
       light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
       light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
-  }
-  addWidget(light_list_);*/
+  }*/
+  addWidget(light_list_);
 }
   void LightView::createBridgeView(){
     
