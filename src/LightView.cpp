@@ -26,7 +26,6 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
-  //adds BridgeUI widgets
   //lm = new Light_Manager(&bridge);
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h1>View "+bridgename+" Bridge</h1>");
@@ -54,7 +53,7 @@ LightView::LightView(Bridge *bridge)
   WText *light_list_t= new WText("<h2><u>Light List:</u></h2>");
   addWidget(light_list_t);
 
-  goto_bridgeview_button = new WPushButton("Remove");
+  goto_bridgeview_button = new WPushButton("Hide");
   addWidget(goto_bridgeview_button);
   light_list_ = new WTable();
 
