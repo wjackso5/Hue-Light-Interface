@@ -92,7 +92,7 @@ BridgeView::BridgeView()
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
-  goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
+  //goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
 
 
 }
@@ -184,6 +184,7 @@ void BridgeView::showBridgeList(){
   addWidget(bridge_list_);
 
 }
+
   void BridgeView::createLightView(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     btv = *bl->at(index);
