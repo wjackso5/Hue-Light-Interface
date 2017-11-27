@@ -172,6 +172,7 @@ void BridgeView::showBridgeList(){
     btv = bl.at(index);
     Wt::log("info") << btv->getName();
     LightView lv = new LightView(btv);
-    this.hide();
+    this->hide();
     addWidget(lv);
+    this->clear();
   }
