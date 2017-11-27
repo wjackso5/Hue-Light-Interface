@@ -12,6 +12,10 @@
 #include <string>
 #include <vector>
 #include <Wt/Http/Client>
+#include <Wt/Http/Message>
+#include <Wt/Http/Request>
+#include <Wt/Http/Response>
+
 
 /* LOCAL FILES */
 #include "DBSession.h"
@@ -28,7 +32,7 @@ class Bridge_Manager {
 		 * implement here though.
 		 */
 
-		std::vector<Bridge *> bridgeList;
+		std::vector<Bridge *> *bridgeList;
 		DBSession *session_;
 
 		//PRIVATE METHODS
@@ -58,7 +62,8 @@ class Bridge_Manager {
 		bool deleteBridge(std::string name);
 		bool validityCheck(std::string ipOrHost, std::string port, std::string user);
 		bool validityCheck(std::string ipOrHost, std::string port);
-		std::vector<Bridge*> getBridgeList();
+		void handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response);
+		std::vector<Bridge*> *getBridgeList();
 };
 
 #endif

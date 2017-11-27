@@ -14,7 +14,7 @@ private:
   Bridge_Manager *bm;
   Bridge btv;
   Wt::WLineEdit *btv_name;
-  std::vector<Bridge *> bl;
+  std::vector<Bridge *> *bl;
   Wt::WTable *bridge_list_;
   Wt::WText *bridge_msg_;
   Wt::WLineEdit *bridge_name_;
