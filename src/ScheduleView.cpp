@@ -47,7 +47,6 @@ ScheduleView::ScheduleView(Light_Manager *lm)
   
 
   schedule_button_ = new WPushButton("Confirm");
-  goto_bridgeview_button = new WPushButton("Hide");
   WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
   addWidget(schedule_list_t);
   
@@ -55,9 +54,8 @@ ScheduleView::ScheduleView(Light_Manager *lm)
   showScheduleList();
 
 
-  light_button_->clicked().connect(this, &ScheduleView::Updateschedule);
-  goto_bridgeview_button->clicked().connect(this, &ScheduleView::clearView);
-  
+  schedule_button_->clicked().connect(this, &ScheduleView::UpdateSchedule);
+
 }
 
 void ScheduleView::clearFields(){

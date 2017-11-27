@@ -4,7 +4,8 @@
 #include <Wt/WContainerWidget>
 #include <Wt/WTable>
 #include "Light.h"
-//#include "Light_Manager.h"
+#include "Schedule.h"
+#include "Light_Manager.h"
 #include "Bridge.h"
 class ScheduleView : public Wt::WContainerWidget
 {
@@ -12,7 +13,6 @@ public:
   ScheduleView(Light_Manager *lm);
 private:
   Light_Manager *lm;
-  //Light_Manager *lm;
   std::vector<Schedule*> sl;
   Wt::WTable *schedule_list_;
   Wt::WText *schedule_msg_;
