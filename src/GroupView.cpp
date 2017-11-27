@@ -56,7 +56,7 @@ GroupView::GroupView(Light_Manager *lm)
 
 
 
-  group_button_->clicked().connect(this, &GroupView::UpdateLight);
+  group_button_->clicked().connect(this, &GroupView::UpdateGroup);
   
 }
 
