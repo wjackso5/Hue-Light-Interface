@@ -154,11 +154,11 @@ void BridgeView::showBridgeList(){
       index = i;
       WPushButton *goto_bridge_button = new WPushButton("View");
       bridge_list_->elementAt(i+1, 5)->addWidget(goto_bridge_button);
-      goto_bridge_button->clicked().connect(this, &BridgeView::createLightView);
+      goto_bridge_button->clicked().connect(this, &BridgeView::createLightView, i);
   }
   addWidget(bridge_list_);
 }
-  void BridgeView::createLightView(){
+  void BridgeView::createLightView(int index){
 
     Wt::log("info") << std::to_string(index);
   }
