@@ -5,7 +5,6 @@
 #include <Wt/WTable>
 #include "Bridge_Manager.h"
 #include "Bridge.h"
-#include "LightView.h"
 class BridgeView : public Wt::WContainerWidget
 {
 public:
