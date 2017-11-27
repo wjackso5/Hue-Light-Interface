@@ -9,9 +9,9 @@
 class LightView : public Wt::WContainerWidget
 {
 public:
-  LightView(Bridge bridge);
+  LightView(Bridge *bridge);
 private:
-  Bridge bridge;
+  Bridge *bridge;
   //Light_Manager *lm;
   std::vector<Light*> ll;
   Wt::WTable *light_list_;

@@ -23,7 +23,7 @@
 //DEBUGGING
 
 using namespace Wt;
-LightView::LightView(Bridge bridge)
+LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
   //adds BridgeUI widgets
