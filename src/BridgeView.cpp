@@ -172,8 +172,7 @@ void BridgeView::showBridgeList(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     btv = bl.at(index);
     Wt::log("info") << btv.getName();
-    lv = new LightView(btv);
+    addWidget(new LightView());
     this->hide();
-    addWidget(lv);
     this->clear();
   }
