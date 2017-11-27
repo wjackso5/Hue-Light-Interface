@@ -184,7 +184,7 @@ void BridgeView::showBridgeList(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     *btv = *bl->at(index);
     Wt::log("info") << btv->getName();
-    addWidget(new LightView(btv));
+    addWidget(new LightView(&btv));
     this->hide();
     this->clear();
   }
