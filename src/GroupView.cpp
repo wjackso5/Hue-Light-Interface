@@ -56,8 +56,7 @@ GroupView::GroupView(Light_Manager *lm)
 
 
 
-  light_button_->clicked().connect(this, &GroupView::UpdateLight);
-  goto_bridgeview_button->clicked().connect(this, &GroupView::clearView);
+  group_button_->clicked().connect(this, &GroupView::UpdateLight);
   
 }
 
@@ -91,6 +90,4 @@ void GroupView::showGroupList(){
   }*/
   addWidget(group_list_);
 }
-  void GroupView::clearView(){
-    this->hide();
-  }
+
