@@ -1,0 +1,10 @@
+127.0.0.1 - - [2017-Nov-26 02:28:39.945751] "GET / HTTP/1.1" 200 2679
+127.0.0.1 - - [2017-Nov-26 02:28:39.981220] "GET /?wtd=eEuviyrw3jngPezX&request=style&page=1 HTTP/1.1" 200 94
+127.0.0.1 - - [2017-Nov-26 02:28:39.986000] "GET /?wtd=eEuviyrw3jngPezX&sid=-1114508376&webGL=true&scrW=1920&scrH=1080&tz=-300&htmlHistory=true&deployPath=%2F&request=script&rand=922048274 HTTP/1.1" 200 19470
+127.0.0.1 - - [2017-Nov-26 02:28:39.987592] "GET /resources/themes/default/wt.css HTTP/1.1" 200 20259
+127.0.0.1 - - [2017-Nov-26 02:28:39.988274] "GET /resources/moz-transitions.css HTTP/1.1" 200 6277
+127.0.0.1 - - [2017-Nov-26 02:28:39.988613] "GET /resources/form.css HTTP/1.1" 200 1636
+127.0.0.1 - - [2017-Nov-26 02:28:40.051223] "GET /favicon.ico HTTP/1.1" 404 85
+127.0.0.1 - - [2017-Nov-26 02:28:40.082370] "POST /?wtd=eEuviyrw3jngPezX HTTP/1.1" 200 51
+127.0.0.1 - - [2017-Nov-26 02:28:42.576698] "POST /?wtd=eEuviyrw3jngPezX HTTP/1.1" 200 701
+127.0.0.1 - - [2017-Nov-26 02:28:43.779769] "POST /?wtd=1m67YE9iSBsxM5VN HTTP/1.1" 200 224
