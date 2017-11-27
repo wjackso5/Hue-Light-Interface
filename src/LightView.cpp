@@ -28,7 +28,7 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
-  //lm = new Light_Manager(&bridge);
+  lm = new Light_Manager(&bridge);
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
