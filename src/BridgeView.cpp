@@ -8,11 +8,12 @@
 #include <Wt/WHBoxLayout>
 #include <Wt/WPushButton>
 #include <Wt/WTable>
-#include <Wt/WTableCell>
+#include <Wt/WTable>
 #include <Wt/WApplication>
 #include <Wt/Auth/AuthWidget>
 #include "BridgeView.h"
 #include "Bridge.h"
+#include "LightView.h"
 #include <string>
 #include <vector>
 
@@ -26,7 +27,6 @@ BridgeView::BridgeView()
   : WContainerWidget()
 { 
   //adds BridgeUI widgets
-  addWidget(new WText("hello there"));
   bm = new Bridge_Manager(&session_);
 
   WText *title = new WText("<h1>Manage your Bridges:</h1>");
@@ -84,7 +84,9 @@ BridgeView::BridgeView()
 
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
-  
+
+  bridge_list_ = new WTable();
+
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
@@ -145,29 +147,42 @@ void BridgeView::deleteBridge()
   BridgeView::showBridgeList();
 }
 void BridgeView::showBridgeList(){
-  bridge_list_ = new WTable();
+  bridge_list_->clear();
   bridge_list_->setHeaderCount(1);
   bridge_list_->setWidth(WLength("100%"));
-  //declare the table headers.
+  //declare the tabl-> headers.
   bridge_list_->elementAt(0, 0)->addWidget(new WText("Bridge"));
   bridge_list_->elementAt(0, 1)->addWidget(new WText("Location"));
   bridge_list_->elementAt(0, 2)->addWidget(new WText("IP address"));
   bridge_list_->elementAt(0, 3)->addWidget(new WText("Port Number"));
   bridge_list_->elementAt(0, 4)->addWidget(new WText("Username"));
   //get the bridgelist
+  bm = new Bridge_Manager(&session_);
   bl = bm->getBridgeList();
+
+  /*
+  for (std::vector<Bridge*>::iterator it = bl->begin(); it != bl->end(); ++it) {
+	Wt::log("Bridge Name") << (*it)->getName(); 
+  }
+  */
+  
+
+
   //populate the table with the info from the bridgelist.
-  for(int i=0; i<bl.size(); i++){
-      bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl.at(i)->getName()));
-      bridge_list_->elementAt(i+1, 1)->addWidget(new WText(bl.at(i)->getLocation()));
-      bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl.at(i)->getIp()));
-      bridge_list_->elementAt(i+1, 3)->addWidget(new WText(bl.at(i)->getPort()));
-      bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
+  for(int i=0; i<bl->size(); i++){
+      bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl->at(i)->getName()));
+      bridge_list_->elementAt(i+1, 1)->addWidget(new WText(bl->at(i)->getLocation()));
+      bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl->at(i)->getIp()));
+      bridge_list_->elementAt(i+1, 3)->addWidget(new WText(bl->at(i)->getPort()));
+      bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl->at(i)->getUsername()));
   }
   addWidget(bridge_list_);
+
 }
+
   void BridgeView::createLightView(){
     int index = bm->findBridge(btv_name->text().toUTF8());
-    btv = bl.at(index);
-    Wt::log("info") << btv->getName();
+    Bridge *btv = new Bridge();
+    *btv = *bl->at(index);
+    addWidget(new LightView(btv));
   }

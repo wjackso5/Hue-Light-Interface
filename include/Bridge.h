@@ -22,6 +22,7 @@ class Bridge{
 	std::string ip;
 	std::string port;
 	std::string username;
+
   	template<class Action>
 	void persist(Action& a)
 	{
