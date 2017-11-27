@@ -72,9 +72,7 @@ BridgeView::BridgeView()
   addWidget(edit_bridge_button_);
   show_bridge_list_=new WPushButton("Show Bridge Lists");
   addWidget(show_bridge_list_);
-  //DEBUGGING
-  Wt::log("info") << ":::::::::::::::::REACH91";
-  //DEBUGGING
+
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
@@ -90,7 +88,6 @@ void BridgeView::clearBridgeFields(){
   bridge_ip_->setText("");
   bridge_port_->setText("");
   bridge_username_->setText("");
-
 }
 void BridgeView::addBridge()
 {
@@ -154,7 +151,13 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 2)->addWidget(new WText(bl.at(i)->getIp()));
       bridge_list_->elementAt(i+1, 3)->addWidget(new WText(bl.at(i)->getPort()));
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl.at(i)->getUsername()));
+      Bridge btv = bl.at(i);
+      WPushButton *goto_bridge_button = new WPushButton("View");
+      bridge_list_->elementAt(i+1, 4)->addWidget(goto_bridge_button);
+      goto_bridge_button->clicked().connect(this, &BridgeView::createLightView);
   }
   addWidget(bridge_list_);
 }
-
+  void BridgeView::createLightView(){
+    Wt::log("info") <<btv->getName();
+  }

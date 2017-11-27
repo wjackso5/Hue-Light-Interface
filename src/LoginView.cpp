@@ -72,7 +72,6 @@ void LoginView::handleInternalPath(const std::string &internalPath)
 {
   if (session_.login().loggedIn()) {
     if (internalPath == "/bridge") {
-      Wt::log("info") <<"internalPath=bridge";
       mainStack_->addWidget(new BridgeView());
     }
     else if (internalPath == "/test2") {}
