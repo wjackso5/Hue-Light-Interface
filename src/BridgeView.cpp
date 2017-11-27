@@ -73,10 +73,7 @@ BridgeView::BridgeView()
   show_bridge_list_=new WPushButton("Show Bridge Lists");
   addWidget(show_bridge_list_);
 
-  create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
-  edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
-  delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
-  show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
+
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
   addWidget(bridge_list_t);
@@ -85,10 +82,14 @@ BridgeView::BridgeView()
   addWidget(btv_name);
   addWidget(new WBreak());
 
-  WPushButton *goto_lightview_button = new WPushButton("View Bridge");
+  goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
-
-  goto_bridge_button->clicked().connect(this, &BridgeView::createLightView);
+  
+  create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
+  edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
+  delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
+  show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
+  goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
 
 
 }

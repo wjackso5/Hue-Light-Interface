@@ -26,6 +26,7 @@ private:
   Wt::WPushButton *delete_bridge_button_;
   Wt::WPushButton *edit_bridge_button_;
   Wt::WPushButton *show_bridge_list_;
+  Wt::WPushButton *goto_lightview_button;
   void clearBridgeFields();
   void addBridge();
   void editBridge();
