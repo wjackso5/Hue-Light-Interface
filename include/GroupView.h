@@ -4,7 +4,7 @@
 #include <Wt/WContainerWidget>
 #include <Wt/WTable>
 #include "Light.h"
-#inclide "LightGroup.h"
+#include "LightGroup.h"
 #include "Light_Manager.h"
 #include "Bridge.h"
 class GroupView : public Wt::WContainerWidget
