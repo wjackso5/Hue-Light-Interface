@@ -183,7 +183,7 @@ void BridgeView::showBridgeList(){
   void BridgeView::createLightView(){
     int index = bm->findBridge(btv_name->text().toUTF8());
     Bridge *btv = new Bridge();
-    btv = *bl->at(index);
+    *btv = *bl->at(index);
     Wt::log("info") << btv->getName();
     //addWidget(new LightView(btv));
     //this->hide();
