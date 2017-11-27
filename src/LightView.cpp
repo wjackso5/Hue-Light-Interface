@@ -58,7 +58,7 @@ LightView::LightView(Bridge *bridge)
   light_list_ = new WTable();
 
   light_button_->clicked().connect(this, &LightView::UpdateLight);
-  goto_bridgeview_button->clicked().connect(this, this->clear());
+  goto_bridgeview_button->clicked().connect(this, this->clear);
   showLightList();
 }
 
@@ -74,7 +74,7 @@ void LightView::showLightList(){
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.
-  light_list_->elementAt(0, 0)->addWidget(new WText("ID"));
+  light_list_->elementAt(0, 0)->addWidget(new WText("Id"));
   light_list_->elementAt(0, 1)->addWidget(new WText("Name"));
   light_list_->elementAt(0, 2)->addWidget(new WText("Switch "));
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
