@@ -28,7 +28,8 @@ LightView::LightView(Bridge *bridge)
 { 
   //adds BridgeUI widgets
   //lm = new Light_Manager(&bridge);
-  WText *title = new WText("<h1>Manage your Lights for:</h1>");
+  std::string bridgename = bridge.getName();
+  WText *title = new WText("<h1>Manage your Lights for:"+bridgename+"</h1>");
   addWidget(title);
   addWidget(new WBreak());
 
@@ -58,7 +59,7 @@ LightView::LightView(Bridge *bridge)
   light_list_ = new WTable();
 
   light_button_->clicked().connect(this, &LightView::UpdateLight);
-  goto_bridgeview_button->clicked().connect(this, this->clear);
+  goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
   showLightList();
 }
 
@@ -91,6 +92,6 @@ void LightView::showLightList(){
   }*/
   addWidget(light_list_);
 }
-  void LightView::createBridgeView(){
-    
+  void LightView::clearView(){
+    this->hide();
   }

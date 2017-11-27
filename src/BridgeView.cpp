@@ -185,6 +185,4 @@ void BridgeView::showBridgeList(){
     Bridge *btv = new Bridge();
     *btv = *bl->at(index);
     addWidget(new LightView(btv));
-    //this->hide();
-    //this->clear();
   }
