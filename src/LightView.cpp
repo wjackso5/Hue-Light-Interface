@@ -37,6 +37,7 @@ LightView::LightView(Bridge *bridge)
 { 
   
   lm = new Light_Manager(bridge);
+
   log("DEBUG") << "LM made";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
@@ -114,6 +115,7 @@ void LightView::showLightList(){
   //get the lightlist
   Json::Object ob;
   Json::parse(ll,ob,false);
+  ll = lm->getLightList();
   int size=ob.size();
   for (int i=0;i<size;i++){
     Json::Object val=ob.get(std::to_string(i+1));

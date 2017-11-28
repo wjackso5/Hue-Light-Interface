@@ -51,8 +51,6 @@
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
 			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
 				Wt::log("LIGHT")<<"in if";
-				// Wt::WApplication::instance()->deferRendering();
-				//Wt::log("LIGHT")<<"DF";
 				return true;
 			}
 
