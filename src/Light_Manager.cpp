@@ -77,6 +77,7 @@
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string body="{\"name\" : \""+name+"\"}";
 			std::string url;
+			std::cout << body;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->addBodyText(body);
 			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
@@ -92,12 +93,9 @@
 		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state,int transitiontime){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::stringstream ss;
-			ss<<"{"<<"\""<<"on"<<"\" : "<<false<<" , \"transitiontime\" : "<<0<<"}"<<std::endl;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<std::to_string(transitiontime)<<"}"<<std::endl;
 			std::string body=ss.str();
-			//std::string body="{"+std::string("\"" "")+statename+std::string("\"")+": "+ state+","+std::string("\"")+"transitiontime"+std::string("\"")+":"+std::to_string(transitiontime)+"}";
 			std::string url;
-			Wt::log("BODY:") << body;
-			std::cout<<body;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
