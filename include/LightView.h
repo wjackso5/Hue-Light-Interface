@@ -7,7 +7,7 @@
 #include "Light_Manager.h"
 #include "Bridge.h"
 #include <Wt/WComboBox>
-#include <Wt/SpinBox>
+#include <Wt/WSpinBox>
 class LightView : public Wt::WContainerWidget
 {
 public:
