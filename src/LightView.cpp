@@ -27,6 +27,7 @@
 
 
 
+
 //DEBUGGING
 #include <Wt/WLogger>
 //DEBUGGING
@@ -113,7 +114,7 @@ void LightView::clearFields(){
 }
 void LightView::UpdateLight(){
   if (cb->currentText()=="name"){
-    if (lm->setLightName(std::string("1"), light_state_->text().toUTF8())){//first param should be light_id_->text()->toUTF8()
+    if (lm->setLightName(light_id_->text().toUTF8(), light_state_->text().toUTF8())){//first param should be light_id_->text()->toUTF8()
       light_msg_->setText("name successfully updated");
     }
     else {
@@ -121,13 +122,29 @@ void LightView::UpdateLight(){
     }
   }
   else{
+  	//if setting "on" state
+  	if(cb->currentText()=="on"){
+  		bool b;
+  		if(light_state_->text()=="true"){
+  			b=true;
+  		}
+  		else{
+  			b=false;
+  		}
+  		if(lm->setLightState(light_id_->text().toUTF8(),cb->currentText().toUTF8(),b,light_tt_->value())){
+  			light_msg_->setText("light successfully updated");
+  		}
+  		else{
+  			light_msg_->setText("light could not be updated");
+  		}
+  	}else{
     //first param should be light_id_->text()->toUTF8()
-    if(lm->setLightState(std::string("1"), cb->currentText().toUTF8(), light_state_->text().toUTF8(), light_tt_->value())){
+    if(lm->setLightState(light_id_->text().toUTF8(), cb->currentText().toUTF8(), std::stoi(light_state_->text().toUTF8()), light_tt_->value())){
       light_msg_->setText("light successfully updated");
     }else{
       light_msg_->setText("light could not be updated");
     }
-  }
+  }}
 }
 void LightView::showLightList(){
   light_list_->setHeaderCount(1);
