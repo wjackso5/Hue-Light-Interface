@@ -29,7 +29,7 @@ LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
   Wt::log("LIGHT")<<"about to make LM";
-  lm = new Light_Manager(&bridge);
+  lm = new Light_Manager(*bridge);
   Wt::log("LIGHT")<<"about to make LM";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
