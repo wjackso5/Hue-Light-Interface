@@ -40,7 +40,7 @@ LightView::LightView(Bridge *bridge)
 
   log("DEBUG") << "LM made";
   std::string bridgename = bridge->getName();
-  log("DEBUG")<<"BRIDGENAMEIS"
+  log("DEBUG")<<"BRIDGENAMEIS";
   log("DEBUG")<<bridgename;
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
