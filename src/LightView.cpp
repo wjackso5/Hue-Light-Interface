@@ -55,7 +55,6 @@ LightView::LightView(Bridge *bridge)
                          
   cb=new WComboBox();
   addWidget(cb);
-  cb->addItem("ID");
   cb->addItem("On/Off");
   cb->addItem("Brightness");
   cb->addItem("Hue");
@@ -67,6 +66,15 @@ LightView::LightView(Bridge *bridge)
   light_state_->setFocus();  
   addWidget(light_state_);
   addWidget(new WBreak());
+  addWidget(new WText("Transition Time:"));
+  light_tt_ = new WLineEdit();                 // allow text input
+  light_tt_->setFocus();
+  light_tt_->setMinimum(0);  
+  light_tt_->setValue(0);
+  light_tt_->setSingleStep(1);
+  addWidget(light_tt_);
+  addWidget(new WBreak());
+
 
   light_button_ = new WPushButton("Confirm");
   addWidget(light_button_);
@@ -99,9 +107,19 @@ LightView::LightView(Bridge *bridge)
 void LightView::clearFields(){
   light_id_->setText("");
   light_state_->setText("");
+  light_tt_->setValue(0);
 }
 void LightView::UpdateLight(){
   Wt::log("DEBUG")<<"Update the "+cb->currentText();
+  if (cb->currentText()=="Name"){
+    lm->setLightName("1", light_state_->text()->toUTF8());
+    //first param should be light_id_->text()->toUTF8()
+  }
+  else{
+    lm->setLightState("1", std::to_lower(cb->currentText()), light_state_->text()->toUTF8,std::stoi(light_tt_));
+    //first param should be light_id_->text()->toUTF8()
+  }
+
 }
 void LightView::showLightList(){
   light_list_->setHeaderCount(1);

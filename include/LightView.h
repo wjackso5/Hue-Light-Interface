@@ -7,6 +7,7 @@
 #include "Light_Manager.h"
 #include "Bridge.h"
 #include <Wt/WComboBox>
+#include <Wt/SpinBox>
 class LightView : public Wt::WContainerWidget
 {
 public:
@@ -20,6 +21,7 @@ private:
   Wt::WText *light_msg_;
   Wt::WLineEdit *light_id_;
   Wt::WLineEdit *light_state_;
+  Wt::WSpinBox *light_tt_;
   Wt::WPushButton *light_button_;
   Wt::WPushButton *show_button_;
   Wt::WPushButton *goto_bridgeview_button;
