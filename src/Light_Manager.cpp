@@ -24,6 +24,7 @@
 		Light_Manager::Light_Manager(Bridge* b)
 		{
 			bridge=b;
+			getLights();
 		}
 
 		Light_Manager::~Light_Manager()
