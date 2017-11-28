@@ -13,7 +13,7 @@ public:
 private:
   Bridge *bridge;
   Light_Manager *lm;
-  std::vector<Light*> ll;
+  std::vector<Light*> *ll;
   Wt::WTable *light_list_;
   Wt::WText *light_msg_;
   Wt::WLineEdit *light_id_;
