@@ -22,7 +22,6 @@
 #include <Wt/Json/Value>
 #include <Wt/Json/Object>
 #include <Wt/Json/Parser>
-#include <Wt/WAny>
 #include <Wt/WComboBox>
 #include <Wt/WStringListModel>
 
