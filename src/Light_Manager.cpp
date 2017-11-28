@@ -131,7 +131,7 @@
 					lightList->back()->setName(light_name);
 					lightList->back()->setSwitch(isOn);
 					lightList->back()->setBrightness(light_brightness);
-					lightList->back()->setHue(light_hue);
+					lightList->back()->setColor(light_hue);
 					/*on,bri,*/
 				}
 			}
