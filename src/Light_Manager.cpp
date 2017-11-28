@@ -9,6 +9,7 @@
 /* FROM STL */
 #include <string>
 #include <vector>
+#include <sstream>
 
 #include <Wt/WApplication>
 #include <Wt/Http/Client>
@@ -30,7 +31,7 @@
 			bridge=b;
 			// lightList = new std::vector<Light *>();
 			getLights();
-			Wt::log("LIGHT")<<"In Constructor";
+			getGroups();
 		}
 
 		Light_Manager::~Light_Manager()
@@ -45,10 +46,12 @@
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			Wt::log("LIGHT")<<"made http client";
 			std::string url;
-			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			Wt::log("LIGHT")<<"boost::bind";
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
+
 			//if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
+
 			if(httpC->get(url)){
 				Wt::log("LIGHT")<<"in if";
 				return true;
@@ -63,10 +66,9 @@
 		bool Light_Manager::getGroups(){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string url;
-			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
+			httpC->done().connect(boost::bind(&Light_Manager::handleGroupResponse,this,_1,_2));
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups";
 			if(httpC->get(url)){
-				Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			free(httpC);
@@ -77,9 +79,10 @@
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string body="{\"name\" : \""+name+"\"}";
 			std::string url;
+			std::cout << body;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->addBodyText(body);
-			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id;
 			if(httpC->put(url,*message)){
 				Wt::WApplication::instance()->deferRendering();
@@ -91,17 +94,23 @@
 
 		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state,int transitiontime){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
-			std::string body="{\"+statename+\" : \""+ state+"\"+transitiontime\":"+std::to_string(transitiontime)	+"}";
+			std::stringstream ss;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			std::string body=ss.str();
 			std::string url;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
-			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id+"/state";
-			if(httpC->put(url,*message)){
+			Wt::log("SET LIGHT::: url") << url;
+			/*if(httpC->put(url,*message)){
+=======
+			if(httpC->put(url,*message)){	q
+>>>>>>> origin/newnewnewbran
 				Wt::WApplication::instance()->deferRendering();
 				return true;
-			}
+			}*/
 			return false;
 		}
 
@@ -111,7 +120,7 @@
 
 		bool setGroup(){}
 
-		void Light_Manager::handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response)
+		void Light_Manager::handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
 			// Wt::WApplication::instance()->resumeRendering();
 			Wt::log("HANDLE")<<"HANDLING LIGHT LISTS";
@@ -150,6 +159,10 @@
 
    		void Light_Manager::handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
+			Wt::log("HANDLE")<<"HANDLING LIGHT LISTS";
+			if (!err && response.status() == 200) {
+				const std::string &input = response.body();
+				groupList=input;	
 			// Wt::log("HANDLE")<<"HANDLING GROUOP LISTS";
 			// if (!err && response.status() == 200) {
 			// 	const std::string &input = response.body();
@@ -167,6 +180,7 @@
 			// 	    int light_hue=states.get("hue");
 			// 	}
 			// }
+			}
 		}
 
    		Bridge* Light_Manager::getBridge()
@@ -181,6 +195,10 @@
    		*/
    		std::string Light_Manager::getLightList(){
    			return lightList;
+   		}
+
+   		std::string Light_Manager::getGroupList(){
+   			return groupList;
    		}
 
 

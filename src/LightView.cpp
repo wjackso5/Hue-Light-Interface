@@ -40,6 +40,8 @@ LightView::LightView(Bridge *bridge)
 
   log("DEBUG") << "LM made";
   std::string bridgename = bridge->getName();
+  log("DEBUG")<<"BRIDGENAMEIS";
+  log("DEBUG")<<bridgename;
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
 
@@ -53,6 +55,7 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_id_);
   addWidget(new WBreak());
                          
+
   cb=new WComboBox();
   addWidget(cb);
   cb->addItem("on");
@@ -61,7 +64,7 @@ LightView::LightView(Bridge *bridge)
   cb->addItem("name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
-  
+
   light_state_ = new WLineEdit();                 // allow text input
   light_state_->setFocus();  
   addWidget(light_state_);
@@ -74,25 +77,24 @@ LightView::LightView(Bridge *bridge)
   light_tt_->setSingleStep(1);
   addWidget(light_tt_);
   addWidget(new WBreak());
-
+  log("DEBUG") << "cb made";
 
   light_button_ = new WPushButton("Confirm");
   addWidget(light_button_);
-  
+  log("DEBUG") << "light_button made";
   show_button_ = new WPushButton("Show list");
-  
+  addWidget(show_button_);
+  log("DEBUG")<<"showbutton made";
 	goto_bridgeview_button = new WPushButton("Hide");
   addWidget(goto_bridgeview_button);
-
+  log("DEBUG")<<"gotobridgeview button made";
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   
   addWidget(light_list_t);
-
-  light_list_ = new WTable();
+  log("DEBUG") << "table soon to be made";
+  light_list_ = new WTable(); 
+  log("DEBUG") << "table made";
   
-  addWidget(light_list_);
-  log("DEBUG") << "ll displayed";
-  addWidget(show_button_);
   
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
@@ -156,6 +158,9 @@ void LightView::showLightList(){
     light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(light_brightness)));
   
   }
+  log("DEBUG") << "about to add tablewidget";
+  addWidget(light_list_);
+  log("DEBUG") << "added tablewidget";
 }
 
 

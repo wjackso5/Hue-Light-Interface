@@ -19,6 +19,7 @@
 #include "LightGroup.h"
 #include "Bridge.h"
 
+
 class Light_Manager {
 	private :
 		//CLASS VARIABLES
@@ -31,6 +32,7 @@ class Light_Manager {
 		 */
 		Bridge* bridge;
 		std::string lightList;
+		std::string groupList;
 		std::vector<LightGroup *> *lightgrouplist;
 
 		//PRIVATE METHODS
@@ -47,11 +49,13 @@ class Light_Manager {
 		bool getGroups();
 		bool setLightName(std::string id,std::string name);
 		bool setLightState(std::string id,std::string statename,std::string state,int transitiontime);
-		void handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response);
+		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		void handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		bool setGroup();
 		Bridge* getBridge();
 		std::string	getLightList();
+		std::string getGroupList();
+
 };
 
 #endif
