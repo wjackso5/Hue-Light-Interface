@@ -163,6 +163,7 @@
 			return false;
 		}
 		bool Light_Manager::deleteGroup(std::string id){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
@@ -184,32 +185,6 @@
 			if (!err && response.status() == 200) {
 				const std::string &input = response.body();
 				lightList=input;	
-				//Wt::Json::Value *jval = new Wt::Json::Value();
-				//Wt::Json::Value &jvalref = jval; 
-				// Wt::Json::Object ob;
-				// Wt::Json::parse(input,ob,false);
-				// int size=ob.size();
-				// for (int i=0;i<size;i++){
-
-				// 	Wt::Json::Object val=ob.get(std::to_string(i+1));
-				// 	std::string light_name=val.get("name").toString().orIfNull("name:(((");
-				// 	Wt::Json::Object states=val.get("state");	
-				// 	bool isOn=states.get("on").toBool().orIfNull(false);
-				// 	int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
-				// 	int light_hue=states.get("hue").toNumber().orIfNull(-222222);
-// <<<<<<< HEAD
-// 					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
-// 					Wt::log("LIGHTINFO") << l->getName();
-// 					lightList->push_back(new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username));
-
-// =======
-					// lightList.push_back(new Light());
-  			// 		lightList.back()->setId(i+1);
-					// lightList.back()->setName(light_name);
-					// lightList.back()->setSwitch(isOn);
-					// lightList.back()->setBrightness(light_brightness);
-					// lightList.back()->setColor(light_hue);
-
 				}
 		}
    		
@@ -220,23 +195,6 @@
 			if (!err && response.status() == 200) {
 				const std::string &input = response.body();
 				groupList=input;	
-			// Wt::log("HANDLE")<<"HANDLING GROUOP LISTS";
-			// if (!err && response.status() == 200) {
-			// 	const std::string &input = response.body();
-			// 	lightList=input;
-			// 	Wt::Json::Object ob;
-  	// 			Wt::Json::parse(input,ob,false);
-			// 	int size=ob.size();
-			// 	for (int i=0;i<size;i++){
-			// 		Wt::Json::Value val=ob.get(std::to_string(i+1));
-			// 	    std::string group_name=val.get("name");
-			// 	    Wt::Json::Object actions=val.get("action");
-			// 	    Wt::Json::Array& lights=val.get("lights");
-			// 	    boolean isOn=states.get("on");
-			// 	    int light_brightness=states.get("bri");
-			// 	    int light_hue=states.get("hue");
-			// 	}
-			// }
 			}
 		}
 
