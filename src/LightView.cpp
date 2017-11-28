@@ -60,7 +60,7 @@ LightView::LightView(Bridge *bridge)
   LightView::showLightList();
   Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft showLightList";
   addWidget(goto_bridgeview_button);
-  
+  addWidget(light_list_);
 
   Wt::log("DEBUG")<<"!!!!!!60!!!!!! b4 add group and schedule views";
 
@@ -82,7 +82,6 @@ void LightView::UpdateLight(){
   //viv does work in here :D
 }
 void LightView::showLightList(){
-  light_list_->clear();
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.
@@ -101,7 +100,7 @@ void LightView::showLightList(){
       light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
       light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
   }*/
-  //addWidget(light_list_);
+  
 }
   void LightView::clearView(){
     this->clear();
