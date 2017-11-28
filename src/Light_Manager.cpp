@@ -92,11 +92,11 @@
 		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state,int transitiontime){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::stringstream ss;
-			ss<<"{"<<"\""<<"on"<<"\" : "<<false<<" , \"transitiontime\" : \""<<0<<"\"}"<<std::endl;
+			ss<<"{"<<"\""<<"on"<<"\" : "<<false<<" , \"transitiontime\" : "<<0<<"}"<<std::endl;
 			std::string body=ss.str();
-			// std::string body="{"+std::string("\ "")+statename+std::string("\"")+": "+ state+","+std::string("\"")+"transitiontime"+std::string("\"")+":"+std::to_string(transitiontime)+"}";
+			//std::string body="{"+std::string("\"" "")+statename+std::string("\"")+": "+ state+","+std::string("\"")+"transitiontime"+std::string("\"")+":"+std::to_string(transitiontime)+"}";
 			std::string url;
-			Wt::log("SET LIGHT::: body") << body;
+			std::cout << url;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
