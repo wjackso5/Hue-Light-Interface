@@ -29,7 +29,7 @@ LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
   Wt::log("LIGHT")<<"about to make LM";
-  lm = new Light_Manager(bridge);
+  lm = new Light_Manager(&bridge);
   Wt::log("LIGHT")<<"about to make LM";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
@@ -89,8 +89,8 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  Wt::log("LIGHT") << bridge->getName();
-  lm = new Light_Manager(bridge);
+  Wt::log("LIGHT") << &bridge->getName();
+  lm = new Light_Manager(&bridge);
   Wt::log("LIGHT") << "LM created";
   ll = lm->getLightList();
   //populate the table with the info from the lightlist.
