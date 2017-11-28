@@ -6,6 +6,7 @@
 #include "Light.h"
 #include "Light_Manager.h"
 #include "Bridge.h"
+#include <Wt/WComboBox>
 class LightView : public Wt::WContainerWidget
 {
 public:
@@ -14,7 +15,7 @@ private:
   std::string ll;
   Bridge bridge;
   Light_Manager *lm;
-  // std::vector<Light*> *ll;
+  Wt::WComboBox *cb;
   Wt::WTable *light_list_;
   Wt::WText *light_msg_;
   Wt::WLineEdit *light_id_;

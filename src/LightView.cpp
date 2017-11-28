@@ -36,12 +36,8 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
-
-  Wt::log("LIGHT")<<"about to make LM";
   lm = new Light_Manager(bridge);
-  Wt::log("INITIALIZINGLIGHTLIST")<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
 
-  Wt::log("DEBUG")<<"!!!!!!33!!!!!!";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
@@ -56,46 +52,37 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_id_);
   addWidget(new WBreak());
                          
-  WComboBox *cb=new WComboBox();
+  cb=new WComboBox();
   addWidget(cb);
-  cb->setMargin(10,Side::Right);
-  model = std::make_shared<WStringListModel>();
-  model->addString("Name");
-  model->setData(0, 0, std::string("BE"), Wt::ItemDataRole::User);
-  model->addString("");
-  model->setData(1, 0, std::string("NL"), Wt::ItemDataRole::User);
-  model->addString("United Kingdom");
-  model->setData(2, 0, std::string("UK"), Wt::ItemDataRole::User);
-  model->addString("United States");
-  model->setData(3, 0, std::string("US"), Wt::ItemDataRole::User);
-  model->setFlags(3, Wt::ItemFlag::Selectable);
-
-
-                                   // allow text input
-  addWidget(light_state_); 
+  cb->addItem("ID");
+  cb->addItem("On/Off");
+  cb->addItem("Brightness");
+  cb->addItem("Hue");
+  cb->addItem("Name")
+  cb->setCurrentIndex(0);     // Show 'ID' initially.
+  cb->setMargin(10, Wt::Side::Right);
+  addWidget(new WText(cb.currentText()));
+  light_state_ = new WLineEdit();                 // allow text input
+  light_state_->setFocus();  
+  addWidget(light_state_);
   addWidget(new WBreak());
+  light_button_ = new WPushButton("Confirm");
   
   show_button_ = new WPushButton("Show list");
-
-  light_button_ = new WPushButton("Confirm");
+  
 	goto_bridgeview_button = new WPushButton("Hide");
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
 
   light_list_ = new WTable();
-  Wt::log("DEBUG")<<"!!!!!!58!!!!!! B4 showLightList";
-  // LightView::showLightList();
-  Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft showLightList";
+
   addWidget(goto_bridgeview_button);
   addWidget(light_list_);
   addWidget(show_button_);
 
-  Wt::log("DEBUG")<<"!!!!!!60!!!!!! b4 add group and schedule views";
-
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
 
-  Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft add group and sched views";
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
@@ -108,7 +95,7 @@ void LightView::clearFields(){
   light_state_->setText("");
 }
 void LightView::UpdateLight(){
-  
+  Wt::log("DEBUG")<<"Update the "+cb.currentText();
 }
 void LightView::showLightList(){
   light_list_->setHeaderCount(1);
@@ -120,10 +107,6 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  Wt::log("DEBUG")<<"about to get the lightlist from lm";
- 
-
-  log("FRONTEND") << ll;
   Json::Object ob;
   Json::parse(ll,ob,false);
   int size=ob.size();
