@@ -128,8 +128,17 @@
 		// bool createGroup(std::string ids,std::string name,){
 
 		// }
-
-		bool setGroup(){}
+		bool Light_Manager::createGroup(std::string ids,std::string name){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
+			ss<<"{"<<"\" lights \" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			std::string body=ss.str();
+			std::string url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups";
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->setHeader("Content-type","application/Json");
+			message->addBodyText(body);
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+		}
+		bool Light_Manager::setGroup(){}
 
 		void Light_Manager::handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
