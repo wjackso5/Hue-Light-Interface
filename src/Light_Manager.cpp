@@ -15,6 +15,8 @@
 #include <Wt/Http/Message>
 #include <Wt/Json/Value>
 #include <Wt/Json/Object>
+#include <Wt/Json/Parser>
+
 /* LOCAL FILES */
 #include "Light_Manager.h"
 
@@ -24,6 +26,7 @@
 		{
 			bridge=b;
 		}
+
 		Light_Manager::~Light_Manager()
 		{
 			free(bridge);
@@ -31,15 +34,21 @@
 
 		//PUBLIC METHODS
 		bool Light_Manager::getLights(){
+
+			Wt::log("LIGHT")<<"In get Lights";
 			Wt::Http::Client *httpC = new Wt::Http::Client;
+			Wt::log("LIGHT")<<"made http client";
 			std::string url;
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			Wt::log("LIGHT")<<"boost::bind";
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
-			if(httpC->get(url)){
-				Wt::WApplication::instance()->deferRendering();
+			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
+				Wt::log("LIGHT")<<"in if";
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
-			free(httpC);
+			Wt::log("LIGHT")<<"after if";
+ 
 			return false;
 		}
 
@@ -72,9 +81,9 @@
 			return false;
 		}
 
-		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state){
+		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state,int transitiontime){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
-			std::string body="{\"+statename+\" : "+ state+"}";
+			std::string body="{\"+statename+\" : \""+ state+"\"+transitiontime\":"+transitiontime+"}";
 			std::string url;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
@@ -113,41 +122,55 @@
 					bool isOn=states.get("on").toBool().orIfNull(false);
 					int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
 					int light_hue=states.get("hue").toNumber().orIfNull(-222222);
-					Light *l=new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
-					lightList.push_back(l);
+					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
+					Wt::log("LIGHTINFO") << l->getName();
+					lightList->push_back(new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username));
+
 					/*on,bri,*/
 				}
 			}
    		}
 
-  //  		void Light_Manager::handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response)
-		// {
-		// 	Wt::log("HANDLE")<<"HANDLING GROUOP LISTS";
-		// 	if (!err && response.status() == 200) {
-		// 		const std::string &input = response.body();
-		// 		Wt::log("LIGHTINFO") << input;
-		// 		Wt::Json::Object ob;
-		// 		int size=ob.size();
-		// 		for (int i=0;i<size;i++){
-		// 			Wt::Json::Value val=ob.get(std::to_string(i+1));
-		// 			std::string light_name=val.get("name");
-		// 			Wt::Json::Value states=val.get("state");
-		// 			boolean isOn=states.get("on");
-		// 			int light_brightness=states.get("bri");
-		// 			int light_hue=states.get("hue");
-		// 			Light *l=new Light(i+1,light_name,isOn,light_brightness,light_hue);
-		// 			lightlist.push(l);
-		// 			/*on,bri,*/
-		// 		}
+   		void Light_Manager::handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response)
+		{
+			Wt::log("HANDLE")<<"HANDLING GROUOP LISTS";
+			if (!err && response.status() == 200) {
+				const std::string &input = response.body();
+				Wt::log("LIGHTGROUPINFO") << input;
+				Wt::Json::Object ob;
+				Wt::Json::parse(input,ob,false);
+				int size=ob.size();
+				for (int i=0;i<size;i++){
+					Wt::Json::Value val=ob.get(std::to_string(i+1));
+					std::string group_name=val.get("name");
+					Wt::Json::Object actions=val.get("action");
+					Wt::Json::Array& lights=val.get("lights");
+					boolean isOn=states.get("on");
+					int light_brightness=states.get("bri");
+					int light_hue=states.get("hue");
+					Light *l=new Light(i+1,light_name,isOn,light_brightness,light_hue);
+					lightlist.push(l);
+					/*on,bri,*/
+				}
 
 				
-		// 	}
-  //  		}
+			}
+   		}
 
    		Bridge* Light_Manager::getBridge()
    		{
    			return bridge;
    		}
+
+   		/**
+   		*gets the lightlist
+   		*@param none
+   		*@return lightList
+   		*/
+   		std::vector<Light*>* Light_Manager::getLightList(){
+   			return lightList;
+   		}
+
 
 
 

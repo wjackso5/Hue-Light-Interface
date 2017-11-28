@@ -12,7 +12,7 @@
 class LightGroup{
 	private:
 	//vars
-	std::vector<Light> list;
+	std::vector<int> lightids;
 	std::string name;
 	std::string bridgeName;
 	bool switch_;

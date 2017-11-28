@@ -77,6 +77,9 @@ BridgeView::BridgeView()
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
   addWidget(bridge_list_t);
+
+  bridge_list_ = new WTable();
+
   addWidget(new WText("Bridge to view: (by name)"));
   btv_name = new WLineEdit();
   addWidget(btv_name);
@@ -85,14 +88,11 @@ BridgeView::BridgeView()
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
 
-  bridge_list_ = new WTable();
-
   create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
   edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
   goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
-
 
 }
 
@@ -168,7 +168,7 @@ void BridgeView::showBridgeList(){
   
 
 
-  //populate the tabl-> with the info from the bridgelist.
+  //populate the table with the info from the bridgelist.
   for(int i=0; i<bl->size(); i++){
       bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl->at(i)->getName()));
       bridge_list_->elementAt(i+1, 1)->addWidget(new WText(bl->at(i)->getLocation()));
@@ -185,6 +185,4 @@ void BridgeView::showBridgeList(){
     Bridge *btv = new Bridge();
     *btv = *bl->at(index);
     addWidget(new LightView(btv));
-    //this->hide();
-    //this->clear();
   }

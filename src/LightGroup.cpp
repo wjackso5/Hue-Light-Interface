@@ -177,8 +177,8 @@ void LightGroup::setState(bool s, int b, int c){
 *@param transitionTime
 *@return none
 */
-void LightGroup::addLight(Light light){
-	list.push_back(light);
+void LightGroup::addLight(int i){
+	lightids.push_back(i);
 }
 /**
 *removes a light from the light group.
