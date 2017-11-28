@@ -65,7 +65,7 @@
 			std::string url;
 			httpC->done().connect(boost::bind(&Light_Manager::handleGroupResponse,this,_1,_2));
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups";
-			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/groups")){
+			if(httpC->get(url)){
 				return true;
 			}
 			free(httpC);
