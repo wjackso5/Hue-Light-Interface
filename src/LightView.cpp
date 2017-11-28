@@ -90,13 +90,13 @@ void LightView::showLightList(){
   lm->getLights();
   ll = lm->getLightList();
   //populate the table with the info from the lightlist.
-
+  Wt::log("LIGHTINFO") << ll->size();
   for(int i=0; i<ll->size(); i++){
-      light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(ll->at(i)->getId())));
+      /*light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(ll->at(i)->getId())));
       light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getName()));
       light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(ll->at(i)->getSwitch())));
       light_list_->elementAt(i+1, 3)->addWidget(new WText(std::to_string(ll->at(i)->getColor())));
-      light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(ll->at(i)->getBrightness())));
+      light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(ll->at(i)->getBrightness())));*/
   }
   addWidget(light_list_);
 }
