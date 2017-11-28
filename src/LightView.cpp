@@ -22,7 +22,9 @@
 #include <Wt/Json/Value>
 #include <Wt/Json/Object>
 #include <Wt/Json/Parser>
-#include <Wt/WSelectionBox.h>
+#include <Wt/WAny>
+#include <Wt/WComboBox>
+#include <Wt/WStringListModel>
 
 
 
@@ -54,8 +56,22 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_id_);
   addWidget(new WBreak());
                          
-  addWidget(new WText("Light State:"));
-  light_state_ = new WLineEdit();                 // allow text input
+  WComboBox *cb=new WComboBox();
+  addWidget(cb);
+  cb->setMargin(10,Side::Right);
+  model = std::make_shared<WStringListModel>();
+  model->addString("Name");
+  model->setData(0, 0, std::string("BE"), Wt::ItemDataRole::User);
+  model->addString("");
+  model->setData(1, 0, std::string("NL"), Wt::ItemDataRole::User);
+  model->addString("United Kingdom");
+  model->setData(2, 0, std::string("UK"), Wt::ItemDataRole::User);
+  model->addString("United States");
+  model->setData(3, 0, std::string("US"), Wt::ItemDataRole::User);
+  model->setFlags(3, Wt::ItemFlag::Selectable);
+
+
+                                   // allow text input
   addWidget(light_state_); 
   addWidget(new WBreak());
   
