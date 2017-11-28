@@ -37,7 +37,7 @@ LightView::LightView(Bridge *bridge)
 { 
   
   lm = new Light_Manager(bridge);
-  Log("DEBUG") << "LM made";
+  log("DEBUG") << "LM made";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
@@ -82,7 +82,7 @@ LightView::LightView(Bridge *bridge)
   light_list_ = new WTable();
   
   addWidget(light_list_);
-  Log("DEBUG") << "ll displayed";
+  log("DEBUG") << "ll displayed";
   addWidget(show_button_);
   
   addWidget(new GroupView(lm));
