@@ -162,6 +162,19 @@
 			}
 			return false;
 		}
+		bool Light_Manager::deleteGroup(std::string id){
+			std::string url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->setHeader("Content-type","application/Json");
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			if(httpC->deleteRequest(url,*message)){
+				Wt::log("DELETEGROUP")<<"WORKED";
+				// Wt::WApplication::instance()->deferRendering();
+				return true;
+			}
+			return false;
+
+		}
 		bool Light_Manager::setGroup(){}
 
 		void Light_Manager::handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response)
