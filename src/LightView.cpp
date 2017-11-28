@@ -87,14 +87,14 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  ll = lm->getlightList();
+  ll = lm->getLightList();
   //populate the table with the info from the lightlist.
   for(int i=0; i<ll.size(); i++){
       light_list_->elementAt(i+1, 0)->addWidget(new WText(ll->at(i)->getName()));
-      light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getLocation()));
-      light_list_->elementAt(i+1, 2)->addWidget(new WText(ll->at(i)->getIp()));
-      light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
-      light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
+      //light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getLocation()));
+      //light_list_->elementAt(i+1, 2)->addWidget(new WText(ll->at(i)->getIp()));
+      //light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
+      //light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
   }
   addWidget(light_list_);
 }

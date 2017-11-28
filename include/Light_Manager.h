@@ -49,6 +49,7 @@ class Light_Manager {
 		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		bool setGroup();
 		Bridge* getBridge();
+		std::vector<Light*> getLightList();
 };
 
 #endif
