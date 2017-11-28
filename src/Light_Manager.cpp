@@ -210,6 +210,7 @@
    		*@return lightList
    		*/
    		std::string Light_Manager::getLightList(){
+   			Wt::log("SHOWLIST=LM")<<lightList;
    			return lightList;
    		}
 

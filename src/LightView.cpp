@@ -159,7 +159,7 @@ void LightView::showLightList(){
   ll = lm->getLightList();
   Json::Object ob;
   Json::parse(ll,ob,false);
-  
+  log("SHOWINGLIGHTLIST")<<"BEFORE OB";
   int size=ob.size();
   for (int i=0;i<size;i++){
     Json::Object val=ob.get(std::to_string(i+1));
@@ -168,6 +168,7 @@ void LightView::showLightList(){
     bool isOn=states.get("on").toBool().orIfNull(false);
     int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
     int light_hue=states.get("hue").toNumber().orIfNull(-222222);
+    log("SHOWINGLIGHTLIST")<<"BEFOREPOPULATING";
     light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));
     light_list_->elementAt(i+1, 1)->addWidget(new WText(light_name));
     light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(isOn)));
