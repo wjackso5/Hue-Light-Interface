@@ -48,7 +48,8 @@
 			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
 			Wt::log("LIGHT")<<"boost::bind";
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
-			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
+			//if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
+			if(httpC->get(url)){
 				Wt::log("LIGHT")<<"in if";
 				return true;
 			}
