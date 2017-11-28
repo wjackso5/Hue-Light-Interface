@@ -128,8 +128,12 @@
 					int light_hue=states.get("hue").toNumber().orIfNull(-222222);
 					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
 					Wt::log("LIGHTINFO") << l->getName()+ "Pushed to back";
-					lightList->push_back(l);
-					Wt::log("LIGHTINFO") << lightList->back()->getName()+ "Pushed to back";
+					lightList->push_back(new Light());
+  					lightList->back()->setId(i+1);
+					lightList->back()->setName(light_name);
+					lightList->back()->setSwitch(isOn);
+					lightList->back()->setBrightness(light_brightness);
+					lightList->back()->setHue(light_hue);
 					/*on,bri,*/
 				}
 			}
