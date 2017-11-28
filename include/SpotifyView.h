@@ -7,7 +7,9 @@
 class SpotifyView : public Wt::WContainerWidget
 {
 public:
-  SpotifyView(Wt::WContainerWidget *parent = 0);
+  SpotifyView();
+private:
+  void handleHttpResponse();
 };
 
 #endif//SpotifyView_H_
