@@ -123,6 +123,7 @@
 					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
 					Wt::log("LIGHTINFO") << l->getName();
 					lightList->push_back(new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username));
+					Wt::log("LIGHTINFO") << "PUSHED TO BACK OF LIGHTLIST";
 					/*on,bri,*/
 				}
 			}
