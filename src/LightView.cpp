@@ -87,8 +87,9 @@ LightView::LightView(Bridge *bridge)
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   
   addWidget(light_list_t);
-
-  light_list_ = new WTable();
+  log("DEBUG") << "table soon to be made";
+  light_list_ = new WTable(); 
+  log("DEBUG") << "table made";
   addWidget(show_button_);
   
   addWidget(new GroupView(lm));
@@ -153,7 +154,9 @@ void LightView::showLightList(){
     light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(light_brightness)));
   
   }
+  log("DEBUG") << "about to add tablewidget";
   addWidget(light_list_);
+  log("DEBUG") << "added tablewidget";
 }
 
 
