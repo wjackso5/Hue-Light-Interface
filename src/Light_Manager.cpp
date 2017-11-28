@@ -30,7 +30,6 @@
 			bridge=b;
 			// lightList = new std::vector<Light *>();
 			getLights();
-			Wt::log("POPULATING")<<lightList;
 			Wt::log("LIGHT")<<"In Constructor";
 		}
 
