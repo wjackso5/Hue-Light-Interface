@@ -95,9 +95,8 @@ void LightView::showLightList(){
       light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
       light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
   }*/
->>>>>>> parent of e506f4b... fixing UI so things show up in the right order
   addWidget(light_list_);
 }
   void LightView::clearView(){
-    this->hide();
+    this->clear();
   }
