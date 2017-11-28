@@ -111,7 +111,7 @@ void LightView::clearFields(){
 }
 void LightView::UpdateLight(){
   if (cb->currentText()=="name"){
-    if (lm->setLightName("1", light_state_->text())){//first param should be light_id_->text()->toUTF8()
+    if (lm->setLightName(std::string("1"), light_state_->text().toUTF8())){//first param should be light_id_->text()->toUTF8()
       light_msg_->setText("name successfully updated");
     }
     else {
@@ -120,7 +120,7 @@ void LightView::UpdateLight(){
   }
   else{
     //first param should be light_id_->text()->toUTF8()
-    if(lm->setLightState("1", cb->currentText(), light_state_->text(),light_tt_)){
+    if(lm->setLightState(std::string("1"), cb->currentText().toUTF8(), light_state_->text().toUTF8(), light_tt_->value())){
       light_msg_->setText("light successfully updated");
     }else{
       light_msg_->setText("light could not be updated");
