@@ -34,6 +34,7 @@ SpotifyView::SpotifyView():WContainerWidget(){
   //User logs in
   WApplication::instance()->redirect("https://accounts.spotify.com/en/authorize?%20&response_type=code&client_id=9bc9cc02a0824d7eaed59d5e652c3bab&scope=user-read-private%20user-read-email&redirect_uri=http://0.0.0.0:10026/&state=state");
 
+  WApplication::instance()->refresh();
   client->get("/callback");
 
 /*
