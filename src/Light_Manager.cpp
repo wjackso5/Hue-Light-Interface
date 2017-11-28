@@ -18,10 +18,13 @@
 #include <Wt/Json/Parser>
 /* LOCAL FILES */
 #include "Light_Manager.h"
+#include "Light.h"
+#include "LightGroup.h"
+#include "Schedule.h"
 
 
 
-		Light_Manager::Light_Manager(Bridge* b)
+		Light_Manager::Light_Manager(Bridge *b)
 		{
 			bridge=b;
 			lightList = new std::vector<Light *>();
@@ -44,7 +47,7 @@
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
 			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
 				Wt::log("LIGHT")<<"in if";
-				Wt::WApplication::instance()->deferRendering();
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			Wt::log("LIGHT")<<"after if";
