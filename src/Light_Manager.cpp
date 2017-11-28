@@ -15,6 +15,7 @@
 #include <Wt/Http/Message>
 #include <Wt/Json/Value>
 #include <Wt/Json/Object>
+#include <Wt/Json/Parser>
 /* LOCAL FILES */
 #include "Light_Manager.h"
 
