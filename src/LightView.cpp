@@ -40,6 +40,8 @@ LightView::LightView(Bridge *bridge)
 
   log("DEBUG") << "LM made";
   std::string bridgename = bridge->getName();
+  log("DEBUG")<<"BRIDGENAMEIS"
+  log("DEBUG")<<bridgename;
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
 
@@ -78,19 +80,20 @@ LightView::LightView(Bridge *bridge)
 
   light_button_ = new WPushButton("Confirm");
   addWidget(light_button_);
-  
+   log("DEBUG") << "light_button made";
   show_button_ = new WPushButton("Show list");
-  
+  addWidget(show_button_);
+  log("DEBUG")<<"showbutton made";
 	goto_bridgeview_button = new WPushButton("Hide");
   addWidget(goto_bridgeview_button);
-
+log("DEBUG")<<"gotobridgeview button made";
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   
   addWidget(light_list_t);
   log("DEBUG") << "table soon to be made";
   light_list_ = new WTable(); 
   log("DEBUG") << "table made";
-  addWidget(show_button_);
+  
   
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
