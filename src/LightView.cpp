@@ -113,9 +113,10 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
+  ll = lm->getLightList();
   Json::Object ob;
   Json::parse(ll,ob,false);
-  ll = lm->getLightList();
+  
   int size=ob.size();
   for (int i=0;i<size;i++){
     Json::Object val=ob.get(std::to_string(i+1));
