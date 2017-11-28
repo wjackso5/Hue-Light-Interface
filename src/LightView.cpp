@@ -28,7 +28,9 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
+  Wt::log("LIGHT")<<"about to make LM";
   lm = new Light_Manager(bridge);
+  Wt::log("LIGHT")<<"about to make LM";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
@@ -57,7 +59,7 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_list_t);
 
   
-  
+  Wt::log("LIGHT")<<"about to show LightList";
   light_list_ = new WTable();
   showLightList();
 
