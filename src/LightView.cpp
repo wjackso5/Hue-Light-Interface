@@ -55,6 +55,7 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_id_);
   addWidget(new WBreak());
                          
+
   cb=new WComboBox();
   addWidget(cb);
   cb->addItem("on");
@@ -63,7 +64,7 @@ LightView::LightView(Bridge *bridge)
   cb->addItem("name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
-  
+
   light_state_ = new WLineEdit();                 // allow text input
   light_state_->setFocus();  
   addWidget(light_state_);

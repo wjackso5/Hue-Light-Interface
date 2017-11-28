@@ -18,6 +18,11 @@
 #include <string>
 #include <vector>
 #include "GroupView.h"
+#include <Wt/Json/Value>
+#include <Wt/Json/Object>
+#include <Wt/Json/Parser>
+#include <Wt/Json/Array>
+
 
 //DEBUGGING
 #include <Wt/WLogger>
@@ -69,7 +74,7 @@ void GroupView::UpdateGroup(){
   clearFields();
 }
 void GroupView::showGroupList(){
-  
+  grouplist=lm->getGroupList();
   group_list_->setHeaderCount(1);
   group_list_->setWidth(WLength("100%"));
   //declare the table headers.
@@ -78,6 +83,31 @@ void GroupView::showGroupList(){
   group_list_->elementAt(0, 2)->addWidget(new WText("Switch "));
   group_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   group_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
+  group_list_->elementAt(0, 5)->addWidget(new WText("Lights"));
+
+  Json::Object ob;
+  Json::parse(grouplist,ob,false);
+  int size=ob.size();
+  for (int i=0;i<size;i++){
+    Json::Object val=ob.get(std::to_string(i+1));
+    std::string group_name=val.get("name").toString().orIfNull("name:(((");
+    Json::Object states=val.get("action"); 
+    bool isOn=states.get("on").toBool().orIfNull(false);
+    int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
+    int light_hue=states.get("hue").toNumber().orIfNull(-222222);
+    Json::Array& ls=val.get("lights");
+    std::string lls;
+    for(int i=0;i<ls.size();i++){
+      lls=lls+ls.at(i).toString().orIfNull("no lights");
+    }
+    light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));
+    light_list_->elementAt(i+1, 1)->addWidget(new WText(group_name));
+    light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(isOn)));
+    light_list_->elementAt(i+1, 3)->addWidget(new WText(std::to_string(light_hue)));
+    light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(light_brightness)));
+    light_list_->elementAt(i+1, 5)->addWidget(new WText(std::to_string(lls)));
+  
+  }
   //get the lightlist
  /* ll = lm->getlightList();
   //populate the table with the info from the lightlist.
