@@ -19,6 +19,7 @@
 #include "LightGroup.h"
 #include "Bridge.h"
 
+
 class Light_Manager {
 	private :
 		//CLASS VARIABLES
@@ -31,6 +32,7 @@ class Light_Manager {
 		 */
 		Bridge* bridge;
 		std::string lightList;
+		std::string groupList;
 		std::vector<LightGroup *> *lightgrouplist;
 
 		//PRIVATE METHODS
