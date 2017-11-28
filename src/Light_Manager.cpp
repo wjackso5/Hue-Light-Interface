@@ -63,7 +63,7 @@
 		bool Light_Manager::getGroups(){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string url;
-			httpC->done().connect(boost::bind(&Light_Manager::handleGrouopResponse,this,_1,_2));
+			httpC->done().connect(boost::bind(&Light_Manager::handleGroupResponse,this,_1,_2));
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups";
 			if(httpC->get(url)){
 				return true;
@@ -92,7 +92,7 @@
 		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state,int transitiontime){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::stringstream ss;
-			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<std::to_string(transitiontime)<<"}"<<std::endl;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
 			std::string body=ss.str();
 			std::string url;
 			Wt::Http::Message *message=new Wt::Http::Message();
@@ -100,7 +100,6 @@
 			message->addBodyText(body);
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id+"/state";
-<<<<<<< HEAD
 			Wt::log("SET LIGHT::: url") << url;
 			/*if(httpC->put(url,*message)){
 =======
@@ -178,6 +177,7 @@
 			// 	    int light_hue=states.get("hue");
 			// 	}
 			// }
+			}
 		}
 
    		Bridge* Light_Manager::getBridge()

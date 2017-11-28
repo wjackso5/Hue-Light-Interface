@@ -96,17 +96,17 @@ void GroupView::showGroupList(){
     bool isOn=states.get("on").toBool().orIfNull(false);
     int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
     int light_hue=states.get("hue").toNumber().orIfNull(-222222);
-    Json::Array& ls=val.get("lights");
+    Json::Array ls=val.get("lights");
     std::string lls;
-  for(int i=0;i<ls.size();i++){
+  	for(int i=0;i<ls.size();i++){
       lls=lls+ls.at(i).toString().orIfNull("no lights");
     }
-    light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));
-    light_list_->elementAt(i+1, 1)->addWidget(new WText(group_name));
-    light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(isOn)));
-    light_list_->elementAt(i+1, 3)->addWidget(new WText(std::to_string(light_hue)));
-    light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(light_brightness)));
-    light_list_->elementAt(i+1, 5)->addWidget(new WText(std::to_string(lls)));
+    group_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));
+    group_list_->elementAt(i+1, 1)->addWidget(new WText(group_name));
+    group_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(isOn)));
+    group_list_->elementAt(i+1, 3)->addWidget(new WText(std::to_string(light_hue)));
+    group_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(light_brightness)));
+    group_list_->elementAt(i+1, 5)->addWidget(new WText(lls));
   
   }
   //get the lightlist
