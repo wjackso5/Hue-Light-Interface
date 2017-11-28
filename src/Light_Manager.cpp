@@ -35,7 +35,7 @@
 			std::string url;
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
-			if(httpC->get(url)){
+			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
 				Wt::WApplication::instance()->deferRendering();
 				return true;
 			}

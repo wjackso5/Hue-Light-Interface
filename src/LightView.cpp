@@ -89,6 +89,7 @@ void LightView::showLightList(){
   //get the lightlist
   ll = lm->getLightList();
   //populate the table with the info from the lightlist.
+  Wt:
   for(int i=0; i<ll->size(); i++){
       /*light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(ll->at(i)->getId())));
       light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getName()));
