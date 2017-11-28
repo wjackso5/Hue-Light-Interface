@@ -67,7 +67,7 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_state_);
   addWidget(new WBreak());
   addWidget(new WText("Transition Time:"));
-  light_tt_ = new WLineEdit();                 // allow text input
+  light_tt_ = new WSpinBox();                 // allow int input
   light_tt_->setFocus();
   light_tt_->setMinimum(0);  
   light_tt_->setValue(0);
@@ -111,12 +111,20 @@ void LightView::clearFields(){
 }
 void LightView::UpdateLight(){
   if (cb->currentText()=="name"){
-    lm->setLightName("1", light_state_->text()->toUTF8());
-    //first param should be light_id_->text()->toUTF8()
+    if (lm->setLightName("1", light_state_->text())){//first param should be light_id_->text()->toUTF8()
+      light_msg_->setText("name successfully updated");
+    }
+    else {
+      light_msg_->setText("name could not be updated");
+    }
   }
   else{
-    lm->setLightState("1", cb->currentText(), light_state_->text()->toUTF8,std::stoi(light_tt_));
     //first param should be light_id_->text()->toUTF8()
+    if(lm->setLightState("1", cb->currentText(), light_state_->text(),light_tt_)){
+      light_msg_->setText("light successfully updated");
+    }else{
+      light_msg_->setText("light could not be updated");
+    }
   }
 }
 void LightView::showLightList(){
