@@ -90,7 +90,7 @@
 
 		bool Light_Manager::setLightState(std::string id,std::string statename,std::string state,int transitiontime){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
-			std::string body="{"+"\""+statename+"\": "+ state+",\"transitiontime\":"+std::to_string(transitiontime)+"}";
+			std::string body="{"+std::string("\"")+statename+std::string("\"")+": "+ state+","+std::string("\"")+transitiontime+std::string("\"")+":"+std::to_string(transitiontime)+"}";
 			std::string url;
 			Wt::log("SET LIGHT::: body") << body;
 			Wt::Http::Message *message=new Wt::Http::Message();
