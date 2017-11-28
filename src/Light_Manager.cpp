@@ -92,15 +92,17 @@
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string body="{\"+statename+\" : \""+ state+"\"+transitiontime\":"+std::to_string(transitiontime)	+"}";
 			std::string url;
+			Wt::log("SET LIGHT::: body") << body;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
 			httpC->done().connect(boost::bind(&Light_Manager::handleHttpResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id+"/state";
-			if(httpC->put(url,*message)){
+			Wt::log("SET LIGHT::: url") << url;
+			/*if(httpC->put(url,*message)){
 				Wt::WApplication::instance()->deferRendering();
 				return true;
-			}
+			}*/
 			return false;
 		}
 
