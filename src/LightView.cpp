@@ -55,8 +55,8 @@ LightView::LightView(Bridge *bridge)
 	goto_bridgeview_button = new WPushButton("Hide");
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
-
   showLightList();
+  
   addWidget(goto_bridgeview_button);
   light_list_ = new WTable();
 
