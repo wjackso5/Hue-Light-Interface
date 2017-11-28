@@ -19,7 +19,7 @@ class Light{
 	int id;
 	public:
 
-	Light(int _id,std::string _name,bool state,int _brightness,int hue,std::string bridgename);
+	Light();
 	~Light();
 	//getters
 	std::string getName();
