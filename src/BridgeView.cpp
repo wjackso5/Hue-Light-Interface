@@ -80,12 +80,6 @@ BridgeView::BridgeView()
 
   bridge_list_ = new WTable();
 
-  create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
-  edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
-  delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
-  show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
-  goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
-
   addWidget(new WText("Bridge to view: (by name)"));
   btv_name = new WLineEdit();
   addWidget(btv_name);
@@ -93,6 +87,12 @@ BridgeView::BridgeView()
 
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
+
+  create_bridge_button_->clicked().connect(this, &BridgeView::addBridge);
+  edit_bridge_button_->clicked().connect(this, &BridgeView::editBridge);
+  delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
+  show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
+  goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
 
 }
 
