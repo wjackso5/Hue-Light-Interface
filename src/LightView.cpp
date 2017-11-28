@@ -55,10 +55,10 @@ LightView::LightView(Bridge *bridge)
                          
   cb=new WComboBox();
   addWidget(cb);
-  cb->addItem("On/Off");
-  cb->addItem("Brightness");
-  cb->addItem("Hue");
-  cb->addItem("Name");
+  cb->addItem("on");
+  cb->addItem("bri");
+  cb->addItem("hue");
+  cb->addItem("name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
   
@@ -110,16 +110,14 @@ void LightView::clearFields(){
   light_tt_->setValue(0);
 }
 void LightView::UpdateLight(){
-  Wt::log("DEBUG")<<"Update the "+cb->currentText();
-  if (cb->currentText()=="Name"){
+  if (cb->currentText()=="name"){
     lm->setLightName("1", light_state_->text()->toUTF8());
     //first param should be light_id_->text()->toUTF8()
   }
   else{
-    lm->setLightState("1", std::to_lower(cb->currentText()), light_state_->text()->toUTF8,std::stoi(light_tt_));
+    lm->setLightState("1", cb->currentText(), light_state_->text()->toUTF8,std::stoi(light_tt_));
     //first param should be light_id_->text()->toUTF8()
   }
-
 }
 void LightView::showLightList(){
   light_list_->setHeaderCount(1);
