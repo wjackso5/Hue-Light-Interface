@@ -60,12 +60,12 @@ LightView::LightView(Bridge *bridge)
   cb->addItem("Name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
-  addWidget(new WText(cb->currentText()));
   light_state_ = new WLineEdit();                 // allow text input
   light_state_->setFocus();  
   addWidget(light_state_);
   addWidget(new WBreak());
   light_button_ = new WPushButton("Confirm");
+  addWidget(light_button_);
   
   show_button_ = new WPushButton("Show list");
   
@@ -74,13 +74,12 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_list_t);
 
   light_list_ = new WTable();
-
-  addWidget(goto_bridgeview_button);
+  
   addWidget(light_list_);
   addWidget(show_button_);
-
-  addWidget(new GroupView(lm));
-  addWidget(new ScheduleView(lm));
+  addWidget(goto_bridgeview_button);
+  //addWidget(new GroupView(lm));
+  //addWidget(new ScheduleView(lm));
 
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);
