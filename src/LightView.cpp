@@ -28,7 +28,6 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
-  lm = new Light_Manager(bridge);
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
@@ -88,6 +87,7 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
   lm = new Light_Manager(bridge);
+  Wt::log("LIGHT") << "LM created";
   ll = lm->getLightList();
   //populate the table with the info from the lightlist.
   Wt::log("LLSIZE") << ll->size();
