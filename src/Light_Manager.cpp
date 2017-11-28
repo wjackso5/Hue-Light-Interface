@@ -169,6 +169,7 @@
    		*@return lightList
    		*/
    		std::vector<Light*>* Light_Manager::getLightList(){
+   			Wt::log("Light_Manager") << lightList->back()->getName();
    			return lightList;
    		}
 
