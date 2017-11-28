@@ -103,6 +103,7 @@
 				//Wt::Json::Value *jval = new Wt::Json::Value();
 				//Wt::Json::Value &jvalref = jval; 
 				Wt::Json::Object ob;
+				Wt::Json::parse(input,ob,false);
 				int size=ob.size();
 				for (int i=0;i<size;i++){
 
