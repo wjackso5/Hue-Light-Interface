@@ -35,8 +35,9 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
+  
   lm = new Light_Manager(bridge);
-
+  Log("DEBUG") << "LM made";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
@@ -60,25 +61,30 @@ LightView::LightView(Bridge *bridge)
   cb->addItem("Name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
+  
   light_state_ = new WLineEdit();                 // allow text input
   light_state_->setFocus();  
   addWidget(light_state_);
   addWidget(new WBreak());
-  
+
   light_button_ = new WPushButton("Confirm");
   addWidget(light_button_);
   
   show_button_ = new WPushButton("Show list");
   
 	goto_bridgeview_button = new WPushButton("Hide");
+  addWidget(goto_bridgeview_button);
+
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
+  
   addWidget(light_list_t);
 
   light_list_ = new WTable();
   
   addWidget(light_list_);
+  Log("DEBUG") << "ll displayed";
   addWidget(show_button_);
-  addWidget(goto_bridgeview_button);
+  
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
 
