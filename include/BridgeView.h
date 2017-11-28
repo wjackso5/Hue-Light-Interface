@@ -35,5 +35,6 @@ private:
   void showBridgeList();
   void createLightView();
   void createSpotifyView();
+  bool spotifyActive;
 };
 #endif

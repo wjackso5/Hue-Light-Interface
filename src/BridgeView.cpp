@@ -190,5 +190,8 @@ void BridgeView::showBridgeList(){
   }
 
   void BridgeView::createSpotifyView(){
-    addWidget(new SpotifyView());
+    if (!spotifyActive){
+      addWidget(new SpotifyView());
+      spotifyActive = true;
+      }
   }

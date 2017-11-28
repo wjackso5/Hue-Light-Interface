@@ -29,20 +29,26 @@ SpotifyView::SpotifyView():WContainerWidget(){
   client->setTimeout(15);
   client->setMaximumResponseSize(10 * 1024);
   client->done().connect(boost::bind(&SpotifyView::handleHttpResponse, this, _1, _2));
-  
+  client->setFollowRedirect(true); 
+
+
   //Make get call to the Spotify Authorization
-  if (client->get("https://accounts.spotify.com/en/authorize?%20&response_type=code&client_id=9bc9cc02a0824d7eaed59d5e652c3bab&scope=user-read-private%20user-read-email&redirect_uri=cs3307-pub.gaul.csd.uwo.ca:10026&state=state"))
-       WApplication::instance()->deferRendering();
-  else {
-      // in case of an error in the %URL
+  if (client->get("https://accounts.spotify.com/en/authorize?%20&response_type=code&client_id=9bc9cc02a0824d7eaed59d5e652c3bab&scope=user-read-private%20user-read-email&redirect_uri=https://mbielec.github.io/3307ProjectSpotifyTerms&state=state")){
+       //WApplication::instance()->deferRendering();
+       std::cerr << "No error." << std::endl;
+  }else {
+       std::cerr << "URL Error!" << std::endl;
   }
 
+  WApplication::instance()->redirect("https://accounts.spotify.com/en/authorize?%20&response_type=code&client_id=9bc9cc02a0824d7eaed59d5e652c3bab&scope=user-read-private%20user-read-email&redirect_uri=https://mbielec.github.io/3307ProjectSpotifyTerms/&state=state");
   //WApplication.setCookie(stateKey, state, 1800);
-
-  void handleHttpResponse(boost::system::error_code err, const Http::Message& response)
+}
+  void SpotifyView::handleHttpResponse(boost::system::error_code err, const Http::Message& response)
   {
    WApplication::instance()->resumeRendering();
    if (!err && response.status() == 200) {
       //parse the response information
-   }
-}
+    }
+  }
+
+
