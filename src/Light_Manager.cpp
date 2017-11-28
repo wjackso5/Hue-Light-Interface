@@ -96,7 +96,8 @@
 			std::string body=ss.str();
 			//std::string body="{"+std::string("\"" "")+statename+std::string("\"")+": "+ state+","+std::string("\"")+"transitiontime"+std::string("\"")+":"+std::to_string(transitiontime)+"}";
 			std::string url;
-			std::cout << url;
+			Wt::log("url:") << url;
+			std::cout<<url;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
