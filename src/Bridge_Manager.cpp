@@ -68,7 +68,7 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 		//newBridge =createBridge(name, location, ipAddressOrHostname, portNumber, userName);
     if (validityCheck(ipAddressOrHostname_, portNumber_) > 0) {
 	    Wt::log("info") << "The validity check was succesfull";
-	    	bridgeList->push_back(new Bridge());
+	    bridgeList->push_back(new Bridge());
   		bridgeList->back()->name=name_;
 		bridgeList->back()->location=location_;
 		bridgeList->back()->ip=ipAddressOrHostname_;

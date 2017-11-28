@@ -120,8 +120,9 @@
 					bool isOn=states.get("on").toBool().orIfNull(false);
 					int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
 					int light_hue=states.get("hue").toNumber().orIfNull(-222222);
-					Light *l=new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
-					lightList->push_back(l);
+					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
+					Wt::log("LIGHTINFO") << l->getName();
+					lightList->push_back(new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username));
 					/*on,bri,*/
 				}
 			}
