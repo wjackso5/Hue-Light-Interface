@@ -57,10 +57,10 @@ LightView::LightView(Bridge *bridge)
   cb->addItem("On/Off");
   cb->addItem("Brightness");
   cb->addItem("Hue");
-  cb->addItem("Name")
+  cb->addItem("Name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
-  addWidget(new WText(cb.currentText()));
+  addWidget(new WText(cb->currentText()));
   light_state_ = new WLineEdit();                 // allow text input
   light_state_->setFocus();  
   addWidget(light_state_);
@@ -94,7 +94,7 @@ void LightView::clearFields(){
   light_state_->setText("");
 }
 void LightView::UpdateLight(){
-  Wt::log("DEBUG")<<"Update the "+cb.currentText();
+  Wt::log("DEBUG")<<"Update the "+cb->currentText();
 }
 void LightView::showLightList(){
   light_list_->setHeaderCount(1);
