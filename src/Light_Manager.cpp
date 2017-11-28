@@ -65,7 +65,7 @@
 			std::string url;
 			httpC->done().connect(boost::bind(&Light_Manager::handleGroupResponse,this,_1,_2));
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups";
-			if(httpC->get(url)){
+			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/groups")){
 				return true;
 			}
 			free(httpC);
@@ -156,7 +156,7 @@
 
    		void Light_Manager::handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
-			Wt::log("HANDLE")<<"HANDLING LIGHT LISTS";
+			Wt::log("HANDLE")<<"HANDLING GROUP LISTS";
 			if (!err && response.status() == 200) {
 				const std::string &input = response.body();
 				groupList=input;	
@@ -195,6 +195,7 @@
    		}
 
    		std::string Light_Manager::getGroupList(){
+   			Wt::log("SHOWGROUP=LM")<<groupList;
    			return groupList;
    		}
 
