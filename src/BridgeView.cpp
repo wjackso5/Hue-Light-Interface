@@ -156,6 +156,7 @@ void BridgeView::showBridgeList(){
   bridge_list_->elementAt(0, 2)->addWidget(new WText("IP address"));
   bridge_list_->elementAt(0, 3)->addWidget(new WText("Port Number"));
   bridge_list_->elementAt(0, 4)->addWidget(new WText("Username"));
+  
   //get the bridgelist
   bm = new Bridge_Manager(&session_);
   bl = bm->getBridgeList();
