@@ -98,7 +98,12 @@ LightView::LightView(Bridge *bridge)
   
   
   addWidget(new GroupView(lm));
-  addWidget(new ScheduleView(lm));
+  Bridge *b = lm->getBridge();
+  std::string bridgeName = b->getName();
+  std::string ip = b->getIp();
+  std::string port = b->getPort();
+  Wt::log("Yabadabadoo x1");
+  addWidget(new ScheduleView(bridgeName, ip, port));
 
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);
