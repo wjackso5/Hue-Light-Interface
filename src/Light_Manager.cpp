@@ -30,6 +30,7 @@
 			bridge=b;
 			// lightList = new std::vector<Light *>();
 			getLights();
+			getGroups();
 			Wt::log("POPULATING")<<lightList;
 			Wt::log("LIGHT")<<"In Constructor";
 		}
@@ -49,7 +50,7 @@
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			Wt::log("LIGHT")<<"boost::bind";
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
-			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
+			if(httpC->get(url)){
 				Wt::log("LIGHT")<<"in if";
 				// Wt::WApplication::instance()->deferRendering();
 				//Wt::log("LIGHT")<<"DF";
@@ -186,6 +187,10 @@
    		*/
    		std::string Light_Manager::getLightList(){
    			return lightList;
+   		}
+
+   		std::string Light_Manager::getGroupList(){
+   			return groupList;
    		}
 
 

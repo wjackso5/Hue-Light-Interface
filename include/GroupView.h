@@ -13,13 +13,13 @@ public:
   GroupView(Light_Manager *lm);
 private:
   Light_Manager *lm;
-  std::vector<LightGroup*> gl;
   Wt::WTable *group_list_;
   Wt::WText *group_msg_;
   Wt::WLineEdit *group_id_;
   Wt::WLineEdit *group_state_;
   Wt::WPushButton *group_button_;
   Wt::WPushButton *goto_bridgeview_button;
+  std::string grouplist;
   void clearFields();
   void showGroupList();
   void UpdateGroup();

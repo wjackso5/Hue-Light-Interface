@@ -56,22 +56,9 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_id_);
   addWidget(new WBreak());
                          
-  WComboBox *cb=new WComboBox();
-  addWidget(cb);
-  cb->setMargin(10,Side::Right);
-  model = std::make_shared<WStringListModel>();
-  model->addString("Name");
-  model->setData(0, 0, std::string("BE"), Wt::ItemDataRole::User);
-  model->addString("");
-  model->setData(1, 0, std::string("NL"), Wt::ItemDataRole::User);
-  model->addString("United Kingdom");
-  model->setData(2, 0, std::string("UK"), Wt::ItemDataRole::User);
-  model->addString("United States");
-  model->setData(3, 0, std::string("US"), Wt::ItemDataRole::User);
-  model->setFlags(3, Wt::ItemFlag::Selectable);
 
 
-                                   // allow text input
+
   addWidget(light_state_); 
   addWidget(new WBreak());
   

@@ -54,6 +54,8 @@ class Light_Manager {
 		bool setGroup();
 		Bridge* getBridge();
 		std::string	getLightList();
+		std::string Light_Manager::getGroupList();
+
 };
 
 #endif
