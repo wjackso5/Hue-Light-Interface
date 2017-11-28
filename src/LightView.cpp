@@ -89,8 +89,8 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_list_t);
 
   light_list_ = new WTable();
+  log("DEBUG") << "table about to be made"
   
-  addWidget(light_list_);
   log("DEBUG") << "ll displayed";
   addWidget(show_button_);
   
@@ -156,6 +156,7 @@ void LightView::showLightList(){
     light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(light_brightness)));
   
   }
+  addWidget(light_list_);
 }
 
 
