@@ -89,9 +89,6 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_list_t);
 
   light_list_ = new WTable();
-  log("DEBUG") << "table about to be made"
-  
-  log("DEBUG") << "ll displayed";
   addWidget(show_button_);
   
   addWidget(new GroupView(lm));
