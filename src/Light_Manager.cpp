@@ -10,6 +10,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 #include <Wt/WApplication>
 #include <Wt/Http/Client>
@@ -17,6 +18,9 @@
 #include <Wt/Json/Value>
 #include <Wt/Json/Object>
 #include <Wt/Json/Parser>
+#include <Wt/Json/Array>
+#include <Wt/Json/Serializer>
+// #include <Wt/Json/Serialize>
 
 /* LOCAL FILES */
 #include "Light_Manager.h"
@@ -125,18 +129,38 @@
 			return false;
 		}
 
-		// bool createGroup(std::string ids,std::string name,){
-
-		// }
+	
 		bool Light_Manager::createGroup(std::string ids,std::string name){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
-			ss<<"{"<<"\" lights \" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
-			std::string body=ss.str();
+			//parsing the light ids
+			Wt::Json::Array vect;
+			std::stringstream ss(ids);
+			int i;
+			 while (ss >> i)
+    		{
+        		vect.push_back(Wt::Json::Value(i));
+
+        		if (ss.peek() == ',')
+            		ss.ignore();
+    		}
+    		Wt::Json::Object ob=Wt::Json::Object();
+    		Wt::Json::Value lists=Wt::Json::Value(vect);
+    		ob["lights"]=lists;
+			ob["name"]=Wt::Json::Value(name);
+			// ss<<"{"<<"\" lights \" : "<<vect<<" , \"name\" : "<<name<<"}"<<std::endl;
+			std::string body=Wt::Json::serialize(ob);
+			Wt::log("CREATEGROUPBODY")<<body;
 			std::string url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups";
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			if(httpC->post(url,*message)){
+				Wt::log("CREATEGROUPPOST")<<"WORKED";
+				// Wt::WApplication::instance()->deferRendering();
+				return true;
+			}
+			return false;
 		}
 		bool Light_Manager::setGroup(){}
 
