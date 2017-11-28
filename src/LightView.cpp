@@ -56,9 +56,9 @@ LightView::LightView(Bridge *bridge)
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
   light_list_ = new WTable();
-   Wt::log("DEBUG")<<"!!!!!!58!!!!!! B4 showLightList";
-  showLightList();
-   Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft showLightList";
+  Wt::log("DEBUG")<<"!!!!!!58!!!!!! B4 showLightList";
+  LightView::showLightList();
+  Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft showLightList";
   addWidget(goto_bridgeview_button);
   
 
@@ -101,7 +101,7 @@ void LightView::showLightList(){
       light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
       light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
   }*/
-  addWidget(light_list_);
+  //addWidget(light_list_);
 }
   void LightView::clearView(){
     this->clear();
