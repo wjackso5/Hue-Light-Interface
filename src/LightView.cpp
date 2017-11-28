@@ -93,7 +93,6 @@ void LightView::showLightList(){
   //get the lightlist
   Wt::log("DEBUG")<<"about to get the lightlist from lm";
   ll = lm->getLightList();
-  Wt::log("DEBUG")<<ll->size();
   /*
   //populate the table with the info from the lightlist.
   for(int i=0; i<ll.size(); i++){

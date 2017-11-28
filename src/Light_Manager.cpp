@@ -126,12 +126,12 @@
 					bool isOn=states.get("on").toBool().orIfNull(false);
 					int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
 					int light_hue=states.get("hue").toNumber().orIfNull(-222222);
-					lightList->push_back(new Light());
-  					lightList->back()->setId(i+1);
-					lightList->back()->setName(light_name);
-					lightList->back()->setSwitch(isOn);
-					lightList->back()->setBrightness(light_brightness);
-					lightList->back()->setColor(light_hue);
+					lightList.push_back(new Light());
+  					lightList.back()->setId(i+1);
+					lightList.back()->setName(light_name);
+					lightList.back()->setSwitch(isOn);
+					lightList.back()->setBrightness(light_brightness);
+					lightList.back()->setColor(light_hue);
 					/*on,bri,*/
 				}
 			}
@@ -170,8 +170,7 @@
    		*@param none
    		*@return lightList
    		*/
-   		std::vector<Light*>* Light_Manager::getLightList(){
-   			Wt::log("Light_Manager") << lightList->back()->getName();
+   		std::vector<Light*> Light_Manager::getLightList(){
    			return lightList;
    		}
 
