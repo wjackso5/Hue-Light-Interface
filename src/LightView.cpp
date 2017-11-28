@@ -91,8 +91,9 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft add group and sched views";
+  Wt::log("DEBUG")<<"about to get the lightlist from lm";
   ll = lm->getLightList();
+  Wt::log("DEBUG")<<ll->size();
   /*
   //populate the table with the info from the lightlist.
   for(int i=0; i<ll.size(); i++){
