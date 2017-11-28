@@ -12,14 +12,7 @@
 *@param none
 *@return none
 */
-Light::Light(int _id,std::string _name,bool state,int _brightness,int hue,std::string bridgename){
-	id=_id;
-	name=_name;
-	switch_=state;
-	brightness=_brightness;
-	color=hue;
-	transitionTime=0;
-	bridgeName=bridgename;
+Light::Light(){
 }
 
 /**

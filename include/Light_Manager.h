@@ -30,7 +30,7 @@ class Light_Manager {
 		 * implement here though.
 		 */
 		Bridge* bridge;
-		std::vector<Light *> *lightList;
+		std::vector<Light *> lightList;
 		std::vector<LightGroup *> *lightgrouplist;
 		//PRIVATE METHODS
 	
@@ -49,7 +49,7 @@ class Light_Manager {
 		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		bool setGroup();
 		Bridge* getBridge();
-		std::vector<Light*>* getLightList();
+		std::vector<Light*> getLightList();
 };
 
 #endif

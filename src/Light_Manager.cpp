@@ -19,12 +19,18 @@
 
 /* LOCAL FILES */
 #include "Light_Manager.h"
+#include "Light.h"
+#include "LightGroup.h"
+#include "Schedule.h"
 
 
 
-		Light_Manager::Light_Manager(Bridge* b)
+		Light_Manager::Light_Manager(Bridge *b)
 		{
 			bridge=b;
+			lightList = new std::vector<Light *>();
+			getLights();
+			Wt::log("LIGHT")<<"In Constructor";
 		}
 
 		Light_Manager::~Light_Manager()
@@ -45,10 +51,13 @@
 			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
 				Wt::log("LIGHT")<<"in if";
 				//Wt::WApplication::instance()->deferRendering();
+				//Wt::log("LIGHT")<<"DF";
 				return true;
 			}
+
 			Wt::log("LIGHT")<<"after if";
  
+
 			return false;
 		}
 
@@ -105,6 +114,7 @@
 
 		void Light_Manager::handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
+			//Wt::WApplication::instance()->resumeRendering();
 			Wt::log("HANDLE")<<"HANDLING LIGHT LISTS";
 			if (!err && response.status() == 200) {
 				const std::string &input = response.body();
@@ -122,11 +132,19 @@
 					bool isOn=states.get("on").toBool().orIfNull(false);
 					int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
 					int light_hue=states.get("hue").toNumber().orIfNull(-222222);
-					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
-					Wt::log("LIGHTINFO") << l->getName();
-					lightList->push_back(new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username));
+// <<<<<<< HEAD
+// 					Light *l = new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username);
+// 					Wt::log("LIGHTINFO") << l->getName();
+// 					lightList->push_back(new Light(i+1,light_name,isOn,light_brightness,light_hue,bridge->username));
 
-					/*on,bri,*/
+// =======
+					lightList.push_back(new Light());
+  					lightList.back()->setId(i+1);
+					lightList.back()->setName(light_name);
+					lightList.back()->setSwitch(isOn);
+					lightList.back()->setBrightness(light_brightness);
+					lightList.back()->setColor(light_hue);
+
 				}
 			}
    		}
@@ -167,7 +185,7 @@
    		*@param none
    		*@return lightList
    		*/
-   		std::vector<Light*>* Light_Manager::getLightList(){
+   		std::vector<Light*> Light_Manager::getLightList(){
    			return lightList;
    		}
 

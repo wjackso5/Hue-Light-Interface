@@ -63,7 +63,7 @@ class Bridge_Manager {
 		bool validityCheck(std::string ipOrHost, std::string port, std::string user);
 		bool validityCheck(std::string ipOrHost, std::string port);
 		void handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response);
-		std::vector<Bridge*> *getBridgeList();
+		std::vector<Bridge*> getBridgeList();
 };
 
 #endif

@@ -28,7 +28,9 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
+  Wt::log("LIGHT")<<"about to make LM";
   lm = new Light_Manager(bridge);
+  Wt::log("DEBUG")<<"!!!!!!33!!!!!!";
   std::string bridgename = bridge->getName();
   WText *title = new WText("<h3>"+bridgename+" Bridge:</h3>");
   addWidget(title);
@@ -50,19 +52,22 @@ LightView::LightView(Bridge *bridge)
   
 
   light_button_ = new WPushButton("Confirm");
-  addWidget(light_button_);
 	goto_bridgeview_button = new WPushButton("Hide");
-  addWidget(goto_bridgeview_button);
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
-
-  
-  
   light_list_ = new WTable();
-  showLightList();
+  Wt::log("DEBUG")<<"!!!!!!58!!!!!! B4 showLightList";
+  LightView::showLightList();
+  Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft showLightList";
+  addWidget(goto_bridgeview_button);
+  addWidget(light_list_);
+
+  Wt::log("DEBUG")<<"!!!!!!60!!!!!! b4 add group and schedule views";
 
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
+
+  Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft add group and sched views";
 
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
@@ -77,7 +82,6 @@ void LightView::UpdateLight(){
   //viv does work in here :D
 }
 void LightView::showLightList(){
-  
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.
@@ -87,19 +91,19 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  lm->getLights();
-  ll = lm->getLightList();
+  Wt::log("DEBUG")<<"about to get the lightlist from lm";
+  *ll = lm->getLightList();
+  /*
   //populate the table with the info from the lightlist.
-
-  for(int i=0; i<ll->size(); i++){
-      /*light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(ll->at(i)->getId())));
-      light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getName()));
-      light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(ll->at(i)->getSwitch())));
-      light_list_->elementAt(i+1, 3)->addWidget(new WText(std::to_string(ll->at(i)->getColor())));
-      light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(ll->at(i)->getBrightness())));*/
-  }
-  addWidget(light_list_);
+  for(int i=0; i<ll.size(); i++){
+      light_list_->elementAt(i+1, 0)->addWidget(new WText(ll->at(i)->getName()));
+      light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getLocation()));
+      light_list_->elementAt(i+1, 2)->addWidget(new WText(ll->at(i)->getIp()));
+      light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
+      light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
+  }*/
+  
 }
   void LightView::clearView(){
-    this->hide();
+    this->clear();
   }
