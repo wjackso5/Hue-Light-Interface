@@ -147,10 +147,14 @@
    		{
    			return bridge;
    		}
-
-   		/*std::vector<Light*> Light_Manager::getLightList(){
+   		/**
+   		*gets the lightlist
+   		*@param none
+   		*@return lightList
+   		*/
+   		std::vector<Light*>* Light_Manager::getLightList(){
    			return lightList;
-   		}*/
+   		}
 
 
 
