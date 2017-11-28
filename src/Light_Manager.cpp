@@ -24,6 +24,7 @@
 		Light_Manager::Light_Manager(Bridge* b)
 		{
 			bridge=b;
+			lightList = new std::vector<Light *>();
 			getLights();
 		}
 
