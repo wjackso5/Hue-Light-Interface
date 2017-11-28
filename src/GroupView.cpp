@@ -49,20 +49,21 @@ GroupView::GroupView(Light_Manager *lm)
   group_state_ = new WLineEdit();                 // allow text input
   addWidget(group_state_); 
   addWidget(new WBreak());
-  
-
+  show_group_list=new WPushButton("Show Groups");
+  addWidget(show_group_list);
   group_button_ = new WPushButton("Confirm");
+
 	goto_bridgeview_button = new WPushButton("Hide");
   WText *group_list_t= new WText("<h3><u>Group List for "+bridgename+":</u></h3>");
   addWidget(group_list_t);
   
   group_list_ = new WTable();
-  showGroupList();
+  
 
 
 
   group_button_->clicked().connect(this, &GroupView::UpdateGroup);
-  
+  show_group_list->clicked().connect(this,&GroupView::showGroupList);
 }
 
 void GroupView::clearFields(){
@@ -97,7 +98,7 @@ void GroupView::showGroupList(){
     int light_hue=states.get("hue").toNumber().orIfNull(-222222);
     Json::Array& ls=val.get("lights");
     std::string lls;
-    for(int i=0;i<ls.size();i++){
+  for(int i=0;i<ls.size();i++){
       lls=lls+ls.at(i).toString().orIfNull("no lights");
     }
     light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));

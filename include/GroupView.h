@@ -17,6 +17,7 @@ private:
   Wt::WText *group_msg_;
   Wt::WLineEdit *group_id_;
   Wt::WLineEdit *group_state_;
+  Wt::WPushButton *show_group_list;
   Wt::WPushButton *group_button_;
   Wt::WPushButton *goto_bridgeview_button;
   std::string grouplist;
