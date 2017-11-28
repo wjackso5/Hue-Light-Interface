@@ -74,7 +74,7 @@ LightView::LightView(Bridge *bridge)
   light_tt_->setSingleStep(1);
   addWidget(light_tt_);
   addWidget(new WBreak());
-
+  log("DEBUG") << "cb made";
 
   light_button_ = new WPushButton("Confirm");
   addWidget(light_button_);
