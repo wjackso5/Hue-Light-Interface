@@ -33,14 +33,19 @@
 
 		//PUBLIC METHODS
 		bool Light_Manager::getLights(){
+			Wt::log("LIGHT")<<"In get Lights";
 			Wt::Http::Client *httpC = new Wt::Http::Client;
+			Wt::log("LIGHT")<<"made http client";
 			std::string url;
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			Wt::log("LIGHT")<<"boost::bind";
 			url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights";
 			if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
+				Wt::log("LIGHT")<<"in if";
 				Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
+			Wt::log("LIGHT")<<"after if";
 			free(httpC);
 			return false;
 		}
