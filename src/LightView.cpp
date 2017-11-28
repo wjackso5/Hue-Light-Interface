@@ -87,7 +87,7 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  
+  lm = new Bridge_Manager(bridge);
   ll = lm->getLightList();
   //populate the table with the info from the lightlist.
   Wt::log("LLSIZE") << ll->size();
