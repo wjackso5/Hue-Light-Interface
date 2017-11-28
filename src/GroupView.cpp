@@ -47,7 +47,6 @@ GroupView::GroupView(Light_Manager *lm)
   
 
   group_button_ = new WPushButton("Confirm");
-  addWidget(group_button_); 
 	goto_bridgeview_button = new WPushButton("Hide");
   WText *group_list_t= new WText("<h3><u>Group List for "+bridgename+":</u></h3>");
   addWidget(group_list_t);

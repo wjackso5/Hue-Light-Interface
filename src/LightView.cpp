@@ -52,16 +52,13 @@ LightView::LightView(Bridge *bridge)
   
 
   light_button_ = new WPushButton("Confirm");
-  addWidget(light_button_);
 	goto_bridgeview_button = new WPushButton("Hide");
-  addWidget(goto_bridgeview_button);
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
 
-  
-  Wt::log("LIGHT")<<"about to show LightList";
-  light_list_ = new WTable();
   showLightList();
+  addWidget(goto_bridgeview_button);
+  light_list_ = new WTable();
 
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
@@ -89,19 +86,16 @@ void LightView::showLightList(){
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   light_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   //get the lightlist
-  Wt::log("LIGHT") << &bridge->getName();
-  lm = new Light_Manager(&bridge);
-  Wt::log("LIGHT") << "LM created";
-  ll = lm->getLightList();
+  /* ll = lm->getlightList();
   //populate the table with the info from the lightlist.
-  Wt::log("LLSIZE") << ll->size();
-  //for(int i=0; i<ll->size(); i++){
-      /*light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(ll->at(i)->getId())));
-      light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getName()));
-      light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(ll->at(i)->getSwitch())));
-      light_list_->elementAt(i+1, 3)->addWidget(new WText(std::to_string(ll->at(i)->getColor())));
-      light_list_->elementAt(i+1, 4)->addWidget(new WText(std::to_string(ll->at(i)->getBrightness())));*/
-  //}
+  for(int i=0; i<ll.size(); i++){
+      light_list_->elementAt(i+1, 0)->addWidget(new WText(ll->at(i)->getName()));
+      light_list_->elementAt(i+1, 1)->addWidget(new WText(ll->at(i)->getLocation()));
+      light_list_->elementAt(i+1, 2)->addWidget(new WText(ll->at(i)->getIp()));
+      light_list_->elementAt(i+1, 3)->addWidget(new WText(ll->at(i)->getPort()));
+      light_list_->elementAt(i+1, 4)->addWidget(new WText(ll->at(i)->getUsername()));
+  }*/
+>>>>>>> parent of e506f4b... fixing UI so things show up in the right order
   addWidget(light_list_);
 }
   void LightView::clearView(){
