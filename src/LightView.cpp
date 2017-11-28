@@ -55,16 +55,18 @@ LightView::LightView(Bridge *bridge)
 	goto_bridgeview_button = new WPushButton("Hide");
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
   addWidget(light_list_t);
+  light_list_ = new WTable();
    Wt::log("DEBUG")<<"!!!!!!58!!!!!! B4 showLightList";
   showLightList();
    Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft showLightList";
   addWidget(goto_bridgeview_button);
-  light_list_ = new WTable();
+  
+
   Wt::log("DEBUG")<<"!!!!!!60!!!!!! b4 add group and schedule views";
 
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
-  
+
   Wt::log("DEBUG")<<"!!!!!!60!!!!!! aft add group and sched views";
 
   light_button_->clicked().connect(this, &LightView::UpdateLight);
@@ -80,7 +82,7 @@ void LightView::UpdateLight(){
   //viv does work in here :D
 }
 void LightView::showLightList(){
-  
+  light_list_->clear();
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.
