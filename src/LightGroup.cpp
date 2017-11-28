@@ -90,14 +90,14 @@ std::string LightGroup::getState(){
     std::string state = std::string("{\"on\": ") + std::to_string(s) + std::string(",\"bri\": ") + std::to_string(b) + std::string(",\"hue\": ") + std::string(std::to_string(c)) + std::string(",}");
 	return state;
 }
-/**
+/*
 *special getter that gets list of all lights in this lightgroup
 *@return state string (JSON with all the info about this LightGroup to be passed along the bridge)
 *@param none
-*/
-std::vector<Light> LightGroup::getList(){
-	return list;
-}
+
+// std::vector<Light> LightGroup::getList(){
+// 	return list;
+// }
 //setters
 /**
 *name setter method for LightGroup
@@ -177,34 +177,34 @@ void LightGroup::setState(bool s, int b, int c){
 *@param transitionTime
 *@return none
 */
-void LightGroup::addLight(int i){
-	lightids.push_back(i);
-}
+// void LightGroup::addLight(int i){
+// 	lightids.push_back(i);
+// }
 /**
 *removes a light from the light group.
 *@param light
 *@return none
 */
-void LightGroup::removeLight(Light light){
-	std::string name = light.getName();
-	for (int i=0; i<list.size()-1; i++){
-		if (list.at(i).getName()==name){
-			list.erase(list.begin() + i);
-		}
-	}
-}
+// void LightGroup::removeLight(Light light){
+// 	std::string name = light.getName();
+// 	for (int i=0; i<list.size()-1; i++){
+// 		if (list.at(i).getName()==name){
+// 			list.erase(list.begin() + i);
+// 		}
+// 	}
+// }
 /**
 *updates the state of the actual lights in the group.
 *@param none
 *@return none
 */
-void LightGroup::Update(){
-	for (int i=0; i<list.size()-1; i++){
-		list.at(i).setName(getName());
-		list.at(i).setBridgeName(getBridgeName());
-		list.at(i).setSwitch(getSwitch());
-		list.at(i).setBrightness(getBrightness());
-		list.at(i).setColor(getColor());
-		list.at(i).setTransitionTime(getTransitionTime());
-	}
-}
+// void LightGroup::Update(){
+// 	for (int i=0; i<list.size()-1; i++){
+// 		list.at(i).setName(getName());
+// 		list.at(i).setBridgeName(getBridgeName());
+// 		list.at(i).setSwitch(getSwitch());
+// 		list.at(i).setBrightness(getBrightness());
+// 		list.at(i).setColor(getColor());
+// 		list.at(i).setTransitionTime(getTransitionTime());
+// 	}
+// }

@@ -183,7 +183,7 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
 		std::string url;
         url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper/lights/1";
         // Wt::log("austintest") << httpC->get(url);
-		if(httpC->get("http://0.0.0.0:8000/api/newdeveloper/lights/1")){
+		if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
 				Wt::log("HANDLE")<<"WHAT";
 				/*
 				Wt::WApplication::instance()->deferRendering();
