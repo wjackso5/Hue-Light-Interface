@@ -113,6 +113,27 @@
 			}*/
 			return false;
 		}
+		bool Light_Manager::setLightState(std::string id,std::string statename,bool state,int transitiontime){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
+			std::stringstream ss;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			std::string body=ss.str();
+			std::string url;
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->setHeader("Content-type","application/Json");
+			message->addBodyText(body);
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id+"/state";
+			Wt::log("SET LIGHT::: url") << url;
+			/*if(httpC->put(url,*message)){
+	=======
+			if(httpC->put(url,*message)){	q
+	>>>>>>> origin/newnewnewbran
+				Wt::WApplication::instance()->deferRendering();
+				return true;
+			}*/
+			return false;
+		}
 
 		// bool createGroup(std::string ids,std::string name,){
 
@@ -159,7 +180,7 @@
 
    		void Light_Manager::handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
-			Wt::log("HANDLE")<<"HANDLING LIGHT LISTS";
+			Wt::log("HANDLE")<<"HANDLING GROUP LISTS";
 			if (!err && response.status() == 200) {
 				const std::string &input = response.body();
 				groupList=input;	
@@ -198,6 +219,7 @@
    		}
 
    		std::string Light_Manager::getGroupList(){
+   			Wt::log("SHOWGROUP=LM")<<groupList;
    			return groupList;
    		}
 

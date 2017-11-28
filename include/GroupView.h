@@ -10,7 +10,7 @@
 class GroupView : public Wt::WContainerWidget
 {
 public:
-  GroupView(Light_Manager *lm);
+  GroupView(Light_Manager *lightm);
 private:
   Light_Manager *lm;
   Wt::WTable *group_list_;

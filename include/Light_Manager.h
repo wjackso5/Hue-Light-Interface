@@ -49,6 +49,7 @@ class Light_Manager {
 		bool getGroups();
 		bool setLightName(std::string id,std::string name);
 		bool setLightState(std::string id,std::string statename,std::string state,int transitiontime);
+		bool setLightState(std::string id,std::string statename,bool state,int transitiontime);
 		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		void handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		bool setGroup();

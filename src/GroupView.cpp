@@ -29,10 +29,10 @@
 //DEBUGGING
 
 using namespace Wt;
-GroupView::GroupView(Light_Manager *lm)
+GroupView::GroupView(Light_Manager *lightm)
   : WContainerWidget()
 { 
-  
+  lm=lightm;
   std::string bridgename = lm->getBridge()->getName();
 
   group_msg_ = new WText("");
@@ -75,7 +75,9 @@ void GroupView::UpdateGroup(){
   clearFields();
 }
 void GroupView::showGroupList(){
+  log("SHOWGROUOPLIST")<<"FIRST";
   grouplist=lm->getGroupList();
+  log("SHOWGROUOPLIST")<<grouplist;
   group_list_->setHeaderCount(1);
   group_list_->setWidth(WLength("100%"));
   //declare the table headers.
@@ -85,7 +87,7 @@ void GroupView::showGroupList(){
   group_list_->elementAt(0, 3)->addWidget(new WText("Color"));
   group_list_->elementAt(0, 4)->addWidget(new WText("Brightness"));
   group_list_->elementAt(0, 5)->addWidget(new WText("Lights"));
-
+  log("SHOWGROUOPLIST")<<"BEFORE OB";
   Json::Object ob;
   Json::parse(grouplist,ob,false);
   int size=ob.size();
@@ -98,6 +100,7 @@ void GroupView::showGroupList(){
     int light_hue=states.get("hue").toNumber().orIfNull(-222222);
     Json::Array ls=val.get("lights");
     std::string lls;
+    log("SHOWGROUOPLIST")<<"BEFORE 2ND FOR LOOP";
   	for(int i=0;i<ls.size();i++){
       lls=lls+ls.at(i).toString().orIfNull("no lights");
     }
