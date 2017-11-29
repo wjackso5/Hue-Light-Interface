@@ -104,6 +104,7 @@ LightView::LightView(Bridge *bridge)
   std::string port = b->getPort();
   Wt::log("Yabadabadoo x1");
   addWidget(new ScheduleView(bridgeName, ip, port));
+  Wt::log("Yabadabadoo x7");
 
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);

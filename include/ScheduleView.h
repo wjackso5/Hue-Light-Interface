@@ -17,9 +17,9 @@ private:
   bool slHasBeenInit;
   bool handleSShasBeenCalled;
   bool handleIVShasBeenCalled;
- 
-  Wt::WContainerWidget *this_p;
 
+  Wt::Signal<> doneScheduleList;
+ 
   std::string ip;
   std::string port;
 

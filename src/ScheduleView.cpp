@@ -21,6 +21,7 @@
 #include <Wt/Json/Value>
 #include <Wt/Json/Object>
 #include <Wt/Json/Parser>
+#include <Wt/WSignal>
 
 //DEBUGGING
 #include <Wt/WLogger>
@@ -33,6 +34,8 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
 	std::string bridgename = bridgeName;
   ip = bridgeIP;
   port = bridgePORT;
+
+  Wt::log("INFO") << "ScheduleView made";
 
   schedule_msg_ = new WText("");
   addWidget(schedule_msg_);
@@ -56,6 +59,7 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   addWidget(schedule_list_t);
 
   schedule_button_->clicked().connect(this, &ScheduleView::UpdateSchedule);
+  doneScheduleList.connect(this, &ScheduleView::printSchedule);
 
   //SHOW SCHEDULES
   
@@ -63,6 +67,7 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
    * Initialize the Wtable
    */
   schedule_list_ = new WTable();
+  Wt::log("INFO") << "Yabadabadoo x2";
 
   /**
    * Enable push button and connect it
@@ -70,6 +75,7 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   showSchedulesButton = new Wt::WPushButton("Show Schedules");
   addWidget(showSchedulesButton);
   showSchedulesButton->clicked().connect(this, &ScheduleView::initializeSchedule);
+  Wt::log("INFO") << "Yabadabadoo x3";
 
 }
 
@@ -90,6 +96,7 @@ void ScheduleView::UpdateSchedule(){
 void ScheduleView::initializeSchedule() {
 	handleSShasBeenCalled = false;
 	handleIVShasBeenCalled = false;
+        Wt::log("INFO") << "Yabadabadoo x4";
 	if (sl) {
 		delete sl;
 	}
@@ -99,6 +106,7 @@ void ScheduleView::initializeSchedule() {
 }
 
 void ScheduleView::getSchedule() {
+        Wt::log("INFO") << "Yabadabadoo x5";
 	Wt::Http::Client *httpC = new Wt::Http::Client(this);
 	httpC->done().connect(boost::bind(&ScheduleView::handleShowScheduleHttpResponse, this, _1, _2)); 
 	if (!httpC->get("http://" + ip + ":" + port + "/api/newdeveloper/schedules")) {
@@ -108,6 +116,7 @@ void ScheduleView::getSchedule() {
 
 
 void ScheduleView::handleShowScheduleHttpResponse(boost::system::error_code err, const Wt::Http::Message& response) {
+        Wt::log("INFO") << "Yabadabadoo x6";
 	if (handleSShasBeenCalled == false) {
 		handleSShasBeenCalled = true;
 		if (!err && response.status() == 200) {
@@ -177,16 +186,16 @@ void ScheduleView::parseIVS(const std::string &input) {
 	schedNum++;
 
 	if (schedNum == numSchedules) {
-		printSchedule();
+		Wt::log("INFO") << "Signal about to be emitted";
+		doneScheduleList.emit();
 	}
 }	
 
 void ScheduleView::printSchedule() {
-	Wt::log("Yabadabadoo");
+  Wt::log("INFO") << "BEFINNING PRINT SCHEDULE";
   /**
    * Erase the current contents of the table
    */
-  schedule_list_->clear();
 
   /**
    * Initialize headers
@@ -199,7 +208,6 @@ void ScheduleView::printSchedule() {
   schedule_list_->elementAt(0, 3)->addWidget(new WText("Brightness"));
   schedule_list_->elementAt(0, 4)->addWidget(new WText("Address"));
   schedule_list_->elementAt(0, 5)->addWidget(new WText("method"));
-
   /**
    * For each schedule, add a row to the table.
    */
@@ -211,6 +219,6 @@ void ScheduleView::printSchedule() {
       schedule_list_->elementAt(i+1, 4)->addWidget(new WText(sl->at(i).address));
       schedule_list_->elementAt(i+1, 5)->addWidget(new WText(sl->at(i).method));
   }
-  addWidget(schedule_list_);
+  this->addWidget(schedule_list_);
 }
 
