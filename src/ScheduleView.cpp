@@ -222,3 +222,21 @@ void ScheduleView::printSchedule() {
   this->addWidget(schedule_list_);
 }
 
+std::string ScheduleView::assembleJsonForPutRequest(std::string name, std::strng address, std::string method, std::string on, std::string bri, std::string localtime ) {
+	std::string jsonObj;
+	jsonObj << "{ \"name\":\"" << name << "\",";
+	jsonObj << "\"description\": \"\",";
+	jsonObj << "\"command\": {";
+	jsonObj << "\"address\": \"" << address << "\",";
+	jsonObj << "\"method\" : \"" << method << "\",";
+	jsonObj << "\"body\": {";
+	jsonObj << "\"on\": "<<on",";
+	jsonObj << "\"bri\":"<<bri",";
+	jsonObj << "}";
+	jsonObj << "},";
+	jsonObj << "\"localtime\": \"" << localtime << \",";
+	jsonObj << "}";
+	
+	return jsonObj
+}
+
