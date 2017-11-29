@@ -48,14 +48,16 @@ GroupView::GroupView(Light_Manager *lightm)
   addWidget(group_msg_);
   addWidget(new WBreak());
 
+  group_list_ = new WTable();
+  addWidget(group_list_);
+
   addWidget(new WText("Group ID:"));
   group_id_ = new WLineEdit();                 // allow text input
   group_id_->setFocus();  
   addWidget(group_id_);
   addWidget(new WBreak());
-                         
+
   cb=new WComboBox();
-  addWidget(cb);
   cb->addItem("on");
   cb->addItem("bri");
   cb->addItem("hue");
@@ -63,6 +65,7 @@ GroupView::GroupView(Light_Manager *lightm)
   cb->addItem("lights");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
+  addWidget(cb);
 
   group_state_ = new WLineEdit();                 // allow text input
   group_state_->setFocus();  
@@ -76,25 +79,24 @@ GroupView::GroupView(Light_Manager *lightm)
   group_tt_->setSingleStep(1);
   addWidget(group_tt_);
   addWidget(new WBreak());
-  log("DEBUG") << "cb made";
-  addWidget(new WBreak());
-  show_group_list=new WPushButton("Show Groups");
-  addWidget(show_group_list);
-  group_button_ = new WPushButton("Confirm");
-  addWidget(group_button_);
   addWidget(new WText("Group Name:"));
   group_name_ = new WLineEdit();
 
   addWidget(group_name_);
-
   addWidget(new WBreak());
 
   addWidget(new WText("List the Lights (by id):"));
   group_light_list_ = new WLineEdit();
-
-  addWidget(group_light_list_ );
-
+  addWidget(group_light_list_);
   addWidget(new WBreak());
+
+  show_group_list=new WPushButton("Show Groups");
+  addWidget(show_group_list);
+  group_button_ = new WPushButton("Update Groups");
+  addWidget(group_button_);
+
+
+
 
   add_group_button_ = new WPushButton("Add Group");
   rm_group_button_ = new WPushButton("Remove Group");
@@ -102,7 +104,7 @@ GroupView::GroupView(Light_Manager *lightm)
   addWidget(add_group_button_);
   addWidget(rm_group_button_);
   
-  group_list_ = new WTable();
+  
   
   group_button_->clicked().connect(this, &GroupView::updateGroup);
   show_group_list->clicked().connect(this,&GroupView::showGroupList);

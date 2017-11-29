@@ -34,6 +34,11 @@ ScheduleView::ScheduleView(Light_Manager *lm)
   addWidget(schedule_msg_);
   addWidget(new WBreak());
 
+  WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
+  addWidget(schedule_list_t);
+  
+  schedule_list_ = new WTable();
+  showScheduleList();
   addWidget(new WText("Schedule ID:"));
   schedule_id_ = new WLineEdit();                 // allow text input
   schedule_id_->setFocus();  
@@ -48,12 +53,6 @@ ScheduleView::ScheduleView(Light_Manager *lm)
 
   schedule_button_ = new WPushButton("Confirm");
   addWidget(schedule_button_);
-
-  WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
-  addWidget(schedule_list_t);
-  
-  schedule_list_ = new WTable();
-  showScheduleList();
 
 
   schedule_button_->clicked().connect(this, &ScheduleView::UpdateSchedule);
