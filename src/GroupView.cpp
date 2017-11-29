@@ -42,7 +42,8 @@ GroupView::GroupView(Light_Manager *lightm)
 { 
   lm=lightm;
   std::string bridgename = lm->getBridge()->getName();
-
+  WText *group_list_t= new WText("<h3><u>Group List for "+bridgename+":</u></h3>");
+  addWidget(group_list_t);
   group_msg_ = new WText("");
   addWidget(group_msg_);
   addWidget(new WBreak());
@@ -97,8 +98,7 @@ GroupView::GroupView(Light_Manager *lightm)
 
   add_group_button_ = new WPushButton("Add Group");
   rm_group_button_ = new WPushButton("Remove Group");
-  WText *group_list_t= new WText("<h3><u>Group List for "+bridgename+":</u></h3>");
-  addWidget(group_list_t);
+
   addWidget(add_group_button_);
   addWidget(rm_group_button_);
   

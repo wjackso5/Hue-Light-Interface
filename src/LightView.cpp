@@ -91,20 +91,21 @@ LightView::LightView(Bridge *bridge)
   addWidget(new WBreak());
   log("DEBUG") << "cb made";
 
-  light_button_ = new WPushButton("Confirm");
+  light_button_ = new WPushButton("Update Light");
   addWidget(light_button_);
   log("DEBUG") << "light_button made";
-  show_button_ = new WPushButton("Show list");
+  show_button_ = new WPushButton("Show Lights");
   addWidget(show_button_);
   log("DEBUG")<<"showbutton made";
-	goto_bridgeview_button = new WPushButton("Hide");
-  addWidget(goto_bridgeview_button);
- 
+
   
   
   addWidget(new GroupView(lm));
   addWidget(new ScheduleView(lm));
-
+  
+  goto_bridgeview_button = new WPushButton("Hide");
+  addWidget(goto_bridgeview_button);
+ 
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
