@@ -47,6 +47,12 @@ class Light_Manager {
 		//PUBLIC METHODS
 		bool getLights();
 		bool getGroups();
+		bool createGroup(std::string ids,std::string name);
+		bool deleteGroup(std::string id);
+		bool setGroupName(std::string id,std::string name);
+		bool setGroupLights(std::string id,std::string name);
+		bool setGroupState(std::string id,std::string statename,std::string state,int transitiontime);
+		bool setGroupState(std::string id,std::string statename,bool state,int transitiontime);
 		bool setLightName(std::string id,std::string name);
 		bool setLightState(std::string id,std::string statename,std::string state,int transitiontime);
 		bool setLightState(std::string id,std::string statename,bool state,int transitiontime);

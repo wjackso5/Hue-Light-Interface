@@ -79,11 +79,12 @@ BridgeView::BridgeView()
   addWidget(bridge_list_t);
 
   bridge_list_ = new WTable();
-
+  if (!bl.empty()){
   addWidget(new WText("Bridge to view: (by name)"));
   btv_name = new WLineEdit();
   addWidget(btv_name);
   addWidget(new WBreak());
+  }
 
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
@@ -117,7 +118,6 @@ void BridgeView::addBridge()
   }
   BridgeView::clearBridgeFields();
   BridgeView::showBridgeList();
-
 }
 void BridgeView::editBridge()
 {
@@ -161,14 +161,6 @@ void BridgeView::showBridgeList(){
   bm = new Bridge_Manager(&session_);
   bl = bm->getBridgeList();
 
-  /*
-  for (std::vector<Bridge*>::iterator it = bl->begin(); it != bl->end(); ++it) {
-	Wt::log("Bridge Name") << (*it)->getName(); 
-  }
-  */
-  
-
-
   //populate the table with the info from the bridgelist.
   for(int i=0; i<bl->size(); i++){
       bridge_list_->elementAt(i+1, 0)->addWidget(new WText(bl->at(i)->getName()));
@@ -178,6 +170,10 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl->at(i)->getUsername()));
   }
   addWidget(bridge_list_);
+  bridge_list_->elementAt(bl->size(),0)->addWidget(new WText("Bridge to view: (by name)"));
+  btv_name = new WLineEdit();
+  bridge_list_->elementAt(bl->size(),0)->addWidget(btv_name);
+  bridge_list_->elementAt(bl->size(),0)->addWidget(new WBreak());
 
 }
 
