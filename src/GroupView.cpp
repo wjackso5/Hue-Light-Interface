@@ -83,16 +83,24 @@ GroupView::GroupView(Light_Manager *lightm)
 
   addWidget(new WText("Group Name:"));
   group_name_ = new WLineEdit();
+
+  addWidget(group_name_);
+
   addWidget(new WBreak());
 
   addWidget(new WText("List the Lights (by id):"));
   group_light_list_ = new WLineEdit();
+
+  addWidget(group_light_list_ );
+
   addWidget(new WBreak());
 
   add_group_button_ = new WPushButton("Add Group");
   rm_group_button_ = new WPushButton("Remove Group");
   WText *group_list_t= new WText("<h3><u>Group List for "+bridgename+":</u></h3>");
   addWidget(group_list_t);
+  addWidget(add_group_button_);
+  addWidget(rm_group_button_);
   
   group_list_ = new WTable();
   
@@ -175,6 +183,20 @@ void GroupView::addGroup(){
   }
   clearFields();
 }
+
+/**
+*addGroup calls the light manager to add a group
+*@param none
+*@return none
+*/
+void GroupView::addGroup(){
+  if (lm->createGroup(group_light_list_->text().toUTF8(), group_name_->text().toUTF8())){
+    group_msg_->setText(group_name_->text().toUTF8()+" added to groups");
+  }
+  else{
+    group_msg_->setText(group_name_->text().toUTF8()+"could not be added to groups");
+  }
+}
 /**
 *removeGroup calls the light manager to remove a group
 *@param none
@@ -182,13 +204,14 @@ void GroupView::addGroup(){
 */
 void GroupView::removeGroup(){
   //call lm to remove group
-    if (lm->deleteGroup(group_id_->text().UFT8())){
+  if (lm->deleteGroup(group_id_->text().UFT8())){
     group_msg_->setText(group_name_->text().UFT8()+" was deleted from groups");
   }
   else{
     group_msg_->setText(group_name_->text().UFT8()+"could not be deleted from groups");
   }
   clearFields();
+
 }
 
 /**
