@@ -59,7 +59,7 @@ GroupView::GroupView(Light_Manager *lightm)
   cb->addItem("bri");
   cb->addItem("hue");
   cb->addItem("name");
-  cb->addItem("lights")
+  cb->addItem("lights");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
 
@@ -141,7 +141,6 @@ void GroupView::updateGroup(){
     else {
       group_msg_->setText("lights could not be updated");
     }
-  }
   }
   else{
     //if setting "on" state
