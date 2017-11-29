@@ -33,7 +33,7 @@ using namespace Wt;
 ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::string bridgePORT)
   : WContainerWidget()
 { 
-	std::string bridgename = bridgeName;
+  std::string bridgename = bridgeName;
   ip = bridgeIP;
   port = bridgePORT;
 
@@ -61,12 +61,12 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   addWidget(new WBreak());
 
   addWidget(new WText("Brightness:"));
-  schedule_on_ = new WLineEdit();                 // allow text input
-  addWidget(schedule_on_); 
+  schedule_bri_ = new WLineEdit();                 // allow text input
+  addWidget(schedule_bri_); 
   addWidget(new WBreak());
 
   addWidget(new WText("Address:"));
-  schedule_on_ = new WLineEdit();                 // allow text input
+  schedule_address_ = new WLineEdit();                 // allow text input
   addWidget(schedule_address_); 
   addWidget(new WBreak());
 
@@ -79,9 +79,6 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
 
   WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
   addWidget(schedule_list_t);
-  
-  schedule_button_->clicked().connect(this, &ScheduleView::UpdateSchedule);
-  doneScheduleList.connect(this, &ScheduleView::printSchedule);
 
   //SHOW SCHEDULES
   
@@ -99,6 +96,7 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   showSchedulesButton->clicked().connect(this, &ScheduleView::initializeSchedule);
   schedule_add_button_->clicked().connect(this, &ScheduleView::addSchedule);
   schedule_del_button_->clicked().connect(this, &ScheduleView::deleteSchedule);
+  doneScheduleList.connect(this, &ScheduleView::printSchedule);
 
 }
 
@@ -106,16 +104,35 @@ void ScheduleView::clearFields(){
   schedule_id_->setText("");
   schedule_state_->setText("");
 }
+
+
 void ScheduleView::addSchedule(){
-  //casey does things here
+	std::string name, address, method, on, bri, localtime;
+
+	name = schedule_name_->text().toUTF8();
+	address = schedule_address_->text().toUTF8();
+	method = "PUT";
+	on = schedule_on_->text().toUTF8();
+	bri = schedule_bri_->text().toUTF8();
+	localtime = schedule_time_->text().toUTF8();
+
+	std::string response;
+
+	response = assembleJsonForPutRequest(name, address, method, on, bri, localtime);
+	std::cout << response;
 }
+
+
 void ScheduleView::deleteSchedule(){
-  //casey does more cool things :)
+
 }
+
+
 void ScheduleView::UpdateSchedule(){
-  //viv does work in here :D
   clearFields();
+
 }
+
 
 /**
  * METHODS FOR FETCHING THE SCHEDULE
@@ -125,7 +142,6 @@ void ScheduleView::UpdateSchedule(){
 void ScheduleView::initializeSchedule() {
 	handleSShasBeenCalled = false;
 	handleIVShasBeenCalled = false;
-        Wt::log("INFO") << "Yabadabadoo x4";
 	if (sl) {
 		delete sl;
 	}
@@ -135,7 +151,6 @@ void ScheduleView::initializeSchedule() {
 }
 
 void ScheduleView::getSchedule() {
-        Wt::log("INFO") << "Yabadabadoo x5";
 	Wt::Http::Client *httpC = new Wt::Http::Client(this);
 	httpC->done().connect(boost::bind(&ScheduleView::handleShowScheduleHttpResponse, this, _1, _2)); 
 	if (!httpC->get("http://" + ip + ":" + port + "/api/newdeveloper/schedules")) {
@@ -221,7 +236,6 @@ void ScheduleView::parseIVS(const std::string &input) {
 }	
 
 void ScheduleView::printSchedule() {
-  Wt::log("INFO") << "BEFINNING PRINT SCHEDULE";
   /**
    * Erase the current contents of the table
    */
@@ -263,7 +277,7 @@ std::string ScheduleView::assembleJsonForPutRequest(std::string name, std::strin
 	jsonObj += "\"bri\":"+bri+",";
 	jsonObj += "}";
 	jsonObj += "},";
-	jsonObj += "\"localtime\": \"" + localtime + "\",";
+	jsonObj += "\"localtime\": \"" + localtime + "\"";
 	jsonObj += "}";
 	
 	return jsonObj;

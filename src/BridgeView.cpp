@@ -79,12 +79,12 @@ BridgeView::BridgeView()
   addWidget(bridge_list_t);
 
   bridge_list_ = new WTable();
-  if (!bl.empty()){
+  // if (!bl.empty()){
   addWidget(new WText("Bridge to view: (by name)"));
   btv_name = new WLineEdit();
   addWidget(btv_name);
   addWidget(new WBreak());
-  }
+  // }
 
   goto_lightview_button = new WPushButton("View Bridge");
   addWidget(goto_lightview_button);
@@ -170,11 +170,7 @@ void BridgeView::showBridgeList(){
       bridge_list_->elementAt(i+1, 4)->addWidget(new WText(bl->at(i)->getUsername()));
   }
   addWidget(bridge_list_);
-  bridge_list_->elementAt(bl->size(),0)->addWidget(new WText("Bridge to view: (by name)"));
-  btv_name = new WLineEdit();
-  bridge_list_->elementAt(bl->size(),0)->addWidget(btv_name);
-  bridge_list_->elementAt(bl->size(),0)->addWidget(new WBreak());
-
+  
 }
 
   void BridgeView::createLightView(){

@@ -34,6 +34,7 @@ private:
   Wt::WLineEdit *schedule_on_;
   Wt::WLineEdit *schedule_brightness_;
   Wt::WLineEdit *schedule_address_;
+  Wt::WLineEdit *schedule_bri_;
   Wt::WPushButton *schedule_button_;
   Wt::WPushButton *goto_bridgeview_button;
   Wt::WPushButton *showSchedulesButton;
