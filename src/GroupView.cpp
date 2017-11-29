@@ -79,9 +79,10 @@ GroupView::GroupView(Light_Manager *lightm)
   group_tt_->setSingleStep(1);
   addWidget(group_tt_);
   addWidget(new WBreak());
+
+  
   addWidget(new WText("Group Name:"));
   group_name_ = new WLineEdit();
-
   addWidget(group_name_);
   addWidget(new WBreak());
 
@@ -144,7 +145,6 @@ void GroupView::updateGroup(){
       group_msg_->setText("lights could not be updated");
     }
   }
-  
   else{
     //if setting "on" state
     if(cb->currentText()=="on"){
@@ -170,9 +170,22 @@ void GroupView::updateGroup(){
     }
   }
   clearFields();
-  lm->getGroups();
 }
+/**
+*addGroup calls the light manager to add a group
+*@param none
+*@return none
+*/
+void GroupView::addGroup(){
+  if (lm->createGroup(group_light_list_->text().toUTF8(), group_name_->text().UFT8())){
+    group_msg_->setText(group_name_->text().UFT8()+" added to groups");
+  }
+  else{
+    group_msg_->setText(group_name_->text().UFT8()+"could not be added to groups");
+  }
+  clearFields();
 }
+
 /**
 *addGroup calls the light manager to add a group
 *@param none
@@ -185,9 +198,7 @@ void GroupView::addGroup(){
   else{
     group_msg_->setText(group_name_->text().toUTF8()+"could not be added to groups");
   }
-  clearFields();
 }
-
 /**
 *removeGroup calls the light manager to remove a group
 *@param none
@@ -200,7 +211,7 @@ void GroupView::removeGroup(){
     group_msg_->setText(group_name_->text().toUTF8()+" was deleted from groups");
   }
   else{
-    group_msg_->setText(group_name_->text().toUTF8()+"could not be deleted from groups");
+    group_msg_->setText(group_name_->text().UFT8()+"could not be deleted from groups");
   }
   clearFields();
 
@@ -250,4 +261,3 @@ void GroupView::showGroupList(){
   }
   addWidget(group_list_);
 }
-

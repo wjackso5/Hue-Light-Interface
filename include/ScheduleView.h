@@ -4,24 +4,62 @@
 #include <Wt/WContainerWidget>
 #include <Wt/WTable>
 #include "Light.h"
-#include "Schedule.h"
 #include "Light_Manager.h"
+#include "Schedule.h"
 #include "Bridge.h"
 class ScheduleView : public Wt::WContainerWidget
 {
 public:
-  ScheduleView(Light_Manager *lm);
+  ScheduleView(std::string bridgeName, std::string bridgeIP, std::string bridgePORT);
 private:
+  int numSchedules;
+  int schedNum;
+  bool slHasBeenInit;
+  bool handleSShasBeenCalled;
+  bool handleIVShasBeenCalled;
+
+  Wt::Signal<> doneScheduleList;
+ 
+  std::string ip;
+  std::string port;
+
   Light_Manager *lm;
-  std::vector<Schedule*> sl;
+  std::vector<Schedule> *sl;
+
   Wt::WTable *schedule_list_;
+  Wt::WTable **schedule_list_p;
   Wt::WText *schedule_msg_;
-  Wt::WLineEdit *schedule_id_;
-  Wt::WLineEdit *schedule_state_;
+  Wt::WLineEdit *schedule_time_;
+  Wt::WLineEdit *schedule_name_;
+  Wt::WLineEdit *schedule_on_;
+  Wt::WLineEdit *schedule_brightness_;
+  Wt::WLineEdit *schedule_address_;
+  Wt::WLineEdit *schedule_bri_;
   Wt::WPushButton *schedule_button_;
   Wt::WPushButton *goto_bridgeview_button;
+  Wt::WPushButton *showSchedulesButton;
+  Wt::WPushButton *schedule_add_button_;
+  Wt::WPushButton *schedule_del_button_;
+  Wt::WText *schedule_id_;
+  Wt::WText *schedule_state_;
+
+
+  Wt::WContainerWidget *this2_;
+  void initializeSchedule();
   void clearFields();
   void showScheduleList();
+  void addSchedule();
+  void deleteSchedule();
   void UpdateSchedule();
+  void getSchedule();
+  void handleShowScheduleHttpResponse(boost::system::error_code err, const Wt::Http::Message& response);
+  void parseGottenSchedule(const std::string &scheduleList);
+  void getIndividualSchedule(std::string scheduleNumber);
+  void handleIVShttpResponse(boost::system::error_code err, const Wt::Http::Message& response);
+  void parseIVS(const std::string &input);
+  void printSchedule();
+  std::string assembleJsonForPutRequest(std::string name, std::string address, std::string method, std::string on, std::string bri, std::string localtime);
+
+
 };
 #endif
