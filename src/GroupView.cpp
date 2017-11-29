@@ -59,7 +59,7 @@ GroupView::GroupView(Light_Manager *lightm)
   cb->addItem("bri");
   cb->addItem("hue");
   cb->addItem("name");
-  cb->addItem("lights")
+  cb->addItem("lights");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
 
@@ -80,7 +80,7 @@ GroupView::GroupView(Light_Manager *lightm)
   show_group_list=new WPushButton("Show Groups");
   addWidget(show_group_list);
   group_button_ = new WPushButton("Confirm");
-
+  addWidget(group_button_);
   addWidget(new WText("Group Name:"));
   group_name_ = new WLineEdit();
 
@@ -142,7 +142,7 @@ void GroupView::updateGroup(){
       group_msg_->setText("lights could not be updated");
     }
   }
-  }
+  
   else{
     //if setting "on" state
     if(cb->currentText()=="on"){
@@ -153,7 +153,7 @@ void GroupView::updateGroup(){
       else{
         b=false;
       }
-      if(lm->setGroupState(group_id_->text().toUTF8(),cb->currentText().toUTF8(),b,group_tt_->value())){
+      if(lm->setGroupState(group_id_->text().toUTF8(),cb->currentText().toUTF8(),b)){
         group_msg_->setText("state successfully updated");
       }
       else{
@@ -161,29 +161,16 @@ void GroupView::updateGroup(){
       }
       }else{
       //first param should be light_id_->text()->toUTF8()
-      if(lm->setGroupState(group_id_->text().toUTF8(), cb->currentText().toUTF8(), std::stoi(group_state_->text().toUTF8()), group_tt_->value())){
+      if(lm->setGroupState(group_id_->text().toUTF8(), cb->currentText().toUTF8(), group_state_->text().toUTF8(), group_tt_->value())){
       group_msg_->setText("light successfully updated");
       }else{
       group_msg_->setText("light could not be updated");
     }
   }
   clearFields();
+  lm->getGroups();
 }
-/**
-*addGroup calls the light manager to add a group
-*@param none
-*@return none
-*/
-void GroupView::addGroup(){
-  if (lm->createGroup(group_light_list_->text().toUTF8(), group_name_->text().UFT8())){
-    group_msg_->setText(group_name_->text().UFT8()+" added to groups");
-  }
-  else{
-    group_msg_->setText(group_name_->text().UFT8()+"could not be added to groups");
-  }
-  clearFields();
 }
-
 /**
 *addGroup calls the light manager to add a group
 *@param none
@@ -196,7 +183,9 @@ void GroupView::addGroup(){
   else{
     group_msg_->setText(group_name_->text().toUTF8()+"could not be added to groups");
   }
+  clearFields();
 }
+
 /**
 *removeGroup calls the light manager to remove a group
 *@param none
@@ -204,11 +193,11 @@ void GroupView::addGroup(){
 */
 void GroupView::removeGroup(){
   //call lm to remove group
-  if (lm->deleteGroup(group_id_->text().UFT8())){
-    group_msg_->setText(group_name_->text().UFT8()+" was deleted from groups");
+  if (lm->deleteGroup(group_id_->text().toUTF8())){
+    group_msg_->setText(group_name_->text().toUTF8()+" was deleted from groups");
   }
   else{
-    group_msg_->setText(group_name_->text().UFT8()+"could not be deleted from groups");
+    group_msg_->setText(group_name_->text().toUTF8()+"could not be deleted from groups");
   }
   clearFields();
 

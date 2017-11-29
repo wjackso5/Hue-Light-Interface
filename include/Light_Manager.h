@@ -52,10 +52,10 @@ class Light_Manager {
 		bool setGroupName(std::string id,std::string name);
 		bool setGroupLights(std::string id,std::string name);
 		bool setGroupState(std::string id,std::string statename,std::string state,int transitiontime);
-		bool setGroupState(std::string id,std::string statename,bool state,int transitiontime);
+		bool setGroupState(std::string id,std::string statename,bool state);
 		bool setLightName(std::string id,std::string name);
 		bool setLightState(std::string id,std::string statename,std::string state,int transitiontime);
-		bool setLightState(std::string id,std::string statename,bool state,int transitiontime);
+		bool setLightState(std::string id,std::string statename,bool state);
 		void handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		void handleGroupResponse(boost::system::error_code err,const Wt::Http::Message& response);
 		bool setGroup();

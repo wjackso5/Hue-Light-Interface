@@ -86,7 +86,7 @@
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id;
 			if(httpC->put(url,*message)){
-				Wt::WApplication::instance()->deferRendering();
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			free(httpC);
@@ -99,6 +99,7 @@
 			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
 			std::string body=ss.str();
 			std::string url;
+			Wt::log("SETLIGHTSTATE")<<"string ";
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
@@ -110,12 +111,13 @@
 			}
 			return false;
 		}
-		bool Light_Manager::setLightState(std::string id,std::string statename,bool state,int transitiontime){
+		bool Light_Manager::setLightState(std::string id,std::string statename,bool state){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::stringstream ss;
-			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<"}";
 			std::string body=ss.str();
 			std::string url;
+			Wt::log("SETLIGHTSTATE")<<"bool";
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
@@ -123,7 +125,7 @@
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/lights/"+id+"/state";
 			Wt::log("SET LIGHT::: url") << url;
 			if(httpC->put(url,*message)){
-				Wt::WApplication::instance()->deferRendering();
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			return false;
@@ -185,7 +187,7 @@
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
 			if(httpC->put(url,*message)){
-				Wt::WApplication::instance()->deferRendering();
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			free(httpC);
@@ -194,7 +196,21 @@
 
 		bool Light_Manager::setGroupLights(std::string id,std::string name){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
-			std::string body="{\"name\" : \""+name+"\"}";
+			Wt::Json::Array vect;
+			std::stringstream ss(id);
+			int i;
+			 while (ss >> i)
+    		{
+        		vect.push_back(Wt::Json::Value(i));
+
+        		if (ss.peek() == ',')
+            		ss.ignore();
+    		}
+    		Wt::Json::Object ob=Wt::Json::Object();
+    		Wt::Json::Value lists=Wt::Json::Value(vect);
+    		ob["lights"]=lists;
+			// ss<<"{"<<"\" lights \" : "<<vect<<" , \"name\" : "<<name<<"}"<<std::endl;
+			std::string body=Wt::Json::serialize(ob);
 			std::string url;
 			std::cout << body;
 			Wt::Http::Message *message=new Wt::Http::Message();
@@ -202,7 +218,7 @@
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
 			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
 			if(httpC->put(url,*message)){
-				Wt::WApplication::instance()->deferRendering();
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			free(httpC);
@@ -220,7 +236,7 @@
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
-			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id+"/state";
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id+"/action";
 			Wt::log("SET GROUP::: url") << url;
 			if(httpC->put(url,*message)){
 				return true;
@@ -228,20 +244,20 @@
 			return false;
 		}
 
-		bool Light_Manager::setGroupState(std::string id,std::string statename,bool state,int transitiontime){
+		bool Light_Manager::setGroupState(std::string id,std::string statename,bool state){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::stringstream ss;
-			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" }"<<std::endl;
 			std::string body=ss.str();
 			std::string url;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
-			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id+"/state";
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id+"/action";
 			Wt::log("SET LIGHT::: url") << url;
 			if(httpC->put(url,*message)){
-				Wt::WApplication::instance()->deferRendering();
+				//Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
 			return false;

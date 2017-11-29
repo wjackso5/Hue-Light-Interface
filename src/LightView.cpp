@@ -120,18 +120,21 @@ void LightView::UpdateLight(){
     else {
       light_msg_->setText("name could not be updated");
     }
+
   }
   else{
   	//if setting "on" state
   	if(cb->currentText()=="on"){
   		bool b;
   		if(light_state_->text()=="true"){
+        Wt::log("LIGHTSTATEBOOLEAN")<<"REACHED";
   			b=true;
   		}
   		else{
   			b=false;
   		}
-  		if(lm->setLightState(light_id_->text().toUTF8(),cb->currentText().toUTF8(),b,light_tt_->value())){
+      //if request sent successfully
+  		if(lm->setLightState(light_id_->text().toUTF8(),cb->currentText().toUTF8(),b)){
   			light_msg_->setText("light successfully updated");
   		}
   		else{
@@ -139,14 +142,16 @@ void LightView::UpdateLight(){
   		}
   	}else{
     //first param should be light_id_->text()->toUTF8()
-    if(lm->setLightState(light_id_->text().toUTF8(), cb->currentText().toUTF8(), std::stoi(light_state_->text().toUTF8()), light_tt_->value())){
+    if(lm->setLightState(light_id_->text().toUTF8(), cb->currentText().toUTF8(), light_state_->text().toUTF8(), light_tt_->value())){
       light_msg_->setText("light successfully updated");
     }else{
       light_msg_->setText("light could not be updated");
     }
   }}
+  lm->getLights();
 }
 void LightView::showLightList(){
+  light_list_->clear();
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.
