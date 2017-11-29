@@ -9,11 +9,15 @@
 #include "LightGroup.h"
 #include "Light_Manager.h"
 #include "Bridge.h"
+#include <Wt/WComboBox>
+#include <Wt/WSpinBox>
 class GroupView : public Wt::WContainerWidget
 {
 public:
   GroupView(Light_Manager *lightm);
 private:
+  Wt::WComboBox *cb;
+  Wt::WSpinBox *group_tt_;
   Light_Manager *lm;
   Wt::WTable *group_list_;
   Wt::WText *group_msg_;
@@ -32,6 +36,6 @@ private:
   void removeGroup();
   void showGroupList();
   void updateGroup();
-  
+
 };
 #endif

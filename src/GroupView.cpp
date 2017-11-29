@@ -53,9 +53,29 @@ GroupView::GroupView(Light_Manager *lightm)
   addWidget(group_id_);
   addWidget(new WBreak());
                          
-  addWidget(new WText("Group State:"));
+  cb=new WComboBox();
+  addWidget(cb);
+  cb->addItem("on");
+  cb->addItem("bri");
+  cb->addItem("hue");
+  cb->addItem("name");
+  cb->addItem("lights")
+  cb->setCurrentIndex(0);     // Show 'ID' initially.
+  cb->setMargin(10, Wt::Side::Right);
+
   group_state_ = new WLineEdit();                 // allow text input
-  addWidget(group_state_); 
+  group_state_->setFocus();  
+  addWidget(group_state_);
+  addWidget(new WBreak());
+  addWidget(new WText("Transition Time:"));
+  group_tt_ = new WSpinBox();                 // allow int input
+  group_tt_->setFocus();
+  group_tt_->setMinimum(0);  
+  group_tt_->setValue(0);
+  group_tt_->setSingleStep(1);
+  addWidget(group_tt_);
+  addWidget(new WBreak());
+  log("DEBUG") << "cb made";
   addWidget(new WBreak());
   show_group_list=new WPushButton("Show Groups");
   addWidget(show_group_list);
@@ -63,12 +83,16 @@ GroupView::GroupView(Light_Manager *lightm)
 
   addWidget(new WText("Group Name:"));
   group_name_ = new WLineEdit();
+
   addWidget(group_name_);
+
   addWidget(new WBreak());
 
   addWidget(new WText("List the Lights (by id):"));
   group_light_list_ = new WLineEdit();
+
   addWidget(group_light_list_ );
+
   addWidget(new WBreak());
 
   add_group_button_ = new WPushButton("Add Group");
@@ -102,9 +126,64 @@ void GroupView::clearFields(){
 *@return none
 */
 void GroupView::updateGroup(){
-  //viv does work in here :D
+  if (cb->currentText()=="name"){
+    if (lm->setGroupName(group_id_->text().toUTF8(), group_state_->text().toUTF8())){//first param should be light_id_->text()->toUTF8()
+      group_msg_->setText("name successfully updated");
+    }
+    else {
+      group_msg_->setText("name could not be updated");
+    }
+  }
+  else if (cb->currentText()=="lights"){
+    if (lm->setGroupLights(group_id_->text().toUTF8(), group_state_->text().toUTF8())){//first param should be light_id_->text()->toUTF8()
+      group_msg_->setText("lights successfully updated");
+    }
+    else {
+      group_msg_->setText("lights could not be updated");
+    }
+  }
+  }
+  else{
+    //if setting "on" state
+    if(cb->currentText()=="on"){
+      bool b;
+      if(group_state_->text()=="true"){
+        b=true;
+      }
+      else{
+        b=false;
+      }
+      if(lm->setGroupState(group_id_->text().toUTF8(),cb->currentText().toUTF8(),b,group_tt_->value())){
+        group_msg_->setText("state successfully updated");
+      }
+      else{
+        group_msg_->setText("state could not be updated");
+      }
+      }else{
+      //first param should be light_id_->text()->toUTF8()
+      if(lm->setGroupState(group_id_->text().toUTF8(), cb->currentText().toUTF8(), std::stoi(group_state_->text().toUTF8()), group_tt_->value())){
+      group_msg_->setText("light successfully updated");
+      }else{
+      group_msg_->setText("light could not be updated");
+    }
+  }
   clearFields();
 }
+/**
+*addGroup calls the light manager to add a group
+*@param none
+*@return none
+*/
+void GroupView::addGroup(){
+  if (lm->createGroup(group_light_list_->text().toUTF8(), group_name_->text().UFT8())){
+    group_msg_->setText(group_name_->text().UFT8()+" added to groups");
+  }
+  else{
+    group_msg_->setText(group_name_->text().UFT8()+"could not be added to groups");
+  }
+  clearFields();
+}
+
 /**
 *addGroup calls the light manager to add a group
 *@param none
@@ -125,12 +204,14 @@ void GroupView::addGroup(){
 */
 void GroupView::removeGroup(){
   //call lm to remove group
-  if (lm->deleteGroup(group_id_->text().toUTF8())){
-    group_msg_->setText(group_name_->text().toUTF8()+" was deleted from groups");
+  if (lm->deleteGroup(group_id_->text().UFT8())){
+    group_msg_->setText(group_name_->text().UFT8()+" was deleted from groups");
   }
   else{
-    group_msg_->setText(group_name_->text().toUTF8()+"could not be deleted from groups");
+    group_msg_->setText(group_name_->text().UFT8()+"could not be deleted from groups");
   }
+  clearFields();
+
 }
 
 /**
