@@ -152,7 +152,7 @@ void GroupView::updateGroup(){
       else{
         b=false;
       }
-      if(lm->setGroupState(group_id_->text().toUTF8(),cb->currentText().toUTF8(),b,group_tt_->value())){
+      if(lm->setGroupState(group_id_->text().toUTF8(),cb->currentText().toUTF8(),b)){
         group_msg_->setText("state successfully updated");
       }
       else{
@@ -160,7 +160,7 @@ void GroupView::updateGroup(){
       }
       }else{
       //first param should be light_id_->text()->toUTF8()
-      if(lm->setGroupState(group_id_->text().toUTF8(), cb->currentText().toUTF8(), std::stoi(group_state_->text().toUTF8()), group_tt_->value())){
+      if(lm->setGroupState(group_id_->text().toUTF8(), cb->currentText().toUTF8(), group_state_->text().toUTF8(), group_tt_->value())){
       group_msg_->setText("light successfully updated");
       }else{
       group_msg_->setText("light could not be updated");
@@ -257,4 +257,3 @@ void GroupView::showGroupList(){
   }
   addWidget(group_list_);
 }
-
