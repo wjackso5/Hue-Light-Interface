@@ -37,7 +37,7 @@ using namespace Wt;
 LightView::LightView(Bridge *bridge)
   : WContainerWidget()
 { 
-  
+  maxid=0;
   lm = new Light_Manager(bridge);
 
   log("DEBUG") << "LM made";
@@ -48,16 +48,23 @@ LightView::LightView(Bridge *bridge)
   addWidget(title);
 
   light_msg_ = new WText("");
-  addWidget(light_msg_);
+  
   addWidget(new WBreak());
 
   log("DEBUG")<<"gotobridgeview button made";
   WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
-  
   addWidget(light_list_t);
-  log("DEBUG") << "table soon to be made";
-  light_list_ = new WTable(); 
+  addWidget(light_msg_);
+  light_list_=new WTable();
   addWidget(light_list_);
+  light_list_->setHeaderCount(1);
+  light_list_->setWidth(WLength("100%"));
+  //declare the table headers.
+  light_list_->elementAt(0, 0)->addWidget(new WText(" "));
+  light_list_->elementAt(0, 1)->addWidget(new WText(" "));
+  light_list_->elementAt(0, 2)->addWidget(new WText(" "));
+  light_list_->elementAt(0, 3)->addWidget(new WText(" "));
+  light_list_->elementAt(0, 4)->addWidget(new WText(" "));
   log("DEBUG") << "table made";
 
   addWidget(new WText("Light ID:"));
@@ -99,9 +106,6 @@ LightView::LightView(Bridge *bridge)
   addWidget(show_button_);
   log("DEBUG")<<"showbutton made";
 
-  
-  
- 
 
   Bridge *b = lm->getBridge();
   std::string bridgeName = b->getName();
@@ -112,15 +116,25 @@ LightView::LightView(Bridge *bridge)
   Wt::log("Yabadabadoo x7");
 
 
-  show_button_->clicked().connect(this,&LightView::showLightList);
-  light_button_->clicked().connect(this, &LightView::UpdateLight);
-  goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
-
+  
   //Create Music Mode Button
   addWidget(new WBreak());
+  log("DEBUG")<<"???";
   spotify_view_button = new WPushButton("Music Mode");
   addWidget(spotify_view_button);
+  addWidget(new GroupView(lm));
+  goto_bridgeview_button=new WPushButton("Hide");
+  addWidget(goto_bridgeview_button);
   spotify_view_button->clicked().connect(this, &LightView::createSpotifyView);
+  log("DEBUG")<<"spotify binded";
+  show_button_->clicked().connect(this,&LightView::showLightList);
+  log("DEBUG")<<"BUTTON BINDED1";
+
+  light_button_->clicked().connect(this, &LightView::UpdateLight);
+  log("DEBUG")<<"BUTTON BINDED2";
+
+  goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
+  log("DEBUG")<<"BUTTON BINDED";
 
 }
 
@@ -130,6 +144,11 @@ void LightView::clearFields(){
   light_tt_->setValue(0);
 }
 void LightView::UpdateLight(){
+  Wt::log("ID")<<std::stoi(light_id_->text().toUTF8());
+  if((std::stoi(light_id_->text().toUTF8()))<=0||(std::stoi(light_id_->text().toUTF8()))>maxid)
+   { light_msg_->setText("Invalid ID");
+    return;}
+
   if (cb->currentText()=="name"){
     if (lm->setLightName(light_id_->text().toUTF8(), light_state_->text().toUTF8())){//first param should be light_id_->text()->toUTF8()
       light_msg_->setText("name successfully updated");
@@ -139,7 +158,8 @@ void LightView::UpdateLight(){
     }
 
   }
-  else{
+  else
+  {
   	//if setting "on" state
   	if(cb->currentText()=="on"){
   		bool b;
@@ -148,30 +168,40 @@ void LightView::UpdateLight(){
   			b=true;
   		}
   		else{
-  			b=false;
+        if(cb->currentText()=="false")
+
+  		    { Wt::log("CONSTRAINTS")<<"SET CURRENT";
+            b=false;}
+        else{
+          Wt::log("CONTRAINTS")<<"????";
+          light_msg_->setText("Invalid input");
+          return;
+        }
   		}
       //if request sent successfully
   		if(lm->setLightState(light_id_->text().toUTF8(),cb->currentText().toUTF8(),b)){
+        log("INLIGHTVIEW")<<b;
   			light_msg_->setText("light successfully updated");
   		}
   		else{
   			light_msg_->setText("light could not be updated");
   		}
-  	}else{
-    //first param should be light_id_->text()->toUTF8()
-    if(lm->setLightState(light_id_->text().toUTF8(), cb->currentText().toUTF8(), light_state_->text().toUTF8(), light_tt_->value())){
-      light_msg_->setText("light successfully updated");
-    }else{
-      light_msg_->setText("light could not be updated");
+  	}
+    else
+    {
+      //first param should be light_id_->text()->toUTF8()
+      if(lm->setLightState(light_id_->text().toUTF8(), cb->currentText().toUTF8(), light_state_->text().toUTF8(), light_tt_->value())){
+        light_msg_->setText("light successfully updated");
+      }else{
+        light_msg_->setText("light could not be updated");
+      }
     }
-  }}
+  }
   lm->getLights();
 }
 void LightView::showLightList(){
-  light_list_->setHeaderCount(1);
-  light_list_->setWidth(WLength("100%"));
-  //declare the table headers.
-  light_list_->elementAt(0, 0)->addWidget(new WText("Id"));
+  light_list_->clear();
+      light_list_->elementAt(0, 0)->addWidget(new WText("Id"));
   light_list_->elementAt(0, 1)->addWidget(new WText("Name"));
   light_list_->elementAt(0, 2)->addWidget(new WText("Switch "));
   light_list_->elementAt(0, 3)->addWidget(new WText("Color"));
@@ -182,6 +212,7 @@ void LightView::showLightList(){
   Json::parse(ll,ob,false);
   log("SHOWINGLIGHTLIST")<<"BEFORE OB";
   int size=ob.size();
+  maxid=size;
   for (int i=0;i<size;i++){
     Json::Object val=ob.get(std::to_string(i+1));
     std::string light_name=val.get("name").toString().orIfNull("name:(((");
@@ -190,6 +221,7 @@ void LightView::showLightList(){
     int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
     int light_hue=states.get("hue").toNumber().orIfNull(-222222);
     log("SHOWINGLIGHTLIST")<<"BEFOREPOPULATING";
+
     light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));
     light_list_->elementAt(i+1, 1)->addWidget(new WText(light_name));
     light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(isOn)));

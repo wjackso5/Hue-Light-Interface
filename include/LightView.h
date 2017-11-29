@@ -13,6 +13,7 @@ class LightView : public Wt::WContainerWidget
 public:
   LightView(Bridge *bridge);
 private:
+  int maxid;
   std::string ll;
   Bridge bridge;
   Light_Manager *lm;

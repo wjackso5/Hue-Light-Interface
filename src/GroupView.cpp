@@ -50,6 +50,12 @@ GroupView::GroupView(Light_Manager *lightm)
 
   group_list_ = new WTable();
   addWidget(group_list_);
+  group_list_->elementAt(0, 0)->addWidget(new WText(" "));
+  group_list_->elementAt(0, 1)->addWidget(new WText(" "));
+  group_list_->elementAt(0, 2)->addWidget(new WText(" "));
+  group_list_->elementAt(0, 3)->addWidget(new WText(" "));
+  group_list_->elementAt(0, 4)->addWidget(new WText(" "));
+  group_list_->elementAt(0, 5)->addWidget(new WText(" "));
 
   addWidget(new WText("Group ID:"));
   group_id_ = new WLineEdit();                 // allow text input
@@ -145,7 +151,8 @@ void GroupView::updateGroup(){
       group_msg_->setText("lights could not be updated");
     }
   }
-  else{
+  else
+  {
     //if setting "on" state
     if(cb->currentText()=="on"){
       bool b;
@@ -161,31 +168,19 @@ void GroupView::updateGroup(){
       else{
         group_msg_->setText("state could not be updated");
       }
-      }else{
+    }else
+    {
       //first param should be light_id_->text()->toUTF8()
       if(lm->setGroupState(group_id_->text().toUTF8(), cb->currentText().toUTF8(), group_state_->text().toUTF8(), group_tt_->value())){
       group_msg_->setText("light successfully updated");
       }else{
       group_msg_->setText("light could not be updated");
-    }
+      }
+    } 
   }
   clearFields();
+  lm->getGroups();
 }
-/**
-*addGroup calls the light manager to add a group
-*@param none
-*@return none
-*/
-void GroupView::addGroup(){
-  if (lm->createGroup(group_light_list_->text().toUTF8(), group_name_->text().UFT8())){
-    group_msg_->setText(group_name_->text().UFT8()+" added to groups");
-  }
-  else{
-    group_msg_->setText(group_name_->text().UFT8()+"could not be added to groups");
-  }
-  clearFields();
-}
-
 /**
 *addGroup calls the light manager to add a group
 *@param none
@@ -198,7 +193,23 @@ void GroupView::addGroup(){
   else{
     group_msg_->setText(group_name_->text().toUTF8()+"could not be added to groups");
   }
+  clearFields();
+  lm->getGroups();
 }
+
+/**
+*addGroup calls the light manager to add a group
+*@param none
+*@return none
+*/
+// void GroupView::addGroup(){
+//   if (lm->createGroup(group_light_list_->text().toUTF8(), group_name_->text().toUTF8())){
+//     group_msg_->setText(group_name_->text().toUTF8()+" added to groups");
+//   }
+//   else{
+//     group_msg_->setText(group_name_->text().toUTF8()+"could not be added to groups");
+//   }
+// }
 /**
 *removeGroup calls the light manager to remove a group
 *@param none
@@ -211,9 +222,10 @@ void GroupView::removeGroup(){
     group_msg_->setText(group_name_->text().toUTF8()+" was deleted from groups");
   }
   else{
-    group_msg_->setText(group_name_->text().UFT8()+"could not be deleted from groups");
+    group_msg_->setText(group_name_->text().toUTF8()+"could not be deleted from groups");
   }
   clearFields();
+  lm->getGroups();
 
 }
 
@@ -223,7 +235,7 @@ void GroupView::removeGroup(){
 *@return none
 */
 void GroupView::showGroupList(){
-
+  group_list_->clear();
   grouplist=lm->getGroupList();
   group_list_->setHeaderCount(1);
   group_list_->setWidth(WLength("100%"));
@@ -238,6 +250,7 @@ void GroupView::showGroupList(){
   Json::Object ob;
   Json::parse(grouplist,ob,false);
   int size=ob.size();
+  maxid=size;
   for (int i=0;i<size;i++){
     Json::Object val=ob.get(std::to_string(i+1));
     std::string group_name=val.get("name").toString().orIfNull("name:(((");
@@ -259,5 +272,5 @@ void GroupView::showGroupList(){
     group_list_->elementAt(i+1, 5)->addWidget(new WText(lls));
   
   }
-  addWidget(group_list_);
+
 }

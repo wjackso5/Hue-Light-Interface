@@ -114,10 +114,12 @@
 		bool Light_Manager::setLightState(std::string id,std::string statename,bool state){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::stringstream ss;
+			Wt::Json::Object ob=Wt::Json::Object();
+			ob["on"]=Wt::Json::Value(state);
 			ss<<"{"<<"\""<<statename<<"\" : "<<state<<"}";
-			std::string body=ss.str();
+			std::string body=Wt::Json::serialize(ob);
 			std::string url;
-			Wt::log("SETLIGHTSTATE")<<"bool";
+			Wt::log("SETLIGHTSTATE")<<body;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			message->addBodyText(body);
@@ -133,7 +135,6 @@
 
 	
 		bool Light_Manager::createGroup(std::string ids,std::string name){
-			/*
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			//parsing the light ids
 			Wt::Json::Array vect;
@@ -163,7 +164,6 @@
 				// Wt::WApplication::instance()->deferRendering();
 				return true;
 			}
-			*/
 			return false;
 		}
 		bool Light_Manager::deleteGroup(std::string id){
@@ -196,29 +196,24 @@
 			free(httpC);
 			return false;
 		}
-	
+
 		bool Light_Manager::setGroupLights(std::string id,std::string name){
-			/*
 			Wt::Http::Client *httpC = new Wt::Http::Client;
-			//Wt::Json::Array vect;
+			Wt::Json::Array vect;
 			std::stringstream ss(id);
 			int i;
 			 while (ss >> i)
     		{
-        		//vect.push_back(Wt::Json::Value(i));
+        		vect.push_back(Wt::Json::Value(i));
 
         		if (ss.peek() == ',')
             		ss.ignore();
     		}
-
-			// const Wt::Json::Array cVect = vect;
-	 
-			Wt::Json::Object ob=Wt::Json::Object();
-			//Wt::Json::Value lists= Wt::Json::Value(cVect);
-			ob["lights"]=lists;
+    		Wt::Json::Object ob=Wt::Json::Object();
+    		Wt::Json::Value lists=Wt::Json::Value(vect);
+    		ob["lights"]=lists;
 			// ss<<"{"<<"\" lights \" : "<<vect<<" , \"name\" : "<<name<<"}"<<std::endl;
-		//	std::string body=Wt::Json::serialize(ob);
-			std::string body;
+			std::string body=Wt::Json::serialize(ob);
 			std::string url;
 			std::cout << body;
 			Wt::Http::Message *message=new Wt::Http::Message();
@@ -230,7 +225,6 @@
 				return true;
 			}
 			free(httpC);
-			*/
 			return false;
 		}
 

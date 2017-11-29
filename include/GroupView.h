@@ -16,6 +16,7 @@ class GroupView : public Wt::WContainerWidget
 public:
   GroupView(Light_Manager *lightm);
 private:
+  int maxid;
   Wt::WComboBox *cb;
   Wt::WSpinBox *group_tt_;
   Light_Manager *lm;

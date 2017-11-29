@@ -48,7 +48,7 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   addWidget(schedule_list_t);
   
   schedule_list_ = new WTable();
-  showScheduleList();
+  // showScheduleList();
   addWidget(new WText("Time:"));
   schedule_time_ = new WLineEdit();                 // allow text input
   schedule_time_->setFocus(); 
