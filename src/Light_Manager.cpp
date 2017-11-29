@@ -174,9 +174,80 @@
 				return true;
 			}
 			return false;
-
 		}
-		bool Light_Manager::setGroup(){}
+		bool Light_Manager::setGroupName(std::string id,std::string name){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
+			std::string body="{\"name\" : \""+name+"\"}";
+			std::string url;
+			std::cout << body;
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->addBodyText(body);
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
+			if(httpC->put(url,*message)){
+				Wt::WApplication::instance()->deferRendering();
+				return true;
+			}
+			free(httpC);
+			return false;
+		}
+
+		bool Light_Manager::setGroupLights(std::string id,std::string name){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
+			std::string body="{\"name\" : \""+name+"\"}";
+			std::string url;
+			std::cout << body;
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->addBodyText(body);
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
+			if(httpC->put(url,*message)){
+				Wt::WApplication::instance()->deferRendering();
+				return true;
+			}
+			free(httpC);
+			return false;
+		}
+
+		
+		bool Light_Manager::setGroupState(std::string id,std::string statename,std::string state,int transitiontime){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
+			std::stringstream ss;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			std::string body=ss.str();
+			std::string url;
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->setHeader("Content-type","application/Json");
+			message->addBodyText(body);
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id+"/state";
+			Wt::log("SET GROUP::: url") << url;
+			if(httpC->put(url,*message)){
+				return true;
+			}
+			return false;
+		}
+
+		bool Light_Manager::setGroupState(std::string id,std::string statename,bool state,int transitiontime){
+			Wt::Http::Client *httpC = new Wt::Http::Client;
+			std::stringstream ss;
+			ss<<"{"<<"\""<<statename<<"\" : "<<state<<" , \"transitiontime\" : "<<transitiontime<<"}"<<std::endl;
+			std::string body=ss.str();
+			std::string url;
+			Wt::Http::Message *message=new Wt::Http::Message();
+			message->setHeader("Content-type","application/Json");
+			message->addBodyText(body);
+			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));
+			url="http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id+"/state";
+			Wt::log("SET LIGHT::: url") << url;
+			if(httpC->put(url,*message)){
+				Wt::WApplication::instance()->deferRendering();
+				return true;
+			}
+			return false;
+		}
+
+
 
 		void Light_Manager::handleLightResponse(boost::system::error_code err,const Wt::Http::Message& response)
 		{
