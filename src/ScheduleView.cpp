@@ -1,4 +1,6 @@
 //scheduleView
+#include <iostream>
+#include <string>
 #include <Wt/WAnchor>
 #include <Wt/WText>
 #include <Wt/WLineEdit>
@@ -95,8 +97,8 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   showSchedulesButton = new Wt::WPushButton("Show Schedules");
   addWidget(showSchedulesButton);
   showSchedulesButton->clicked().connect(this, &ScheduleView::initializeSchedule);
-  schedule_add_button_->clicked().connect(this, &ScheduleView::AddSchedule);
-  schedule_del_button_->clicked().connect(this, &ScheduleView::DeleteSchedule);
+  schedule_add_button_->clicked().connect(this, &ScheduleView::addSchedule);
+  schedule_del_button_->clicked().connect(this, &ScheduleView::deleteSchedule);
 
 }
 
@@ -104,10 +106,10 @@ void ScheduleView::clearFields(){
   schedule_id_->setText("");
   schedule_state_->setText("");
 }
-void ScheduleView::AddSchedule(){
+void ScheduleView::addSchedule(){
   //casey does things here
 }
-void ScheduleView::DeleteSchedule(){
+void ScheduleView::deleteSchedule(){
   //casey does more cool things :)
 }
 void ScheduleView::UpdateSchedule(){
@@ -249,21 +251,21 @@ void ScheduleView::printSchedule() {
   this->addWidget(schedule_list_);
 }
 
-std::string ScheduleView::assembleJsonForPutRequest(std::string name, std::strng address, std::string method, std::string on, std::string bri, std::string localtime ) {
+std::string ScheduleView::assembleJsonForPutRequest(std::string name, std::string address, std::string method, std::string on, std::string bri, std::string localtime ) {
 	std::string jsonObj;
-	jsonObj << "{ \"name\":\"" << name << "\",";
-	jsonObj << "\"description\": \"\",";
-	jsonObj << "\"command\": {";
-	jsonObj << "\"address\": \"" << address << "\",";
-	jsonObj << "\"method\" : \"" << method << "\",";
-	jsonObj << "\"body\": {";
-	jsonObj << "\"on\": "<<on",";
-	jsonObj << "\"bri\":"<<bri",";
-	jsonObj << "}";
-	jsonObj << "},";
-	jsonObj << "\"localtime\": \"" << localtime << \",";
-	jsonObj << "}";
+	jsonObj = "{ \"name\":\"" + name + "\",";
+	jsonObj += "\"description\": \"\",";
+	jsonObj += "\"command\": {";
+	jsonObj += "\"address\": \"" + address + "\",";
+	jsonObj += "\"method\" : \"" + method + "\",";
+	jsonObj += "\"body\": {";
+	jsonObj += "\"on\": "+on+",";
+	jsonObj += "\"bri\":"+bri+",";
+	jsonObj += "}";
+	jsonObj += "},";
+	jsonObj += "\"localtime\": \"" + localtime + "\",";
+	jsonObj += "}";
 	
-	return jsonObj
+	return jsonObj;
 }
 

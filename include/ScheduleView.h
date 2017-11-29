@@ -37,6 +37,12 @@ private:
   Wt::WPushButton *schedule_button_;
   Wt::WPushButton *goto_bridgeview_button;
   Wt::WPushButton *showSchedulesButton;
+  Wt::WPushButton *schedule_add_button_;
+  Wt::WPushButton *schedule_del_button_;
+  Wt::WText *schedule_id_;
+  Wt::WText *schedule_state_;
+
+
   Wt::WContainerWidget *this2_;
   void initializeSchedule();
   void clearFields();
@@ -51,6 +57,7 @@ private:
   void handleIVShttpResponse(boost::system::error_code err, const Wt::Http::Message& response);
   void parseIVS(const std::string &input);
   void printSchedule();
+  std::string assembleJsonForPutRequest(std::string name, std::string address, std::string method, std::string on, std::string bri, std::string localtime);
 
 
 };
