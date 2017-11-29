@@ -41,23 +41,43 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   addWidget(schedule_msg_);
   addWidget(new WBreak());
 
-  addWidget(new WText("Schedule ID:"));
-  schedule_id_ = new WLineEdit();                 // allow text input
-  schedule_id_->setFocus();  
-  addWidget(schedule_id_);
+  addWidget(new WText("Time:"));
+  schedule_time_ = new WLineEdit();                 // allow text input
+  schedule_time_->setFocus(); 
+  schedule_time_->setInputMask("0000-00-00T00:00:00;_"); 
+  addWidget(schedule_time_);
   addWidget(new WBreak());
                          
-  addWidget(new WText("Schedule State:"));
-  schedule_state_ = new WLineEdit();                 // allow text input
-  addWidget(schedule_state_); 
+  addWidget(new WText("Name:"));
+  schedule_name_ = new WLineEdit();                 // allow text input
+  addWidget(schedule_name_); 
   addWidget(new WBreak());
 
-  schedule_button_ = new WPushButton("Confirm");
-  addWidget(schedule_button_);
+  addWidget(new WText("On/Off:"));
+  schedule_on_ = new WLineEdit();                 // allow text input
+  addWidget(schedule_on_); 
+  addWidget(new WBreak());
+
+  addWidget(new WText("Brightness:"));
+  schedule_on_ = new WLineEdit();                 // allow text input
+  addWidget(schedule_on_); 
+  addWidget(new WBreak());
+
+  addWidget(new WText("Address:"));
+  schedule_on_ = new WLineEdit();                 // allow text input
+  addWidget(schedule_address_); 
+  addWidget(new WBreak());
+
+
+  schedule_add_button_ = new WPushButton("Add");
+  schedule_del_button_ = new WPushButton("Delete");
+  addWidget(schedule_add_button_);
+  addWidget(schedule_del_button_);
+
 
   WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
   addWidget(schedule_list_t);
-
+  
   schedule_button_->clicked().connect(this, &ScheduleView::UpdateSchedule);
   doneScheduleList.connect(this, &ScheduleView::printSchedule);
 
@@ -75,13 +95,20 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
   showSchedulesButton = new Wt::WPushButton("Show Schedules");
   addWidget(showSchedulesButton);
   showSchedulesButton->clicked().connect(this, &ScheduleView::initializeSchedule);
-  Wt::log("INFO") << "Yabadabadoo x3";
+  schedule_add_button_->clicked().connect(this, &ScheduleView::AddSchedule);
+  schedule_del_button_->clicked().connect(this, &ScheduleView::DeleteSchedule);
 
 }
 
 void ScheduleView::clearFields(){
   schedule_id_->setText("");
   schedule_state_->setText("");
+}
+void ScheduleView::AddSchedule(){
+  //casey does things here
+}
+void ScheduleView::DeleteSchedule(){
+  //casey does more cool things :)
 }
 void ScheduleView::UpdateSchedule(){
   //viv does work in here :D

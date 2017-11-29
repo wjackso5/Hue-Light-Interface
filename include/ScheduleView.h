@@ -29,8 +29,11 @@ private:
   Wt::WTable *schedule_list_;
   Wt::WTable **schedule_list_p;
   Wt::WText *schedule_msg_;
-  Wt::WLineEdit *schedule_id_;
-  Wt::WLineEdit *schedule_state_;
+  Wt::WLineEdit *schedule_time_;
+  Wt::WLineEdit *schedule_name_;
+  Wt::WLineEdit *schedule_on_;
+  Wt::WLineEdit *schedule_brightness_;
+  Wt::WLineEdit *schedule_address_;
   Wt::WPushButton *schedule_button_;
   Wt::WPushButton *goto_bridgeview_button;
   Wt::WPushButton *showSchedulesButton;
@@ -38,6 +41,8 @@ private:
   void initializeSchedule();
   void clearFields();
   void showScheduleList();
+  void addSchedule();
+  void deleteSchedule();
   void UpdateSchedule();
   void getSchedule();
   void handleShowScheduleHttpResponse(boost::system::error_code err, const Wt::Http::Message& response);
