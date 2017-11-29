@@ -24,6 +24,7 @@
 #include <Wt/Json/Parser>
 #include <Wt/WComboBox>
 #include <Wt/WStringListModel>
+#include "SpotifyView.h"
 
 
 
@@ -103,8 +104,13 @@ LightView::LightView(Bridge *bridge)
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
- 
-  
+
+  //Create Music Mode Button
+  addWidget(new WBreak());
+  spotify_view_button = new WPushButton("Music Mode");
+  addWidget(spotify_view_button);
+  spotify_view_button->clicked().connect(this, &LightView::createSpotifyView);
+
 }
 
 void LightView::clearFields(){
@@ -184,4 +190,12 @@ void LightView::showLightList(){
 
   void LightView::clearView(){
     this->clear();
+  }
+
+  void LightView::createSpotifyView(){
+    if (!spotifyActive){
+      addWidget(new SpotifyView(lm));
+      spotifyActive = true;
+      log("SPOTIFY") << "music mode active";
+      }
   }

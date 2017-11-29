@@ -34,6 +34,10 @@ BridgeView::BridgeView()
   addWidget(title);
   addWidget(new WBreak());
 
+  WText *musicmode = new WText("To activate Music Mode, you must first view a bridge below (by name).");
+  addWidget(musicmode);
+  addWidget(new WBreak());
+
   bridge_msg_ = new WText("");
   addWidget(bridge_msg_);
   addWidget(new WBreak());
@@ -73,8 +77,6 @@ BridgeView::BridgeView()
   addWidget(edit_bridge_button_);
   show_bridge_list_=new WPushButton("Show Bridge Lists");
   addWidget(show_bridge_list_);
-  spotify_view_button = new WPushButton("Music Mode");
-  addWidget(spotify_view_button);
 
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
@@ -95,7 +97,7 @@ BridgeView::BridgeView()
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
   goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
-  spotify_view_button->clicked().connect(this, &BridgeView::createSpotifyView);
+
 
 }
 
@@ -191,9 +193,4 @@ void BridgeView::showBridgeList(){
     addWidget(new LightView(btv));
   }
 
-  void BridgeView::createSpotifyView(){
-    if (!spotifyActive){
-      addWidget(new SpotifyView());
-      spotifyActive = true;
-      }
-  }
+

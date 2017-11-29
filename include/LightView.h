@@ -25,9 +25,12 @@ private:
   Wt::WPushButton *light_button_;
   Wt::WPushButton *show_button_;
   Wt::WPushButton *goto_bridgeview_button;
+  Wt::WPushButton *spotify_view_button;
   void clearFields();
   void showLightList();
   void UpdateLight();
   void clearView();
+  void createSpotifyView();
+  bool spotifyActive;
 };
 #endif
