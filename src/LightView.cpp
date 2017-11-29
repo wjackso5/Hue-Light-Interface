@@ -24,6 +24,7 @@
 #include <Wt/Json/Parser>
 #include <Wt/WComboBox>
 #include <Wt/WStringListModel>
+#include "SpotifyView.h"
 
 
 
@@ -109,8 +110,13 @@ LightView::LightView(Bridge *bridge)
   show_button_->clicked().connect(this,&LightView::showLightList);
   light_button_->clicked().connect(this, &LightView::UpdateLight);
   goto_bridgeview_button->clicked().connect(this, &LightView::clearView);
- 
-  
+
+  //Create Music Mode Button
+  addWidget(new WBreak());
+  spotify_view_button = new WPushButton("Music Mode");
+  addWidget(spotify_view_button);
+  spotify_view_button->clicked().connect(this, &LightView::createSpotifyView);
+
 }
 
 void LightView::clearFields(){
@@ -169,7 +175,7 @@ void LightView::showLightList(){
   ll = lm->getLightList();
   Json::Object ob;
   Json::parse(ll,ob,false);
-  
+  log("SHOWINGLIGHTLIST")<<"BEFORE OB";
   int size=ob.size();
   for (int i=0;i<size;i++){
     Json::Object val=ob.get(std::to_string(i+1));
@@ -178,6 +184,7 @@ void LightView::showLightList(){
     bool isOn=states.get("on").toBool().orIfNull(false);
     int light_brightness=states.get("bri").toNumber().orIfNull(-11111);
     int light_hue=states.get("hue").toNumber().orIfNull(-222222);
+    log("SHOWINGLIGHTLIST")<<"BEFOREPOPULATING";
     light_list_->elementAt(i+1, 0)->addWidget(new WText(std::to_string(i+1)));
     light_list_->elementAt(i+1, 1)->addWidget(new WText(light_name));
     light_list_->elementAt(i+1, 2)->addWidget(new WText(std::to_string(isOn)));
@@ -192,4 +199,12 @@ void LightView::showLightList(){
 
   void LightView::clearView(){
     this->clear();
+  }
+
+  void LightView::createSpotifyView(){
+    if (!spotifyActive){
+      addWidget(new SpotifyView(lm));
+      spotifyActive = true;
+      log("SPOTIFY") << "music mode active";
+      }
   }

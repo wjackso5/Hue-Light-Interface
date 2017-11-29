@@ -16,6 +16,7 @@
 #include "LightView.h"
 #include <string>
 #include <vector>
+#include "SpotifyView.h"
 
 //DEBUGGING
 #include <Wt/WLogger>
@@ -31,6 +32,10 @@ BridgeView::BridgeView()
 
   WText *title = new WText("<h1>Manage your Bridges:</h1>");
   addWidget(title);
+  addWidget(new WBreak());
+
+  WText *musicmode = new WText("To activate Music Mode, you must first view a bridge below (by name).");
+  addWidget(musicmode);
   addWidget(new WBreak());
 
   bridge_msg_ = new WText("");
@@ -73,7 +78,6 @@ BridgeView::BridgeView()
   show_bridge_list_=new WPushButton("Show Bridge Lists");
   addWidget(show_bridge_list_);
 
-
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
   addWidget(bridge_list_t);
@@ -94,6 +98,7 @@ BridgeView::BridgeView()
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
   goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
+
 
 }
 
@@ -179,3 +184,5 @@ void BridgeView::showBridgeList(){
     *btv = *bl->at(index);
     addWidget(new LightView(btv));
   }
+
+
