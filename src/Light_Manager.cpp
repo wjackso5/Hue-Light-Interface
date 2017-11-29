@@ -167,6 +167,7 @@
 		bool Light_Manager::deleteGroup(std::string id){
 			Wt::Http::Client *httpC = new Wt::Http::Client;
 			std::string url = "http://" + bridge->ip + ':' + bridge->port + "/api/"+bridge->username+"/groups/"+id;
+			Wt::log("DELETE")<<url;
 			Wt::Http::Message *message=new Wt::Http::Message();
 			message->setHeader("Content-type","application/Json");
 			httpC->done().connect(boost::bind(&Light_Manager::handleLightResponse,this,_1,_2));

@@ -50,6 +50,15 @@ LightView::LightView(Bridge *bridge)
   addWidget(light_msg_);
   addWidget(new WBreak());
 
+  log("DEBUG")<<"gotobridgeview button made";
+  WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
+  
+  addWidget(light_list_t);
+  log("DEBUG") << "table soon to be made";
+  light_list_ = new WTable(); 
+  addWidget(light_list_);
+  log("DEBUG") << "table made";
+
   addWidget(new WText("Light ID:"));
   light_id_ = new WLineEdit();                 // allow text input
   light_id_->setFocus();  
@@ -58,19 +67,21 @@ LightView::LightView(Bridge *bridge)
                          
 
   cb=new WComboBox();
-  addWidget(cb);
   cb->addItem("on");
   cb->addItem("bri");
   cb->addItem("hue");
   cb->addItem("name");
   cb->setCurrentIndex(0);     // Show 'ID' initially.
   cb->setMargin(10, Wt::Side::Right);
-
+  addWidget(cb);
+  
   light_state_ = new WLineEdit();                 // allow text input
   light_state_->setFocus();  
   addWidget(light_state_);
   addWidget(new WBreak());
   addWidget(new WText("Transition Time:"));
+
+  
   light_tt_ = new WSpinBox();                 // allow int input
   light_tt_->setFocus();
   light_tt_->setMinimum(0);  
@@ -88,13 +99,7 @@ LightView::LightView(Bridge *bridge)
   log("DEBUG")<<"showbutton made";
 	goto_bridgeview_button = new WPushButton("Hide");
   addWidget(goto_bridgeview_button);
-  log("DEBUG")<<"gotobridgeview button made";
-  WText *light_list_t= new WText("<h3><u>Light List for "+bridgename+":</u></h3>");
-  
-  addWidget(light_list_t);
-  log("DEBUG") << "table soon to be made";
-  light_list_ = new WTable(); 
-  log("DEBUG") << "table made";
+ 
   
   
   addWidget(new GroupView(lm));
@@ -151,7 +156,6 @@ void LightView::UpdateLight(){
   lm->getLights();
 }
 void LightView::showLightList(){
-  light_list_->clear();
   light_list_->setHeaderCount(1);
   light_list_->setWidth(WLength("100%"));
   //declare the table headers.
@@ -181,7 +185,6 @@ void LightView::showLightList(){
   
   }
   log("DEBUG") << "about to add tablewidget";
-  addWidget(light_list_);
   log("DEBUG") << "added tablewidget";
 }
 

@@ -193,6 +193,7 @@ void GroupView::addGroup(){
 */
 void GroupView::removeGroup(){
   //call lm to remove group
+  log("REMOVEGROUP-GROUPVIEW")<<group_id_->text().toUTF8();
   if (lm->deleteGroup(group_id_->text().toUTF8())){
     group_msg_->setText(group_name_->text().toUTF8()+" was deleted from groups");
   }
@@ -209,7 +210,7 @@ void GroupView::removeGroup(){
 *@return none
 */
 void GroupView::showGroupList(){
-  group_list_->clear();
+
   grouplist=lm->getGroupList();
   group_list_->setHeaderCount(1);
   group_list_->setWidth(WLength("100%"));
