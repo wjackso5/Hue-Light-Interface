@@ -63,16 +63,20 @@ GroupView::GroupView(Light_Manager *lightm)
 
   addWidget(new WText("Group Name:"));
   group_name_ = new WLineEdit();
+  addWidget(group_name_);
   addWidget(new WBreak());
 
   addWidget(new WText("List the Lights (by id):"));
   group_light_list_ = new WLineEdit();
+  addWidget(group_light_list_ );
   addWidget(new WBreak());
 
   add_group_button_ = new WPushButton("Add Group");
   rm_group_button_ = new WPushButton("Remove Group");
   WText *group_list_t= new WText("<h3><u>Group List for "+bridgename+":</u></h3>");
   addWidget(group_list_t);
+  addWidget(add_group_button_);
+  addWidget(rm_group_button_);
   
   group_list_ = new WTable();
   
