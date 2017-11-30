@@ -35,18 +35,20 @@ ScheduleView::ScheduleView(std::string bridgeName, std::string bridgeIP, std::st
 { 
   std::string bridgename = bridgeName;
   ip = bridgeIP;
-  port = bridgePORT;
+  port = bridgePORT;                                                                                                                    
 
   Wt::log("INFO") << "ScheduleView made";
 
-  schedule_msg_ = new WText("");
-  addWidget(schedule_msg_);
-  addWidget(new WBreak());
+
 
 
   WText *schedule_list_t= new WText("<h3><u>Schedule List for "+bridgename+":</u></h3>");
   addWidget(schedule_list_t);
   
+  schedule_msg_ = new WText("");
+  addWidget(schedule_msg_);
+  addWidget(new WBreak());
+
   schedule_list_ = new WTable();
   // showScheduleList();
   addWidget(new WText("Time:"));
@@ -149,6 +151,7 @@ void ScheduleView::initializeSchedule() {
 	}
 	sl = new std::vector<Schedule>();
 	getSchedule();
+	Wt::log("SHOWSCHEDULE")<<"REACHINITIALIZESCHEDULE";
 
 }
 
@@ -157,6 +160,7 @@ void ScheduleView::getSchedule() {
 	httpC->done().connect(boost::bind(&ScheduleView::handleShowScheduleHttpResponse, this, _1, _2)); 
 	if (!httpC->get("http://" + ip + ":" + port + "/api/newdeveloper/schedules")) {
 		Wt::log("ERROR") << "Malformed URL";
+		
 	}
 }
 

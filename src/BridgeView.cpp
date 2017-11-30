@@ -77,6 +77,8 @@ BridgeView::BridgeView()
   addWidget(edit_bridge_button_);
   show_bridge_list_=new WPushButton("Show Bridge Lists");
   addWidget(show_bridge_list_);
+  check_bridge=new WPushButton("Check validity");
+  addWidget(check_bridge);
 
 	
   WText *bridge_list_t= new WText("<h2><u>Bridge List:</u></h2>");
@@ -98,7 +100,7 @@ BridgeView::BridgeView()
   delete_bridge_button_->clicked().connect(this, &BridgeView::deleteBridge);
   show_bridge_list_->clicked().connect(this,&BridgeView::showBridgeList);
   goto_lightview_button->clicked().connect(this, &BridgeView::createLightView);
-
+  check_bridge->clicked().connect(this,&BridgeView::Check);
 
 }
 
@@ -113,11 +115,10 @@ void BridgeView::addBridge()
 {
   //calls BM to add the bridge to the db
   Wt::log("info") << bridge_name_->text().toUTF8();
-  bool response;
-  response = bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_ip_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_username_->text().toUTF8());
-  if (response==true){
-    Wt::log("info") << bridge_name_->text().toUTF8();
-    bridge_msg_->setText(bridge_name_->text()+" was sucessfully added.");
+  if(bm->getValidity()==1){
+      bm->addBridge(bridge_name_->text().toUTF8(),bridge_location_->text().toUTF8(), bridge_ip_->text().toUTF8(), bridge_port_->text().toUTF8(), bridge_username_->text().toUTF8());
+      Wt::log("info") << bridge_name_->text().toUTF8();
+      bridge_msg_->setText(bridge_name_->text()+" was sucessfully added.");
   }else{
     bridge_msg_->setText(bridge_name_->text()+" could not be added.");
   }
@@ -185,4 +186,7 @@ void BridgeView::showBridgeList(){
     addWidget(new LightView(btv));
   }
 
+  void BridgeView::Check(){
+    bm->validityCheck(bridge_ip_->text().toUTF8(), bridge_port_->text().toUTF8());
+  }
 

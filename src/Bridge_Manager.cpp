@@ -17,6 +17,7 @@ Bridge_Manager::Bridge_Manager(DBSession *s) {
 	session_=s;
 	bridgeList = new std::vector<Bridge *>();
 	session_->initBM(bridgeList);
+	valid=0;
 }
 Bridge_Manager::~Bridge_Manager(){}
 
@@ -64,10 +65,9 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 	Wt::log("info") <<"name of addBridge:"+name_;
 	//Try creating the Bridge and adding it to the bridgeList->
 	if (findBridge(name_)<0) {
+
 		Wt::log("info") << "This bridge doesnt exist yet, so we will create it";
 		//newBridge =createBridge(name, location, ipAddressOrHostname, portNumber, userName);
-    if (validityCheck(ipAddressOrHostname_, portNumber_) > 0) {
-	    Wt::log("info") << "The validity check was succesfull";
 	    bridgeList->push_back(new Bridge());
   		bridgeList->back()->name=name_;
 		bridgeList->back()->location=location_;
@@ -86,7 +86,8 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
       return true;
     }
 
-  }
+  
+
 	/* Note that We add the new Bridge to the front of the list because it's
 	 * likely we may do something else with this Bridge shortly after addin
 	 * g it.
@@ -96,7 +97,10 @@ bool Bridge_Manager::addBridge(std::string name_, std::string location_, std::st
 	 * (Either it could not be created or it could not be added to the
 	 * bridgeList->.
 	 */
-	else return false;
+	else
+	{
+		Wt::log("ALready exist");
+		return false;}
 
 }
 
@@ -166,54 +170,57 @@ bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port, std::
 
         std::string url;
         url = "http://" + ipOrHost + ':' + port + "/api/" + user;
-
-        return httpC->get(url);
+		httpC->get(url);
+		if(valid==1){
+			return true;
+		}
+		if(valid==0)
+		{
+			Wt::log("DOESN'T WORK")<<"!!!";
+			return false;
+		}
 }
 
 //Without username
 bool Bridge_Manager::validityCheck(std::string ipOrHost, std::string port) {
-        Wt::Http::Client *httpC = new Wt::Http::Client();
-		/*
-   		httpC->setMaximumResponseSize(0);
-		*/
-   		Wt::log("HANDLE")<<"BEFORE SET DONE";
-        httpC->done().connect(boost::bind(&Bridge_Manager::handleHttpResponse,this,_1,_2));
-        Wt::log("HANDLE")<<"AFTER SET DONE";
+         Wt::Http::Client *httpC = new Wt::Http::Client;
 
-		std::string url;
-        url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper/lights/1";
-        // Wt::log("austintest") << httpC->get(url);
-		if(httpC->get("https://gentle-forest-89278.herokuapp.com/api/lights")){
-				Wt::log("HANDLE")<<"WHAT";
-				/*
-				Wt::WApplication::instance()->deferRendering();
-				*/
-		}
-		else{
-			return false;
-		}
-		return true;
+          Wt::WApplication::instance()->deferRendering();
+        std::string url;
+        url = "http://" + ipOrHost + ':' + port + "/api/newdeveloper";
+        httpC->done().connect(boost::bind(&Bridge_Manager::handleHttpResponse,this,_1,_2));
+
+		httpC->get(url);
+
 	}
 
 
 void Bridge_Manager::handleHttpResponse(boost::system::error_code err,const Wt::Http::Message& response)
 {
-	/*
-	Wt::WApplication::instance()->resumeRendering();
-	*/
+	
+	
 	Wt::log("HANDLE")<<"CALLED HANDLE";
 	if (!err && response.status() == 200) {
-	const std::string &input = response.body();
-	Wt::log("HANDLE") << input;
-	//Wt::Json::Value *jval = new Wt::Json::Value();
-	//Wt::Json::Value &jvalref = jval; 
-	Wt::Json::Object ob;
-	Wt::Json::parse(input,ob,false);
-	Wt::Json::Value val=ob.get("name");
-	std::string s=val.toString().orIfNull("asdf34wafsda");
-	std::cerr<<"TESTESTESTESTESTESTEST"<<s<<std::endl;
+		valid=1;
+		Wt::log("VALID")<<"VALID";
+		// const std::string &input = response.body();
+		// Wt::log("HANDLE") << input;
+		// Wt::Json::Object ob;
+		// Wt::Json::parse(input,ob,false);
+		// Wt::Json::Value val=ob.get("name");
+		// std::string s=val.toString().orIfNull("asdf34wafsda");
+		// std::cerr<<"TESTESTESTESTESTESTEST"<<s<<std::endl;
+		Wt::WApplication::instance()->resumeRendering();
+	}
+	else{
+		Wt::WApplication::instance()->resumeRendering();
 	}
 }
+
+int Bridge_Manager::getValidity(){
+	return valid;
+}
+
 std::vector<Bridge*>* Bridge_Manager::getBridgeList(){
 	//DEBUGGING
 	Wt::log("info") << ":::::::::::::::::BM CALLED";
