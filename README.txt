@@ -1,3 +1,11 @@
+**********************************************************************
+*** Note this is just a copy of the main directory which exists on *** 
+*** uwos bit bucket server. This application uses WT to implement  ***
+*** an interface for remotely controlling philip hue lights using  ***
+*** a web page.                                                    ***
+**********************************************************************
+
+
 If you put your header files in the include directory and your implementation files in the src directory they're automatically included in the build for this new Makefile. 
 
 To Clean, Build and Run:
